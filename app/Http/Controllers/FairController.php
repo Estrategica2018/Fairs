@@ -14,9 +14,14 @@ class FairController extends Controller
     public function create(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'topic' => 'required|string',
-            'start_time' => 'required|date',
-            'agenda' => 'string|nullable',
+            'name' => 'required|string',
+            'description' => 'required',
+            'halls_number' => 'required',
+            'init_date' => 'required',
+            'end_date' => 'required',
+            'resources' => 'required',
+            'location' => 'required',
+            'social_media' => 'required',
         ]);
 
         if ($validator->fails()) {

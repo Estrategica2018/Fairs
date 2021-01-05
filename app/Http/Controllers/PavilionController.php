@@ -13,9 +13,13 @@ class PavilionController extends Controller
     public function create(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'topic' => 'required|string',
-            'start_time' => 'required|date',
-            'agenda' => 'string|nullable',
+
+            'name'=>'required',
+            'description'=>'required',
+            'fair_id'=>'required',
+            'stands_number'=>'required',
+            'rooms_number'=>'required',
+            'resources'=>'required',
         ]);
 
         if ($validator->fails()) {
