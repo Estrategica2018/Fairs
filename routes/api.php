@@ -34,6 +34,27 @@ Route::get('/meetings/{id}', 'Zoom\MeetingController@get')->where('id', '[0-9]+'
 Route::patch('/meetings/{id}', 'Zoom\MeetingController@update')->where('id', '[0-9]+');
 Route::delete('/meetings/{id}', 'Zoom\MeetingController@delete')->where('id', '[0-9]+');
 
-
+//
 Route::post('/fair/create', 'FairController@create');
+//*
+//
 Route::post('/pavilion/create', 'PavilionController@create');
+//*
+//
+Route::post('/merchant/create', 'MerchantController@create');
+Route::post('/merchant/update', 'MerchantController@update');
+Route::get('/merchant/to_list', 'MerchantController@to_list');
+//*
+//
+Route::post('/stand/create', 'StandController@create');
+Route::post('/stand/update', 'StandController@update');
+Route::get('/stand/to_list', 'StandController@to_list');
+//*
+//
+Route::post('/user/create', 'UserController@create');
+Route::get('/user/to_list', 'UserController@to_list');
+//*
+//
+Route::post('/operator_user/create', 'OperatorUserController@create');
+
+//*

@@ -43,20 +43,29 @@ class FairController extends Controller
         $fair->social_media = $data['social_media'];
         $fair->save();
 
+        $data_pavilions = array();
+
         for($i=0 ; $i < $data['halls_number']; $i++){
 
             $pavilion = new Pavilion();
-            $pavilion->name = 'nombre';
-            $pavilion->description = 'description';
+            $pavilion->name = 'Pabellón '.$i;
+            $pavilion->description = '';
             $pavilion->fair_id = $fair->id;
             $pavilion->save();
+
+            $data_pavilion['name'] = $pavilion->name;
+            $data_pavilion['description'] = $pavilion->description;
+            $data_pavilion['fair_id'] = $pavilion->fair_id;
+
+            array_push($data_pavilions,$data_pavilion);
 
         }
 
 
         return [
             'success' => 201,
-            'data' => $fair,
+            'data_fair' => $fair,
+            'data_fair_pavilions' => $data_pavilions,
         ];
 
     }
