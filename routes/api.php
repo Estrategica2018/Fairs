@@ -37,12 +37,12 @@ Route::delete('/meetings/{id}', 'Zoom\MeetingController@delete')->where('id', '[
 //
 Route::post('/fair/create', 'FairController@create');
 Route::get('/fair/to_list', 'FairController@to_list');
-Route::get('/fair/find', 'FairController@find');
+Route::get('/fair/find/{id?}', 'FairController@find');
 
 //*
 //
 Route::post('/pavilion/create', 'PavilionController@create');
-Route::get('/fair/find_by_fair', 'PavilionController@find_by_fair');
+Route::get('/fair/find_by_fair/{fair_id?}', 'PavilionController@find_by_fair');
 
 //*
 //
