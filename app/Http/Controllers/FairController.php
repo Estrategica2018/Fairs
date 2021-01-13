@@ -69,4 +69,32 @@ class FairController extends Controller
         ];
 
     }
+
+    public function to_list(){
+        return [
+            'success' => 201,
+            'data' => Fair::where('end_date','>=',date('Y-m-d'))->get(),
+        ];
+    }
+
+    public function find(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+        $data = $validator->validated();
+
+        return [
+            'success' => 201,
+            'data' => Fair::find($data['id']),
+        ];
+
+    }
 }

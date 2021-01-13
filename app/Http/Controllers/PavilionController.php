@@ -45,4 +45,26 @@ class PavilionController extends Controller
             'data' => $pavilion,
         ];
     }
+
+    public function find_by_fair(Request $request){
+        $validator = Validator::make($request->all(), [
+            'fair_id'=>'required'
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+
+        $data = $validator->validated();
+        return [
+            'success' => 201,
+            'data' => Pavilion::with('fair')->where('fair_id',$data['fair_id'])->get(),
+        ];
+
+    }
+
+
 }
