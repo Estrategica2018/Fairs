@@ -18,6 +18,24 @@ class MeetingController extends Controller
     const MEETING_TYPE_RECURRING = 3;
     const MEETING_TYPE_FIXED_RECURRING_FIXED = 8;
 
+    /**
+     * @OA\Get(
+     *  path="/api/meetings",
+
+     *  operationId="listar reuniones",
+
+     *  summary="Obtener la lista de reuniones",
+
+
+     *  @OA\Response(response="200",
+
+     *    description="Validation Response",
+
+     *  )
+
+     * )
+
+     */
     public function list (Request $request) {
 
         $path = 'users/me/meetings';
@@ -34,6 +52,41 @@ class MeetingController extends Controller
             'data' => $data,
         ];
     }
+    /**
+     * @OA\Post(
+     *  path="/api/meetings",
+
+     *  operationId="crear reunión",
+
+     *  summary="Crear una reunión",
+
+     *  @OA\Parameter(name="topic",
+
+     *    in="query",
+
+     *    required=true,
+
+     *    @OA\Schema(type="string")
+
+     *  ),
+     *  @OA\Parameter(name="topic2",
+
+     *    in="query",
+
+     *    required=true,
+
+     *    @OA\Schema(type="string")
+
+     *  ),
+     *  @OA\Response(response="200",
+
+     *    description="Validation Response",
+
+     *  )
+
+     * )
+
+     */
     public function create(Request $request) {
         $validator = Validator::make($request->all(), [
             'topic' => 'required|string',

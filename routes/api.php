@@ -23,6 +23,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Login
+Route::post('/login', 'LoginController@login');
+
+Route::post('/logout', 'LoginController@logout')->middleware('auth:api');
+
 // Get list of meetings.
 Route::get('/meetings', 'Zoom\MeetingController@list');
 

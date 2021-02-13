@@ -9,8 +9,33 @@ use Illuminate\Support\Facades\Validator;
 
 class FairController extends Controller
 {
-    //
+    /**
+     * @OA\Get(
+     *  path="/v1/user/account/validate",
 
+*  operationId="accountValidate",
+
+*  summary="validates an account",
+
+*  @OA\Parameter(name="email",
+
+*    in="query",
+
+*    required=true,
+
+*    @OA\Schema(type="string")
+
+*  ),
+
+*  @OA\Response(response="200",
+
+*    description="Validation Response",
+
+*  )
+
+* )
+
+*/
     public function create(Request $request){
 
         $validator = Validator::make($request->all(), [
