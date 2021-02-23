@@ -19,7 +19,7 @@ class CreateAgendaTable extends Migration
             $table->string('description');
             $table->integer('duration_time');
             $table->longText('duration_day');
-            $table->bigInteger('room_id');
+            $table->bigInteger('room_id')->unsigned();
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->longText('audience_config');
             $table->string('zoom_code');

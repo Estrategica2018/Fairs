@@ -5,6 +5,7 @@
 namespace App\Http\Controllers\Zoom;
 
 use App\Http\Controllers\Controller;
+use App\Models\Agendas;
 use App\Traits\ZoomJWT;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -42,11 +43,29 @@ class MeetingController extends Controller
         $response = $this->zoomGet($path);
 
         $data = json_decode($response->body(), true);
+
         $data['meetings'] = array_map(function (&$m) {
             $m['start_at'] = $this->toUnixTimeStamp($m['start_time'], $m['timezone']);
+            $agenda = Agendas::where('zoom_code',$m['id'])->first();
+            $m['room'] = [];
+            if( $agenda != null ){
+                $m['room'] = $agenda->room;
+                $m['speakers'] = [];
+                foreach ($agenda->invited_speakers as $speaker){
+                    $user_speaker = array();
+                    $user_speaker['data_speaker'] = $speaker->speaker()->get();
+                    $user_speaker['data_user'] = $speaker->speaker->user;
+                    array_push($m['speakers'],$user_speaker);
+                }
+
+            }
             return $m;
         }, $data['meetings']);
-
+/*
+        foreach ($data['meetings'] as $meeting){
+            $meeting['room']
+        }
+     */
         return [
             'success' => $response->ok(),
             'data' => $data,
