@@ -135,7 +135,11 @@ class MeetingController extends Controller
             ]
         ]);
 
-
+        return response()->json([
+                'data' => json_decode($response->body(), true),
+                'message', 'Exito, Reunión Zoom consultada',
+                'success' => $response->status() === 201,
+        ], 201);
         return [
             'success' => $response->status() === 201,
             'data' => json_decode($response->body(), true),

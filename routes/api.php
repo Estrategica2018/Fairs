@@ -68,3 +68,5 @@ Route::get('/user/to_list', 'UserController@to_list');
 Route::post('/operator_user/create', 'OperatorUserController@create');
 
 //*
+//
+Route::get('/speakers/meetings', 'SpeakerController@list');

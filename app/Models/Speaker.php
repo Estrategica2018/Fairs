@@ -15,4 +15,11 @@ class Speaker extends Model
 
         return $this->belongsTo(User::class,'user_id','id');
     }
+
+
+    public function agenda (){
+
+        return $this->belongsToMany(Agendas::class,'invited_speakers','speaker_id','agenda_id');
+
+    }
 }
