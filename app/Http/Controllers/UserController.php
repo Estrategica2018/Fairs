@@ -18,8 +18,6 @@ class UserController extends Controller
             'name'=>'required',
             'last_name'=>'required',
             'email'=>'required',
-            'url_image'=>'required',
-            'contact'=>'required',
             'password'=>'required'
         ]);
 
@@ -37,8 +35,12 @@ class UserController extends Controller
         $user->name = $data['name'];
         $user->last_name = $data['last_name'];
         $user->email = $data['email'];
-        $user->url_image = $data['url_image'];
-        $user->contact = $data['contact'];
+		if(isset($data['url_image'])){ 
+          $user->url_image = $data['url_image'];
+		}
+        if(isset($data['contact'])){ 
+		  $user->contact = $data['contact'];
+		}
         $user->password = Hash::make($data['password']);
 
         $user->save();

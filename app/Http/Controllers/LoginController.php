@@ -58,8 +58,7 @@ class LoginController extends Controller
                 'email'=>['Credenciales incorrectas']
             ]);
         }
-        return response()->json(['data' => $user->createToken('Auth Token')->accessToken, 'message', 'Token generado satisfactoriamente'], 200);
-        return $user->createToken('Auth Token')->accessToken;
+        return response()->json(['data' => $user->createToken('Auth Token')->accessToken, 'message' => 'Token generado satisfactoriamente', 'user' => $user], 200);
     }
 
     public function logout(Request $request){

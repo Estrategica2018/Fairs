@@ -47,9 +47,12 @@ class MeetingController extends Controller
         $data['meetings'] = array_map(function (&$m) {
             $m['start_at'] = $this->toUnixTimeStamp($m['start_time'], $m['timezone']);
             $agenda = Agendas::where('zoom_code',$m['id'])->first();
-            $m['room'] = [];
+			$m['room'] = [];
             if( $agenda != null ){
                 $m['room'] = $agenda->room;
+				$m['title'] = $agenda->title;
+				$m['description'] = $agenda->description;
+				$m['resources'] = $agenda->resources;
                 $m['speakers'] = [];
                 foreach ($agenda->invited_speakers as $speaker){
                     $user_speaker = array();
