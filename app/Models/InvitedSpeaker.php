@@ -15,4 +15,5 @@ class InvitedSpeaker extends Model
 
         return $this->belongsTo(Speaker::class,'speaker_id','id');
     }
+
 }

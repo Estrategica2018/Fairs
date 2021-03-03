@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RoleUserFair;
+use App\Models\Speaker;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +21,8 @@ class UserController extends Controller
             'last_name'=>'required',
             'email'=>'required|email|unique:users,email',
             'password'=>'required',
+            'role_id'=>'required',
+            'fair_id'=>'required',
         ]);
 
         if ($validator->fails()) {
@@ -47,8 +51,22 @@ class UserController extends Controller
 		  $user->contact = $data['contact'];
 		}
         $user->password = Hash::make($data['password']);
-
         $user->save();
+
+        $user_rol_fair = new RoleUserFair();
+        $user_rol_fair->user_id = $user->id;
+        $user_rol_fair->role_id = $data['role_id'];
+        $user_rol_fair->save();
+
+        if($data['role_id'] == 6){
+            
+            $speaker = new Speaker();
+            $speaker->user_id = $user->id;
+            $speaker->name = $user->name.' '.$user->last_name;
+            $speaker->description = '';
+            $speaker->resources = '';
+            $speaker->save();
+        }
 
         return [
             'success' => 201,
