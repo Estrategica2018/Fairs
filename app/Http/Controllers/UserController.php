@@ -63,6 +63,45 @@ class UserController extends Controller
             'success' => 201,
             'data' => User::all(),
         ];
+    }
+
+    public function update(Request $request){
+		
+		$validator = Validator::make($request->all(), [
+            'user_name'=>'',
+            'name'=>'',
+            'last_name'=>'',
+            'email'=>'email|unique:users,email',
+            'password'=>'',
+        ]);
+
+        $data = $validator->validated();
+		
+        $fileName = null;
+        if (request()->hasFile('image')) {
+            $image_name = date('mdYHis') . uniqid() . $request->file('image')->getClientOriginalName();
+            $path = base_path() . '/public/images_users';
+            $request->file('image')->move($path,$image_name);
+            $fileName = $path.$image_name;
+        }
+
+        $user = $request->user();
+        if(isset($data['user_name']))  $user->user_name = $data['user_name'];
+        if(isset($data['name'])) $user->name = $data['name'];
+        if(isset($data['last_name'])) $user->last_name = $data['last_name'];
+        if(isset($data['email'])) $user->email = $data['email'];
+        if($fileName) $user->url_image = $fileName;
+        if(isset($data['contact'])){ 
+            $user->contact = $data['contact'];
+        }
+        if(isset($data['password'])) $user->password = Hash::make($data['password']);
+
+        $user->save();
+
+        return [
+            'success' => 201,
+            'data' => $user,
+        ];
 
     }
 }

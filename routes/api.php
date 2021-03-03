@@ -62,6 +62,7 @@ Route::get('/stand/to_list', 'StandController@to_list');
 //*
 //
 Route::post('/user/create', 'UserController@create');
+Route::post('/user/update', 'UserController@update');
 Route::get('/user/to_list', 'UserController@to_list');
 //*
 //
