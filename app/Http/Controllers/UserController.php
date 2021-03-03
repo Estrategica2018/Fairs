@@ -66,7 +66,7 @@ class UserController extends Controller
     }
 
     public function update(Request $request){
-		
+
 		$validator = Validator::make($request->all(), [
             'user_name'=>'',
             'name'=>'',
@@ -74,6 +74,13 @@ class UserController extends Controller
             'email'=>'email|unique:users,email',
             'password'=>'',
         ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
 
         $data = $validator->validated();
 		
@@ -85,7 +92,8 @@ class UserController extends Controller
             $fileName = $path.$image_name;
         }
 
-        $user = $request->user();
+        $user = auth()->guard('api')->user();
+
         if(isset($data['user_name']))  $user->user_name = $data['user_name'];
         if(isset($data['name'])) $user->name = $data['name'];
         if(isset($data['last_name'])) $user->last_name = $data['last_name'];
