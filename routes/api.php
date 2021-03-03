@@ -1,7 +1,17 @@
 <?php
 
+
 use Illuminate\Http\Request;
 
+Route::group([
+    //'namespace' => 'Auth',
+    //'middleware' => 'api',
+    //'prefix' => 'password'
+], function () {
+
+    Route::get('find/{token}', 'PasswordResetController@find');
+    Route::post('reset', 'PasswordResetController@reset');
+});
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,7 +23,7 @@ use Illuminate\Http\Request;
 |
 */
 use Illuminate\Support\Facades\Route;
-
+Route::any('/create', 'PasswordResetController@create');
 Route::get('/', function () {
     return [
         'result' => true,
@@ -71,3 +81,5 @@ Route::post('/operator_user/create', 'OperatorUserController@create');
 //*
 //
 Route::get('/speakers/meetings', 'SpeakerController@list');
+
+
