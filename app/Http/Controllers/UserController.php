@@ -56,6 +56,7 @@ class UserController extends Controller
         $user_rol_fair = new RoleUserFair();
         $user_rol_fair->user_id = $user->id;
         $user_rol_fair->role_id = $data['role_id'];
+        $user_rol_fair->fair_id = $data['fair_id'];
         $user_rol_fair->save();
 
         if($data['role_id'] == 6){
