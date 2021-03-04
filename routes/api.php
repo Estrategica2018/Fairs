@@ -9,8 +9,7 @@ Route::group([
     //'prefix' => 'password'
 ], function () {
 
-    Route::get('find/{token}', 'PasswordResetController@find');
-    Route::post('reset', 'PasswordResetController@reset');
+
 });
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +22,9 @@ Route::group([
 |
 */
 use Illuminate\Support\Facades\Route;
-Route::any('/create', 'PasswordResetController@create');
+Route::post('password/create', 'PasswordResetController@create');
+Route::get('password/find/{token}', 'PasswordResetController@find');
+Route::post('password/resett', 'PasswordResetController@reset');
 Route::get('/', function () {
     return [
         'result' => true,
