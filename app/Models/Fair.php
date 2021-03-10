@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Fair extends Model
 {
     use HasFactory;
+	
+    public function pavilions (){
+
+        return $this->hasMany(Pavilion::class,'fair_id','id');
+    }
 }

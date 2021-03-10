@@ -46,4 +46,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function role_user_fairs () {
+
+        return $this->belongsTo(RoleUserFair::class,'id','user_id');
+    }
 }

@@ -81,6 +81,6 @@ Route::post('/operator_user/create', 'OperatorUserController@create');
 
 //*
 //
-Route::get('/speakers/meetings', 'SpeakerController@list');
+Route::get('/speakers/meetings/{fair_id?}', 'SpeakerController@list');
 
-
+Route::get('/agenda/{fair_id?}/{pavilion_id?}/{stand_id?}', 'AgendaController@list');
