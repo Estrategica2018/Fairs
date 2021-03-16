@@ -78,10 +78,28 @@ class StandController extends Controller
         ];
     }
 
-    public function to_list(){
+    public function to_list(Request $request){
+        
+        $validator = Validator::make($request->all(), [
+            'fair_id'=>'required'
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+
+        $data = $validator->validated();
+
+        $stands = Stand::with(['pavilion' => function ($query) use ($request) {
+            $query->where('id',$request->pavilion_id);
+        }])->get();
+
         return [
             'success' => 201,
-            'data' => Stand::all(),
+            'data' => $stands,
         ];
     }
 }

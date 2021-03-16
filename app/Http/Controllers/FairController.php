@@ -98,7 +98,7 @@ class FairController extends Controller
     public function to_list(){
         return [
             'success' => 201,
-            'data' => Fair::with('pavilions')->where('end_date','>=',date('Y-m-d'))->get(),
+            'data' => Fair::with('pavilions.stands.merchant')->where('end_date','>=',date('Y-m-d'))->get(),
         ];
     }
 

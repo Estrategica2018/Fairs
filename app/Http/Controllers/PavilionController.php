@@ -61,7 +61,7 @@ class PavilionController extends Controller
         $data = $validator->validated();
         return [
             'success' => 201,
-            'data' => Pavilion::with('fair')->where('fair_id',$data['fair_id'])->get(),
+            'data' => Pavilion::with('fair','stands.merchant')->where('fair_id',$data['fair_id'])->get(),
         ];
 
     }

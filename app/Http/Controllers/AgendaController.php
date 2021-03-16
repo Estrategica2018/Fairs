@@ -45,12 +45,17 @@ class AgendaController extends Controller
           $meetings = Agendas::with('invited_speakers.speaker.user')->where('fair_id',$data['fair_id'])->get();
         }
         else if(isset($data['pavilion_id'])) {
-          $meetings = Agendas::whereHas('room', function ($query) use ($data) {
+          $meetings = Agendas::with('invited_speakers.speaker.user')
+		    ->whereHas('room', function ($query) use ($data) {
               $query->where('pavilion_id','=',$data['pavilion_id']);
            })->get();
         }
         else if(isset($data['stand_id'])) {
-          $meetings = Agendas::with('invited_speakers')->get();
+			
+          $meetings = Agendas::with('invited_speakers.speaker.user')
+		    ->whereHas('room', function ($query) use ($data) {
+              $query->where('stand_id','=',$data['stand_id']);
+           })->get();
         }
         return [
             'success' => 201,

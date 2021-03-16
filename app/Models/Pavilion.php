@@ -13,4 +13,9 @@ class Pavilion extends Model
 
         return $this->belongsTo(Fair::class,'fair_id','id');
     }
+    
+    public function stands(){
+
+        return $this->hasMany(Stand::class,'pavilion_id','id');
+    }
 }
