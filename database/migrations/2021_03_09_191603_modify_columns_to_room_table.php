@@ -13,8 +13,8 @@ class ModifyColumnsToRoomTable extends Migration
      */
     public function up()
     {
-        \Illuminate\Support\Facades\DB::statement('ALTER TABLE rooms MODIFY COLUMN pavilion_id bigint(20) NULL');
-        \Illuminate\Support\Facades\DB::statement('ALTER TABLE rooms MODIFY COLUMN stand_id bigint(20) NULL');
+        //\Illuminate\Support\Facades\DB::statement('ALTER TABLE rooms MODIFY COLUMN pavilion_id bigint(20) NULL');
+        //\Illuminate\Support\Facades\DB::statement('ALTER TABLE rooms MODIFY COLUMN stand_id bigint(20) NULL');
         
     }
 
