@@ -16,7 +16,7 @@ class CreateRoomTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->bigInteger('pavilion_id')->unsigned();
+            $table->bigInteger('pavilion_id')->nullable();
             $table->foreign('pavilion_id')->references('id')->on('pavilions');
             $table->bigInteger('stand_id')->unsigned();
             $table->foreign('stand_id')->references('id')->on('stands');
