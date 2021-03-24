@@ -62,7 +62,8 @@ class FairSeeder extends Seeder
 		
 		
 		$standType = new StandTyp();
-		$standType.save();
+		$standType->stand_services = 'Tipo 1';
+		$standType->save();
 		
         $stand = new Stand();
         $stand->merchant_id = $merchant->id;
