@@ -3,10 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Fair;
+use App\Models\StandTyp;
 use App\Models\Pavilion;
 use App\Models\Speaker;
 use App\Models\Merchant;
 use App\Models\Stand;
+use App\Models\Agendas;
 use App\Models\Agendas;
 use Illuminate\Database\Seeder;
 
@@ -58,11 +60,15 @@ class FairSeeder extends Seeder
         $merchant->social_media = "{}";
         $merchant->location = "{}";
         $merchant->save();        
-        
+		
+		
+		$standType = new StandTyp();
+		$standType.save();
+		
         $stand = new Stand();
         $stand->merchant_id = $merchant->id;
         $stand->pavilion_id = $pavilion->id;
-        $stand->stand_type_id = '1';
+        $stand->stand_type_id = $standType->id;
         $stand->resources = "{\"url_image\":\"https://res.cloudinary.com/dfxkgtknu/image/upload/v1616472216/IMG_20190628_121642_zii7uj.jpg\",
 		\"banners\":[   ]}";
         $stand->save();        
