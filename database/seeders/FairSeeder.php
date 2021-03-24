@@ -9,7 +9,6 @@ use App\Models\Speaker;
 use App\Models\Merchant;
 use App\Models\Stand;
 use App\Models\Agendas;
-use App\Models\Agendas;
 use Illuminate\Database\Seeder;
 
 class FairSeeder extends Seeder
