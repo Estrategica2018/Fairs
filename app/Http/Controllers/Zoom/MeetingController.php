@@ -113,9 +113,11 @@ class MeetingController extends Controller
         $validator = Validator::make($request->all(), [
             'topic' => 'required|string',
             'start_time' => 'required|date',
+			'duration_time' => 'required|numeric',
             'agenda' => 'string|nullable',
 			'timezone' => 'required|string',
-			'fair_id' => 'required|numeric'
+			'fair_id' => 'required|numeric',
+			'resources' => 'string'
         ]);
 
         if ($validator->fails()) {
@@ -132,7 +134,7 @@ class MeetingController extends Controller
             'type' => self::MEETING_TYPE_SCHEDULE,
             'start_time' => $this->toZoomTimeFormat($data['start_time']),
 			'timezone' => $data['timezone'],
-            'duration' => 30,
+            'duration' =>  $data['duration_time'],
             'agenda' => $data['agenda'],
             'settings' => [
                 'host_video' => false,
@@ -146,10 +148,10 @@ class MeetingController extends Controller
 		$agenda = new Agendas();
 		$agenda->title = $meeting['topic'];
 		$agenda->description = $meeting['agenda'];
-		$agenda->duration_time = $meeting['duration'];
+		$agenda->duration_time = $meeting['duration_time'];
 		$agenda->start_at = strtotime($meeting['start_time']);
 		$agenda->fair_id = $data['fair_id'];
-		//$agenda->room_id = $data['room_id']
+		$agenda->resources = $data['resources']
 		$agenda->timezone = $meeting['timezone'];
 		$agenda->audience_config = 1;
 		$agenda->zoom_code = $meeting['id'];
@@ -158,7 +160,7 @@ class MeetingController extends Controller
 
         return response()->json([
                 'data' => json_decode($response->body(), true),
-                'message', 'Exito, Reunión Zoom consultada',
+                'message', 'Exito, Reunión Zoom creada',
                 'success' => $response->status() === 201,
         ], 201);
         return [
