@@ -115,7 +115,11 @@ class FairSeeder extends Seeder
         $pavilion->description = '';
         $pavilion->fair_id = $fair->id;
 		$scene = "{\"type\":\"room\",\"resources\":{\"url_image\":\"https://res.cloudinary.com/dfxkgtknu/image/upload/v1611542378/feria1/auditorio1-background_Easy-Resize.com_m1sazv.jpg\"}}";
-		$pavilion->resources = "{ \"scenes\":[".$scene." ] , \"url_image\":\"https://res.cloudinary.com/dfxkgtknu/image/upload/v1615746496/feria1/wom_an2teg.png\",
+		$pavilion->resources = "{ \"scenes\":[".$scene." ] , 
+		\"_defaultWidth\": 1076,\"_defaultHeight\": 605,
+		\"video\":\"https://res.cloudinary.com/dfxkgtknu/video/upload/v1617210963/demoVideo/Test_jskryk.mp4\",
+		\"url_image\":\"https://res.cloudinary.com/dfxkgtknu/image/upload/v1617210945/demoVideo/Test_0_00_05_00_dnduxo.png\",
+		\"scenes\":[".$scene." ], 
 		\"banners\":[] }";
         $pavilion->save();
         
