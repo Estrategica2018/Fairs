@@ -114,6 +114,8 @@ class MeetingController extends Controller
             'topic' => 'required|string',
             'start_time' => 'required|date',
             'agenda' => 'string|nullable',
+			'timezone' => 'required|string',
+			'fair_id' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
@@ -129,6 +131,7 @@ class MeetingController extends Controller
             'topic' => $data['topic'],
             'type' => self::MEETING_TYPE_SCHEDULE,
             'start_time' => $this->toZoomTimeFormat($data['start_time']),
+			'timezone' => $data['timezone'],
             'duration' => 30,
             'agenda' => $data['agenda'],
             'settings' => [
@@ -137,6 +140,21 @@ class MeetingController extends Controller
                 'waiting_room' => true,
             ]
         ]);
+		
+		$meeting = json_decode($response->body(), true);
+		
+		$agenda = new Agendas();
+		$agenda->title = $meeting['topic'];
+		$agenda->description = $meeting['agenda'];
+		$agenda->duration_time = $meeting['duration'];
+		$agenda->start_at = strtotime($meeting['start_time']);
+		$agenda->fair_id = $data['fair_id'];
+		//$agenda->room_id = $data['room_id']
+		$agenda->timezone = $meeting['timezone'];
+		$agenda->audience_config = 1;
+		$agenda->zoom_code = $meeting['id'];
+		$agenda->zoom_password = $meeting['encrypted_password'];
+		$agenda->save();
 
         return response()->json([
                 'data' => json_decode($response->body(), true),

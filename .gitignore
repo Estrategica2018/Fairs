@@ -2,3 +2,8 @@
 # http://git-scm.com/docs/gitignore
 vendor/
 storage/
+node_modules/
+public/images_users/
+storage/
+
+.env
