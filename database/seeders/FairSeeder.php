@@ -120,7 +120,9 @@ class FairSeeder extends Seeder
 		\"video\":\"https://res.cloudinary.com/dfxkgtknu/video/upload/v1617210963/demoVideo/Test_jskryk.mp4\",
 		\"url_image\":\"https://res.cloudinary.com/dfxkgtknu/image/upload/v1617210945/demoVideo/Test_0_00_05_00_dnduxo.png\",
 		\"scenes\":[".$scene." ], 
-		\"banners\":[] }";
+		\"banners\":[{\"image_url\":\"assets/images_fairs/fair1/pavillion1-480x400.png\",\"rotation\":{\"_x\":-0.12999999999999998,\"_y\":0.9100000000000014,\"_z\":-3.469446951953614e-18,\"_order\":\"XYZ\"},
+\"scale\":{\"x\":0.659999999999999,\"y\":1.690000000000001,\"z\":1},
+\"position\":{\"x\":-3.0299999999999785,\"y\":1.9400000000000013,\"z\":-0.15}}] }";
         $pavilion->save();
         
         $stand = new Stand();
