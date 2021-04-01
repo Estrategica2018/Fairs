@@ -116,13 +116,14 @@ class FairSeeder extends Seeder
         $pavilion->fair_id = $fair->id;
 		$scene = "{\"type\":\"room\",\"resources\":{\"url_image\":\"https://res.cloudinary.com/dfxkgtknu/image/upload/v1611542378/feria1/auditorio1-background_Easy-Resize.com_m1sazv.jpg\"}}";
 		$pavilion->resources = "{ \"scenes\":[".$scene." ] , 
-		\"_defaultWidth\": 1076,\"_defaultHeight\": 605,
+		\"_defaultWidth\": 1920,\"_defaultHeight\": 1080,
 		\"video\":\"https://res.cloudinary.com/dfxkgtknu/video/upload/v1617210963/demoVideo/Test_jskryk.mp4\",
 		\"url_image\":\"https://res.cloudinary.com/dfxkgtknu/image/upload/v1617210945/demoVideo/Test_0_00_05_00_dnduxo.png\",
 		\"scenes\":[".$scene." ], 
-		\"banners\":[{\"image_url\":\"assets/images_fairs/fair1/pavillion1-480x400.png\",\"rotation\":{\"_x\":-0.12999999999999998,\"_y\":0.9100000000000014,\"_z\":-3.469446951953614e-18,\"_order\":\"XYZ\"},
-\"scale\":{\"x\":0.659999999999999,\"y\":1.690000000000001,\"z\":1},
-\"position\":{\"x\":-3.0299999999999785,\"y\":1.9400000000000013,\"z\":-0.15}}] }";
+		\"banners\":[{\"image_url\":\"assets/images_fairs/fair1/pavillion1-480x400.png\",
+		\"rotation\":{\"_x\":-0.009999999999999969,\"_y\":0.040000000000000695,\"_z\":-3.469446951953614e-18,
+		\"_order\":\"XYZ\"},\"scale\":{\"x\":0.31999999999999873,\"y\":1.3000000000000007,\"z\":1.01},
+		\"position\":{\"x\":3.119999999999979,\"y\":0.8100000000000003,\"z\":-0.15}}] }";
         $pavilion->save();
         
         $stand = new Stand();
