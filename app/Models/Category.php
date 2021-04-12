@@ -11,6 +11,6 @@ class Category extends Model
     
     public function category (){
 
-        return $this->hasMany(Category::class,'category_id','id');
+        return $this->hasMany(Category::class,'category_patern_id','id');
     }
 }

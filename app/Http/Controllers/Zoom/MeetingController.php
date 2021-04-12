@@ -47,12 +47,12 @@ class MeetingController extends Controller
         $data['meetings'] = array_map(function (&$m) {
             $m['start_at'] = $this->toUnixTimeStamp($m['start_time'], $m['timezone']);
             $agenda = Agendas::where('zoom_code',$m['id'])->first();
-			$m['room'] = [];
+            $m['room'] = [];
             if( $agenda != null ){
                 $m['room'] = $agenda->room;
-				$m['title'] = $agenda->title;
-				$m['description'] = $agenda->description;
-				$m['resources'] = $agenda->resources;
+                $m['title'] = $agenda->title;
+                $m['description'] = $agenda->description;
+                $m['resources'] = $agenda->resources;
                 $m['speakers'] = [];
                 foreach ($agenda->invited_speakers as $speaker){
                     $user_speaker = array();
@@ -113,11 +113,14 @@ class MeetingController extends Controller
         $validator = Validator::make($request->all(), [
             'topic' => 'required|string',
             'start_time' => 'required|date',
-			'duration_time' => 'required|numeric',
+            'duration_time' => 'required|numeric',
             'agenda' => 'string|nullable',
-			'timezone' => 'required|string',
-			'fair_id' => 'required|numeric',
-			'resources' => 'string'
+            'timezone' => 'required|string',
+			'category_id' => 'required|numeric',
+            'fair_id' => 'required|numeric',
+            'resources' => 'string|nullable    ',
+            'token' => 'string|nullable',
+			'audience_config' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -130,10 +133,10 @@ class MeetingController extends Controller
 
         $path = 'users/me/meetings';
         $response = $this->zoomPost($path, [
-            'topic' => $data['topic'],
-            'type' => self::MEETING_TYPE_SCHEDULE,
+            'topic' => $data['topic'], // titulo
+            'type' => self::MEETING_TYPE_SCHEDULE,  // tipo agenda 2
             'start_time' => $this->toZoomTimeFormat($data['start_time']),
-			'timezone' => $data['timezone'],
+            'timezone' => $data['timezone'],
             'duration' =>  $data['duration_time'],
             'agenda' => $data['agenda'],
             'settings' => [
@@ -142,31 +145,45 @@ class MeetingController extends Controller
                 'waiting_room' => true,
             ]
         ]);
-		
-		$meeting = json_decode($response->body(), true);
-		
-		$agenda = new Agendas();
-		$agenda->title = $meeting['topic'];
-		$agenda->description = $meeting['agenda'];
-		$agenda->duration_time = $meeting['duration_time'];
-		$agenda->start_at = strtotime($meeting['start_time']);
-		$agenda->fair_id = $data['fair_id'];
-		$agenda->resources = $data['resources']
-		$agenda->timezone = $meeting['timezone'];
-		$agenda->audience_config = 1;
-		$agenda->zoom_code = $meeting['id'];
-		$agenda->zoom_password = $meeting['encrypted_password'];
-		$agenda->save();
+        
+        if($response->status() === 201) {
+            
+            $meeting = json_decode($response->body(), true);
+            
+            $agenda = new Agendas();
+            $agenda->title = $meeting['topic'];
+            $agenda->description = $meeting['agenda'];
+            $agenda->duration_time = $data['duration_time'];
+            $agenda->start_at = strtotime($meeting['start_time']);
+            $agenda->fair_id = $data['fair_id'];
+            $agenda->resources = $data['resources'];
+            $agenda->timezone = $meeting['timezone'];
+			$agenda->category_id = $data['category_id'];
+            $agenda->audience_config = $data['audience_config'];
+            $agenda->zoom_code = $meeting['id'];
+            $agenda->zoom_password = $meeting['encrypted_password'];
+            if(isset($data['token'])) {
+                $agenda->token = $data['token'];
+            }
+            
+            $agenda->save();
 
-        return response()->json([
-                'data' => json_decode($response->body(), true),
-                'message', 'Exito, Reunión Zoom creada',
-                'success' => $response->status() === 201,
-        ], 201);
-        return [
-            'success' => $response->status() === 201,
-            'data' => json_decode($response->body(), true),
-        ];
+            return response()->json([
+                    'data' => json_decode($response->body(), true),
+                    'agenda' => $agenda,
+                    'message', 'Exito, Reunión Zoom creada',
+                    'success' => $response->status() === 201,
+            ], 201);
+        }
+		else {
+			dd($response->status() ,$response->body()->code );
+			return response()->json([
+					'data' => json_decode($response->body(), true),
+					'agenda' => $agenda,
+					'message', 'Error creando la reunion',
+					'success' => false,
+			], 201);
+		}
     }
 
     public function get(Request $request, string $id)
@@ -188,10 +205,19 @@ class MeetingController extends Controller
     public function update(Request $request, string $id)
     {
         $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
             'topic' => 'required|string',
             'start_time' => 'required|date',
+            'duration_time' => 'required|numeric',
+			'category_id' => 'required|numeric',
             'agenda' => 'string|nullable',
+            'timezone' => 'required|string',
+            'fair_id' => 'required|numeric',
+            'resources' => 'string',
+            'token' => 'string|nullable',
+			'audience_config' => 'required|string'
         ]);
+
 
         if ($validator->fails()) {
             return [
@@ -203,10 +229,11 @@ class MeetingController extends Controller
 
         $path = 'meetings/' . $id;
         $response = $this->zoomPatch($path, [
-            'topic' => $data['topic'],
-            'type' => self::MEETING_TYPE_SCHEDULE,
+            'topic' => $data['topic'], //titulo
+            'type' => self::MEETING_TYPE_SCHEDULE, //tipo agenda 2
             'start_time' => (new \DateTime($data['start_time']))->format('Y-m-d\TH:i:s'),
-            'duration' => 30,
+			'timezone' => $data['timezone'],
+            'duration' =>  $data['duration_time'],
             'agenda' => $data['agenda'],
             'settings' => [
                 'host_video' => false,
@@ -214,10 +241,26 @@ class MeetingController extends Controller
                 'waiting_room' => true,
             ]
         ]);
-
+        
+        if($response->status() === 204) {
+            
+            $meeting = json_decode($response->body(), true);
+            $agenda = Agendas::find($data['id']);
+            $agenda->title = $data['topic'];
+            $agenda->description = $data['agenda'];
+            $agenda->duration_time = $data['duration_time'];
+            $agenda->start_at = strtotime($data['start_time']);
+            $agenda->fair_id = $data['fair_id'];
+			$agenda->category_id = $data['category_id'];
+            $agenda->resources = $data['resources'];
+            $agenda->timezone = $data['timezone'];
+            $agenda->audience_config = $data['audience_config'];
+            $agenda->save();
+        }
+        
         return [
             'success' => $response->status() === 204,
-            'data' => json_decode($response->body(), true),
+            'data' => json_decode($agenda, true),
         ];
     }
 
@@ -225,9 +268,14 @@ class MeetingController extends Controller
     {
         $path = 'meetings/' . $id;
         $response = $this->zoomDelete($path);
-
+        
+        $meeting = json_decode($response->body(), true);
+        if($response->status() === 204 || $meeting['code'] === 3001) {
+            $agenda = Agendas::where('zoom_code',$id);
+            $agenda->delete();
+        }
         return [
-            'success' => $response->status() === 204,
+            'success' => $response->status() === 204 || $meeting['code'] === 3001,
             'data' => json_decode($response->body(), true),
         ];
     }

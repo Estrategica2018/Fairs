@@ -17,20 +17,25 @@ class CategorySeeder extends Seeder
     {
         //
 
-		$catAgend = new Category();
-        $catAgend->name = 'AgendaType';
-        $catAgend->description = '';
-        $catAgend->resources = '';
-		$catAgend->fair_id = 1;
+        $catAgend = new Category();
+        $catAgend->type = 'AgendaType';
+		$catAgend->name = "Emprenderismo";
+        $catAgend->fair_id = 1;
+		$catAgend->resources = '{"color":"red"}';
         $catAgend->save();
-		$categories = [ "Emprenderismo", "Negocios", "Tecnología", "Otros"];
-		foreach ($categories as $name){
-			$catAg1 = new Category();
-			$catAg1->name = $name;
-			$catAg1->category_id = $catAgend->id;
-			$catAg1->description = '';
-			$catAg1->resources = '';
-			$catAg1->save();			
-		}
+		
+		$catAgend = new Category();
+        $catAgend->type = 'AgendaType';
+		$catAgend->name = "Tecnología";
+        $catAgend->fair_id = 1;
+		$catAgend->resources = '{"color":"yellow"}';
+        $catAgend->save();
+		
+		$catAgend = new Category();
+        $catAgend->type = 'AgendaType';
+		$catAgend->name = "Negocios";
+        $catAgend->fair_id = 1;
+		$catAgend->resources = '{"color":"pink"}';
+        $catAgend->save();
     }
 }

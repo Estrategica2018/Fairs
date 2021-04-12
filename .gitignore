@@ -7,3 +7,11 @@ public/images_users/
 storage/
 
 .env
+bootstrap/cache/packages.php
+bootstrap/cache/services.php
+composer.lock
+storage/framework/cache/data/c0/71/c071422490d526a8aada046adf3a9c9fa0593468
+storage/framework/cache/data/ec/c4/ecc49f49f4da6b940dcde13f0571e79c299871e6
+storage/framework/sessions/DPfUfcZCJk2zTxefiKRyaHMmVt03UhCp8dNmh1TR
+storage/framework/sessions/v8CPdo9VXAOGpTytP0rL8a2j1dQKSJTVhesTWP1o
+storage/logs/laravel.log

@@ -13,11 +13,11 @@ class SpeakerController extends Controller
     public function list (Request $request){
 
         $speakers = Speaker::with('user')
-            ->whereHas('user',function ($query) use ($request) {
-              $query->whereHas('role_user_fairs',function ($queryRol) use ($request){
-                  $queryRol->where('fair_id','=',$request->fair_id);
-              });
-            })
+            //->whereHas('user',function ($query) use ($request) {
+            //  $query->whereHas('role_user_fairs',function ($queryRol) use ($request){
+            //      $queryRol->where('fair_id','=',$request->fair_id);
+            //  });
+            //})
             ->with(['agenda'=>function ($queryAgenda) use ($request) {
               $queryAgenda->where('fair_id','=',$request->fair_id);
             }])->get();
@@ -39,6 +39,5 @@ class SpeakerController extends Controller
             'message'=> 'Lista de conferencista con agenda',
             'success' => true,
         ], 201);
-
     }
 }
