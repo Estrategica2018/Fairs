@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//zoom viewer client
+Route::get('viewerZoom/meetings/{fair_id}/{meeting_id}/{name?}/{speaker_id?}', 'Zoom\ViewerZoomController@index');
+
