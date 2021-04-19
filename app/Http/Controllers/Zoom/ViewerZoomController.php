@@ -38,8 +38,8 @@ class ViewerZoomController extends Controller
 				}
 			}
 
-			$API_SECRET = "St2JlMFMc2JvFbTkx6mLDM47DwjlR1UUu9mD";
-			$API_KEY = "udpwP5cURTuphBlkxfPRaw";
+			$API_SECRET = env('ZOOM_API_SECRET', '');
+			$API_KEY = env('ZOOM_API_KEY', '');
 			
 			$signature = $this->generate_signature( $API_KEY, $API_SECRET, $agenda->zoom_code, $role);
 
