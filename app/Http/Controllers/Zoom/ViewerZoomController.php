@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Zoom;
 use App\Models\Agendas;
 use App\Models\InvitedSpeaker;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 
@@ -20,6 +21,13 @@ class ViewerZoomController extends Controller
 				
 			}
 			else if($agenda->audience_config == 2) {
+                if(Auth::check()){
+                    return response()->json([
+                        'data' => \auth()->user()->email,
+                        'message', '',
+                        'success' => false,
+                    ], 201);
+                };
 				return abort(403);	
 			}
 			else if($agenda->audience_config == 3) {
