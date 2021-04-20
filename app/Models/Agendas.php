@@ -23,5 +23,11 @@ class Agendas extends Model
 
         return $this->hasOne(Category::class,'id','category_id');
     }
+	
+    public function audience (){
+
+        return $this->hasMany(Audience::class,'agenda_id','id');
+    }
+
 
 }

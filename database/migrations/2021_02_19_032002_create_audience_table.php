@@ -14,12 +14,14 @@ class CreateAudienceTable extends Migration
     public function up()
     {
         Schema::create('audiences', function (Blueprint $table) {
-            $table->id();
+            $table->id()->comment('Código único la asistencia');
             $table->bigInteger('agenda_id')->unsigned();
             $table->foreign('agenda_id')->references('id')->on('agendas');
-            $table->bigInteger('user_id')->unsigned();
+			$table->string('email')->comment('Correo del usuario asistente a la reunión.');
+			$table->bigInteger('user_id')->nullable()->unsigned()->comment('Código único del usuario asistente a la reunión.');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('attendance_days');
+			$table->string('token')->nullable()->comment('Código de validación de acceso');
+            $table->string('attendance_days')->nullable()->comment('Días de asistencia del usuario a la conferencia');
             $table->timestamps();
         });
     }

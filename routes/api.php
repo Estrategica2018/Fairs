@@ -82,7 +82,7 @@ Route::post('/operator_user/create', 'OperatorUserController@create');
 //*
 //
 Route::get('/speakers/meetings/{fair_id?}', 'SpeakerController@list');
-Route::post('/speakers/meetings/{fair_id?}/{meeting?}', 'AgendaController@update_speakers');
+Route::post('/speakers/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_speakers');
 
 Route::get('/agenda/{fair_id?}/{pavilion_id?}/{stand_id?}', 'AgendaController@list');
 
@@ -92,3 +92,6 @@ Route::post('/category/update', 'CategoryController@update');
 Route::post('/category/delete', 'CategoryController@update');
 Route::get('/category/to_list/{type}', 'CategoryController@to_list');
 //*
+
+Route::post('/audience/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_speakers');
+Route::get('/meeting/generate-video-token/{fair_id?}/{meeting_id?}', 'AgendaController@generateVideoToken');

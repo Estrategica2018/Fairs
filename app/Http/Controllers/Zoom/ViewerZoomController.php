@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Zoom;
 
 use App\Models\Agendas;
 use App\Models\InvitedSpeaker;
+use App\Models\Audience;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -11,27 +12,37 @@ use App\Http\Controllers\Controller;
 
 class ViewerZoomController extends Controller
 {
-    public function index (Request $request, $fair_id, $meeting_id, $name = '', $speaker_id = '') {
+    public function index (Request $request, $fair_id, $meeting_id, $name = '', $speaker_id = '', $token = '') {
 		
         $speaker_id = $request->speaker_id;
 		
-		$agenda = Agendas::with('invited_speakers')->find($meeting_id);
+		$agenda = Agendas::with('invited_speakers','audience')->find($meeting_id);
 		if($agenda) {
 			if($agenda->audience_config == 1) {
 				
 			}
 			else if($agenda->audience_config == 2) {
-                if(Auth::check()){
-                    return response()->json([
-                        'data' => \auth()->user()->email,
-                        'message', '',
-                        'success' => false,
-                    ], 201);
-                };
-				return abort(403);	
+				
+				$audience = Audience::where('token',$token)->first();
+			   
+				if($audience){
+                    //$email = \auth()->user()->email;
+					$email = $audience->email;
+					foreach($agenda->audience as $audience) {
+						if($audience->email === $email) {
+							$valid = true;
+						}
+					}
+					if(!$valid) {
+						return abort(403);
+					}
+                }
+				else {
+					return abort(401);
+				}
 			}
 			else if($agenda->audience_config == 3) {
-				return abort(404);
+				return abort(401);
 			}
 			$role = 1;
 			$email = '';
