@@ -139,16 +139,19 @@ class AgendaController extends Controller
 
 		if($agenda->audience_config == 2) {
 			$user = auth()->guard('api')->user();
-			///if(Auth::check()){
-			if($user) {	
-               //$email = \auth()->user()->email;
+			if($user) {
 			   $email = $user->email;
-			   //dd($agenda->audience,$email);
 			   foreach($agenda->audience as $audience) {
 				  if($audience->email === $email) {
-					
-					$audience->token = 'ASsdfASDFASDFasdfasdfasdf';
-					$audience->save();
+                      function microtime_float()
+                      {
+                          list($usec, $sec) = explode(" ", microtime());
+                          return ((float)$usec + (float)$sec);
+                      }
+                      usleep(100);
+                      $time = microtime_float();
+                      $audience->token = uniqid('user_').$time;
+                      $audience->save();
 					
 					return [
 					  'success' => 201,
