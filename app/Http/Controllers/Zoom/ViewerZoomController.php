@@ -28,6 +28,7 @@ class ViewerZoomController extends Controller
 				if($audience){
                     //$email = \auth()->user()->email;
 					$email = $audience->email;
+					$valid = false;
 					foreach($agenda->audience as $audience) {
 						if($audience->email === $email) {
 							$valid = true;
@@ -44,11 +45,13 @@ class ViewerZoomController extends Controller
 			else if($agenda->audience_config == 3) {
 				return abort(401);
 			}
-			$role = 1;
+			
+			
+			$role = '1';
 			$email = '';
 			foreach($agenda->invited_speakers as $invited_speaker) {
 				if($invited_speaker->speaker_id === $speaker_id) {
-					$role = 1;
+					$role = '1';
 					if(strlen($name)===0) {
 						dd($invited_speaker);
 						dd($email);
@@ -65,7 +68,6 @@ class ViewerZoomController extends Controller
 			if(strlen($name)===0) {
 				$name = 'guest01';
 			}
-			
 			return view('zoom.zoomViewer',[
 			  'name' => $name,
 			  'mn'=> $agenda->zoom_code,
@@ -83,14 +85,14 @@ class ViewerZoomController extends Controller
 		}
     }
 	
+	function generate_signature ( $api_key, $api_secret, $meeting_number, $role){
 
-	public function generate_signature ( $api_key, $api_secret, $meeting_number, $role){
-
-		$time = time() * 1000; //time in milliseconds (or close enough)
+		date_default_timezone_set("UTC");
+		$time = time() * 1000 - 30000;//time in milliseconds (or close enough)
 		$data = base64_encode($api_key . $meeting_number . $time . $role);
 		$hash = hash_hmac('sha256', $data, $api_secret, true);
 		$_sig = $api_key . "." . $meeting_number . "." . $time . "." . $role . "." . base64_encode($hash);
 		//return signature, url safe base64 encoded
 		return rtrim(strtr(base64_encode($_sig), '+/', '-_'), '=');
-	}
+   }
 }
