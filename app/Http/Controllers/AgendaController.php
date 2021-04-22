@@ -150,7 +150,7 @@ class AgendaController extends Controller
                       }
                       usleep(100);
                       $time = microtime_float();
-                      $audience->token = uniqid('user_').$time;
+                      $audience->token = uniqid('user_').$user->id.time;
                       $audience->save();
 					
 					return [
