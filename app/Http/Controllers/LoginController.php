@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fair;
+use App\Models\RoleUserFair;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -48,16 +50,31 @@ class LoginController extends Controller
      */
     public function login (Request $request){
 
+
         $request->validate([
             'email' => ['required','email'],
-            'password' => ['required']
+            'password' => ['required'],
+            'fair_id' => ['required'],
         ]);
-        $user = User::where('email',$request->email)->first();
+
+        $fair = Fair::find($request->fair_id);
+        if($fair == null){
+            throw ValidationException::withMessages([
+                'fair'=>['No se encontro la feria']
+            ]);
+        }
+
+        $user = User::with('user_roles_fair')->whereHas('user_roles_fair',function($query)use($fair){
+            $query->where('fair_id',$fair->id);
+        })->where('email',$request->email)->first();
+
         if( !$user || !\Illuminate\Support\Facades\Hash::check($request->password, $user->password) ){
+
             throw ValidationException::withMessages([
                 'email'=>['Credenciales incorrectas']
             ]);
         }
+
         return response()->json(['data' => $user->createToken('Auth Token')->accessToken, 'message' => 'Token generado satisfactoriamente', 'user' => $user], 200);
     }
 

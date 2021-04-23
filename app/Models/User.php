@@ -51,4 +51,16 @@ class User extends Authenticatable
 
         return $this->belongsTo(RoleUserFair::class,'id','user_id');
     }
+
+    public function roles_fair (){
+
+        return $this->hasMany(RoleUserFair::class,'user_id','id');
+
+    }
+
+    public function user_roles_fair (){
+
+        return $this->belongsToMany(Role::class,'role_user_fairs','user_id','role_id');
+
+    }
 }
