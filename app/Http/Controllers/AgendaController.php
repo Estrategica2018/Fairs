@@ -119,12 +119,13 @@ class AgendaController extends Controller
 		Audience::where('agenda_id',$data['meeting_id'])->delete();
 		$list = [];
 		
-		foreach($data['audience'] as $email) {
-			$invitedSpeaker = new InvitedSpeaker();
-			$invitedSpeaker->agenda_id = $data['meeting_id'];
-			$invitedSpeaker->speaker_id = $speaker['id'];
-			$invitedSpeaker->save();
-			array_push($list, $invitedSpeaker);
+		foreach($data['audience'] as $audi) {
+			$audience = new Audience();
+			$audience->agenda_id = $data['meeting_id'];
+			$audience->email = $audi['email'];
+			$audience->status = $audi['status'];
+			$audience->save();
+			array_push($list, $audience);
 		}
 		
 		return [
@@ -178,4 +179,31 @@ class AgendaController extends Controller
           ];
 		}
 	}
+	
+	// super admin or admin role rules
+	public function getEmails(Request $request,$fair_id,$agenda_id) {
+		
+        $validator = Validator::make($request->all(), [
+            'agenda_id' => '',
+            'fair_id' => '',
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+        $data = $validator->validated();
+    
+	    $agenda = Agendas::with('audience')
+		->where(['fair_id'=>$fair_id,'id'=>$agenda_id])	
+		->first();
+		
+        return [
+            'success' => 201,
+            'data' => ['audience' => $agenda->audience],
+        ];
+
+    }
 }

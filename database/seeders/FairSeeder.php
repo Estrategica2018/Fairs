@@ -26,7 +26,7 @@ class FairSeeder extends Seeder
         $fair->halls_number = 1;
         $fair->init_date = '2021-12-24';
         $fair->end_date = '2021-12-31';
-        $fair->resources = '{"iconNight":"https://res.cloudinary.com/dfxkgtknu/image/upload/v1615656994/feria1/icon-black_mkoa7r.png",
+        $fair->resources = '{"_defaultWidth": "1092","_defaultHeight": "607", "iconNight":"https://res.cloudinary.com/dfxkgtknu/image/upload/v1615656994/feria1/icon-black_mkoa7r.png",
 							 "icon":"https://res.cloudinary.com/dfxkgtknu/image/upload/v1615656994/feria1/icon_hzvtet.png",
 						     "url_image":"https://res.cloudinary.com/dfxkgtknu/image/upload/v1611542204/feria1/feria_Easy-Resize.com_j9svzu.jpg",
                              "banners":[{ 

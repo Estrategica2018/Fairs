@@ -59,6 +59,7 @@ Route::get('/fair/find/{id?}', 'FairController@find');
 //
 Route::post('/pavilion/create', 'PavilionController@create');
 Route::get('/pavilion/find_by_fair/{fair_id?}', 'PavilionController@find_by_fair');
+Route::post('/pavilion/update/{pavilionId}', 'PavilionController@update');
 
 //*
 //
@@ -84,9 +85,12 @@ Route::post('/operator_user/create', 'OperatorUserController@create');
 Route::get('/speakers/meetings/{fair_id?}', 'SpeakerController@list');
 Route::post('/speakers/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_speakers');
 
-Route::get('/agenda/{fair_id?}/{pavilion_id?}/{stand_id?}', 'AgendaController@list');
+Route::get('/agenda/list/{fair_id?}/{pavilion_id?}/{stand_id?}', 'AgendaController@list');
 
-//
+// super admin or admin role rules
+Route::get('/agenda/getEmails/{fair_id}/{agenda_id}', 'AgendaController@getEmails');
+
+// super admin role rules
 Route::post('/category/create', 'CategoryController@create');
 Route::post('/category/update', 'CategoryController@update');
 Route::post('/category/delete', 'CategoryController@update');
@@ -95,3 +99,4 @@ Route::get('/category/to_list/{type}', 'CategoryController@to_list');
 
 Route::post('/audience/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_speakers');
 Route::get('/meeting/generate-video-token/{fair_id?}/{meeting_id?}', 'AgendaController@generateVideoToken');
+

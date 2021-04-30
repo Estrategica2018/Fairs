@@ -63,7 +63,36 @@ class PavilionController extends Controller
             'success' => 201,
             'data' => Pavilion::with('fair','stands.merchant')->where('fair_id',$data['fair_id'])->get(),
         ];
+    }
+	
+    public function update(Request $request, $pavilionId){
 
+        $validator = Validator::make($request->all(), [
+            'fair_id'=>'required',
+            'name'=>'',
+            'description'=>'',
+            'resources'=>'',
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+
+        $data = $validator->validated();
+
+        $pavilion = Pavilion::find($pavilionId);
+        if(isset($data['name'])) $pavilion->name = $data['name'];
+        if(isset($data['description'])) $pavilion->description = $data['description'];
+        if(isset($data['resources']))  $pavilion->resources = $data['resources'];
+        $pavilion->save();
+
+        return [
+            'success' => 201,
+            'data' => $pavilion,
+        ];
     }
 
 
