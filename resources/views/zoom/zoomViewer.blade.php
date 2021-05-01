@@ -17,9 +17,9 @@
     <script src="https://source.zoom.us/1.9.0/lib/vendor/redux-thunk.min.js"></script>
     <script src="https://source.zoom.us/1.9.0/lib/vendor/lodash.min.js"></script>
     <script src="https://source.zoom.us/zoom-meeting-1.9.0.min.js"></script>
-    <script src="/js/tool.js"></script>
-    <script src="/js/vconsole.min.js"></script>
-    <script src="/js/meeting.js"></script>
+    <script src="/zoom-client-js/tool.js"></script>
+    <script src="/zoom-client-js/vconsole.min.js"></script>
+    <script src="/zoom-client-js/meeting.js"></script>
 
     <script>
         const simd = async () => WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3, 2, 1, 0, 10, 9, 1, 7, 0, 65, 0, 253, 15, 26, 11]))
