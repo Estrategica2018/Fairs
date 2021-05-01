@@ -123,7 +123,7 @@ class AgendaController extends Controller
 			$audience = new Audience();
 			$audience->agenda_id = $data['meeting_id'];
 			$audience->email = $audi['email'];
-			$audience->status = $audi['status'];
+			$audience->check = $audi['check'];
 			$audience->save();
 			array_push($list, $audience);
 		}
