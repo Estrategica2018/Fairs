@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
         $user->user_name = 'Cristian01';
         $user->name = 'Cristian';
         $user->last_name = 'Jojoa';
-        $user->email = 'cristianjojoa02@gmail.com';
+        $user->email = 'cristianjojoa01@gmail.com';
         $user->url_image = 'image2';
         $user->contact = 'contact2';
         $user->password = Hash::make('123');
