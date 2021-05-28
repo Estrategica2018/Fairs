@@ -93,9 +93,14 @@ Route::get('/agenda/getEmails/{fair_id}/{agenda_id}', 'AgendaController@getEmail
 // super admin role rules
 Route::post('/category/create', 'CategoryController@create');
 Route::post('/category/update', 'CategoryController@update');
-Route::post('/category/delete', 'CategoryController@update');
+Route::post('/category/delete', 'CategoryController@delete');
 Route::get('/category/to_list/{type}', 'CategoryController@to_list');
 //*
+
+// super admin role rules
+Route::post('/fair/create', 'FairController@create');
+Route::post('/fair/update/{fair_id}', 'FairController@update');
+Route::post('/fair/delete', 'FairController@delete');
 
 Route::post('/audience/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_audience');
 Route::get('/meeting/generate-video-token/{fair_id?}/{meeting_id?}', 'AgendaController@generateVideoToken');

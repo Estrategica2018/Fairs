@@ -83,10 +83,8 @@ class FairController extends Controller
             $data_pavilion['fair_id'] = $pavilion->fair_id;
 
             array_push($data_pavilions,$data_pavilion);
-
         }
-
-
+		
         return [
             'success' => 201,
             'data_fair' => $fair,
@@ -119,6 +117,26 @@ class FairController extends Controller
         return [
             'success' => 201,
             'data' => Fair::find($data['id']),
+        ];
+
+    }
+	
+	public function update(Request $request, $fair_id) {
+        
+        $fair = Fair::find($fair_id);
+        if(isset($request['name'])) $fair->name = $request['name'];
+        if(isset($request['description'])) $fair->description = $request['description'];
+        if(isset($request['halls_number']))  $fair->halls_number = $request['halls_number'];
+        if(isset($request['init_date'])) $fair->init_date = $request['init_date'];
+        if(isset($request['end_date'])) $fair->end_date = $request['end_date'];
+        if(isset($request['resources'])) $fair->resources = $request['resources'];
+        if(isset($request['location'])) $fair->location = $request['location'];
+        if(isset($request['social_media'])) $fair->social_media = $request['social_media'];
+        $fair->save();
+
+        return [
+            'success' => 201,
+            'data_fair' => $fair
         ];
 
     }
