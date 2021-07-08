@@ -12,11 +12,10 @@ use App\Http\Controllers\Controller;
 
 class ViewerZoomController extends Controller
 {
-    public function index (Request $request, $fair_id, $meeting_id, $name = '', $speaker_id = '', $token = '') {
+    public function index (Request $request, $fair_id, $meeting_id, $name = '', $email = '', $token = '') {
 		
-        $speaker_id = $request->speaker_id;
-		
-		$agenda = Agendas::with('invited_speakers','audience')->find($meeting_id);
+        
+		$agenda = Agendas::with('invited_speakers.speaker.user','audience')->find($meeting_id);
 		if($agenda) {
 			if($agenda->audience_config == 1) {
 				
@@ -27,10 +26,10 @@ class ViewerZoomController extends Controller
 			   
 				if($audience){
                     //$email = \auth()->user()->email;
-					$email = $audience->email;
+					$emailInvited = $audience->email;
 					$valid = false;
 					foreach($agenda->audience as $audience) {
-						if($audience->email === $email) {
+						if($audience->email === $emailInvited) {
 							$valid = true;
 						}
 					}
@@ -47,14 +46,14 @@ class ViewerZoomController extends Controller
 			}
 			
 			
-			$role = '1';
-			$email = '';
+			$role = '0';
+			
 			foreach($agenda->invited_speakers as $invited_speaker) {
-				if($invited_speaker->speaker_id === $speaker_id) {
+				
+				if($invited_speaker->speaker->user->email === $email) {
 					$role = '1';
 					if(strlen($name)===0) {
 						dd($invited_speaker);
-						dd($email);
 					}
 					break;
 				}

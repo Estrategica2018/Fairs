@@ -37,12 +37,7 @@ class StandController extends Controller
 
         return [
             'success' => 201,
-            'data' => [
-                'merchant'=>$stand->merchant(),
-                'pavilion'=>$stand->pavilion(),
-                'resources'=>$stand->resources,
-                'stand_type_id'=>$stand->stand_type_id
-            ],
+            'data' => $stand,
         ];
     }
 
@@ -100,6 +95,29 @@ class StandController extends Controller
         return [
             'success' => 201,
             'data' => $stands,
+        ];
+    }
+	
+	public function delete(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'id'=>'required'
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+
+        $data = $validator->validated();
+
+        $stand =  Stand::find($data['id']);
+        $stand->delete();
+		
+        return [
+            'success' => 201
         ];
     }
 }

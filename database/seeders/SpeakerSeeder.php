@@ -6,7 +6,6 @@ use App\Models\Fair;
 use App\Models\StandTyp;
 use App\Models\Pavilion;
 use App\Models\Speaker;
-use App\Models\Merchant;
 use App\Models\Stand;
 use App\Models\Agendas;
 use Illuminate\Database\Seeder;

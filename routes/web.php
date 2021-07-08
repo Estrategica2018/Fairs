@@ -18,5 +18,5 @@ Route::get('/', function () {
 });
 
 //zoom viewer client
-Route::get('viewerZoom/meetings/{fair_id}/{meeting_id}/{name?}/{speaker_id?}/{token?}', 'Zoom\ViewerZoomController@index');
+Route::get('viewerZoom/meetings/{fair_id}/{meeting_id}/{name?}/{email?}/{token?}', 'Zoom\ViewerZoomController@index');
 

@@ -17,8 +17,8 @@ class PavilionController extends Controller
             'name'=>'required',
             'description'=>'required',
             'fair_id'=>'required',
-            'stands_number'=>'required',
-            'rooms_number'=>'required',
+            'stands_number'=>'',
+            'rooms_number'=>'',
             'resources'=>'required',
         ]);
 
@@ -35,8 +35,8 @@ class PavilionController extends Controller
         $pavilion->name = $data['name'];
         $pavilion->description = $data['description'];
         $pavilion->fair_id = $data['fair_id'];
-        $pavilion->stands_number = $data['stands_number'];
-        $pavilion->rooms_number = $data['rooms_number'];
+        if(isset($data['stands_number'])) $pavilion->stands_number = $data['stands_number'];
+        if(isset($data['rooms_number'])) $pavilion->rooms_number = $data['rooms_number'];
         $pavilion->resources = $data['resources'];
         $pavilion->save();
 
@@ -88,6 +88,30 @@ class PavilionController extends Controller
         if(isset($data['description'])) $pavilion->description = $data['description'];
         if(isset($data['resources']))  $pavilion->resources = $data['resources'];
         $pavilion->save();
+
+        return [
+            'success' => 201,
+            'data' => $pavilion,
+        ];
+    }
+	
+	public function delete(Request $request, $pavilionId){
+
+        $validator = Validator::make($request->all(), [
+            'pavilion_id'=>'required'
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+
+        $data = $validator->validated();
+
+        $pavilion = Pavilion::find($pavilionId);
+        $pavilion->delete();
 
         return [
             'success' => 201,

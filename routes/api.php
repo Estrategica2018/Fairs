@@ -60,16 +60,18 @@ Route::get('/fair/find/{id?}', 'FairController@find');
 Route::post('/pavilion/create', 'PavilionController@create');
 Route::get('/pavilion/find_by_fair/{fair_id?}', 'PavilionController@find_by_fair');
 Route::post('/pavilion/update/{pavilionId}', 'PavilionController@update');
+Route::post('/pavilion/delete/{pavilionId}', 'PavilionController@delete');
 
 //*
 //
 Route::post('/merchant/create', 'MerchantController@create');
 Route::post('/merchant/update', 'MerchantController@update');
-Route::get('/merchant/to_list', 'MerchantController@to_list');
+Route::get('/merchant/to_list/{fair_id}', 'MerchantController@to_list');
 //*
 //
 Route::post('/stand/create', 'StandController@create');
-Route::post('/stand/update', 'StandController@update');
+Route::post('/stand/update/{stand_id}', 'StandController@update');
+Route::post('/stand/delete/{stand_id}', 'StandController@delete');
 Route::get('/stand/to_list/{pavilion_id?}', 'StandController@to_list');
 //*
 //

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\RoleUserFair;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -35,8 +36,14 @@ class UserSeeder extends Seeder
         $user->email = 'milenaRodriguez@speaker.com';
         $user->url_image = 'https://image.freepik.com/vector-gratis/perfil-femenino-silueta_23-2147522231.jpg';
         $user->contact = '{}';
-        $user->password = Hash::make('123');
+        $user->password = Hash::make('12345678');
         $user->save();
+				
+		$user_rol_fair = new RoleUserFair();
+        $user_rol_fair->user_id = $user->id;
+        $user_rol_fair->role_id = 6;
+        $user_rol_fair->fair_id = 1;
+        $user_rol_fair->save();
 		
 		
 		$user = new User();
@@ -46,8 +53,15 @@ class UserSeeder extends Seeder
         $user->email = 'dianabuenhombre@gmail.com';
         $user->url_image = 'https://i.pinimg.com/originals/40/32/e0/4032e0031e2e95989f1e76fe3d4f57b7.jpg';
         $user->contact = '{}';
-        $user->password = Hash::make('123');
+        $user->password = Hash::make('12345678');
         $user->save();
+		
+		$user_rol_fair = new RoleUserFair();
+        $user_rol_fair->user_id = $user->id;
+        $user_rol_fair->role_id = 6;
+        $user_rol_fair->fair_id = 1;
+        $user_rol_fair->save();
+		
 		 
 		$user = new User();
         $user->user_name = 'IsaiasCoy';
@@ -56,7 +70,14 @@ class UserSeeder extends Seeder
         $user->email = 'Coy@speaker.com';
         $user->url_image = 'https://images.vexels.com/media/users/3/140749/isolated/preview/4fb58265f9e1ad8d8dd7c35f06fa58d6-avatar-de-perfil-masculino-1-by-vexels.png';
         $user->contact = '{}';
-        $user->password = Hash::make('123');
+        $user->password = Hash::make('12345678');
         $user->save();
+		
+		$user_rol_fair = new RoleUserFair();
+        $user_rol_fair->user_id = $user->id;
+        $user_rol_fair->role_id = 6;
+        $user_rol_fair->fair_id = 1;
+        $user_rol_fair->save();
+		
     }
 }
