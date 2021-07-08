@@ -47,7 +47,6 @@ class ViewerZoomController extends Controller
 			
 			
 			$role = '0';
-			
 			foreach($agenda->invited_speakers as $invited_speaker) {
 				
 				if($invited_speaker->speaker->user->email === $email) {
@@ -67,7 +66,8 @@ class ViewerZoomController extends Controller
 			if(strlen($name)===0) {
 				$name = 'guest01';
 			}
-			return view('zoom.zoomViewer',[
+			
+			$opt = [
 			  'name' => $name,
 			  'mn'=> $agenda->zoom_code,
 			  'email'=>$email,
@@ -77,7 +77,8 @@ class ViewerZoomController extends Controller
 			  'signature'=>$signature,
 			  'china'=>'0',
 			  'apiKey'=>$API_KEY
-			]);
+			];
+			return view('zoom.zoomViewer',$opt);
 		}
 		else {
 			return abort(404);
