@@ -78,7 +78,7 @@ class ViewerZoomController extends Controller
 			  'china'=>'0',
 			  'apiKey'=>$API_KEY
 			];
-			dd($opt);
+			
 			return view('zoom.zoomViewer',$opt);
 		}
 		else {
