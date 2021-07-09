@@ -1,1 +1,3 @@
-<PAyment Wompi
+<div>
+Payment Wompi
+</div>
