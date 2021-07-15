@@ -12,14 +12,16 @@ class PasswordResetRequest extends Notification
     use Queueable;
 
     protected $token;
+	protected $origin;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($token)
+    public function __construct($token,$origin)
     {
         $this->token = $token;
+		$this->origin = $origin;
     }
 
     /**
@@ -48,7 +50,8 @@ class PasswordResetRequest extends Notification
                     ->line('Thank you for using our application!');
         */
 
-        $url = url('/api/password/find/'.$this->token);
+        //$url = url('/api/password/find/'.$this->token);
+		$url = $this->origin.'/#/recoverPassword/'.$this->token;
         return (new MailMessage)
             ->line('Estas recibiendo este correo porque nosotros hemos recibido una solicitud para restablecer la contraseña de tu cuenta.')
             ->action('Restablecer Contraseña', url($url))

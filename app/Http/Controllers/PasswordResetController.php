@@ -23,14 +23,14 @@ class PasswordResetController extends Controller
     {
         $request->validate([
             'email' => 'required|string|email',
+			'origin' => 'string',
         ]);
 
 
         $user = User::where('email', $request->email)->first();
-        if (!$user)
-            return response()->json([
-                'message' => 'No se puedo encontrar un usuario con ese dirección de correo.'
-            ], 404);
+        if (!$user) {
+          return response()->json(['message' => 'No se pudo encontrar un usuario con ese dirección de correo.'], 404);
+		} 
         $passwordReset = PasswordReset::updateOrCreate(
             ['email' => $user->email],
             [
@@ -38,13 +38,16 @@ class PasswordResetController extends Controller
                 'token' => Str::random(60)
              ]
         );
-        if ($user && $passwordReset)
-            $user->notify(
-                new PasswordResetRequest($passwordReset->token)
-            );
-        return response()->json([
+        if ($user && $passwordReset) {
+          $user->notify(  new PasswordResetRequest($passwordReset->token, $request->origin) );
+          return response()->json([
+		    'success' => 201, 
             'message' => 'Hemos enviado un correo electrónico con el enlace de restablecimiento de contraseña.!'
-        ]);
+          ]);
+		}
+		else {
+			return response()->json(['message' => 'Error enviando el correo electrónico .'], 403);
+		}
     }
     /**
      * Find token password reset
@@ -59,12 +62,12 @@ class PasswordResetController extends Controller
             ->first();
         if (!$passwordReset)
             return response()->json([
-                'message' => 'Este token de restablecimiento de contraseña no es válido.'
+                'message' => 'Este token de restablecimiento de contraseña no es válido, por favor solicita de nuevo la recuperación de clave.'
             ], 404);
         if (Carbon::parse($passwordReset->updated_at)->addMinutes(720)->isPast()) {
             $passwordReset->delete();
             return response()->json([
-                'message' => 'Este token de restablecimiento de contraseña no es válido.'
+                'message' => 'Este token de restablecimiento de contraseña ha caducado, por favor solicita de nuevo la recuperación de clave.'
             ], 404);
         }
         return response()->json([
