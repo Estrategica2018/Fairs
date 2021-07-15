@@ -161,6 +161,7 @@ class MeetingController extends Controller
 			$agenda->category_id = $data['category_id'];
             $agenda->audience_config = $data['audience_config'];
             $agenda->zoom_code = $meeting['id'];
+			$agenda->price = $meeting['price'];
             $agenda->zoom_password = $meeting['encrypted_password'];
             if(isset($data['token'])) {
                 $agenda->token = $data['token'];
@@ -213,6 +214,7 @@ class MeetingController extends Controller
             'agenda' => 'string|nullable',
             'timezone' => 'required|string',
             'fair_id' => 'required|numeric',
+			'price' => 'numeric',
             'resources' => 'string',
             'token' => 'string|nullable',
 			'audience_config' => 'required|string'
@@ -253,6 +255,7 @@ class MeetingController extends Controller
             $agenda->fair_id = $data['fair_id'];
 			$agenda->category_id = $data['category_id'];
             $agenda->resources = $data['resources'];
+			$agenda->price = $data['price'];
             $agenda->timezone = $data['timezone'];
             $agenda->audience_config = $data['audience_config'];
             $agenda->save();

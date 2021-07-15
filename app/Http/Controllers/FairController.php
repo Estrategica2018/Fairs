@@ -129,6 +129,7 @@ class FairController extends Controller
         if(isset($request['halls_number']))  $fair->halls_number = $request['halls_number'];
         if(isset($request['init_date'])) $fair->init_date = $request['init_date'];
         if(isset($request['end_date'])) $fair->end_date = $request['end_date'];
+		if(isset($request['price'])) $fair->price = $request['price'];
         if(isset($request['resources'])) $fair->resources = $request['resources'];
         if(isset($request['location'])) $fair->location = $request['location'];
         if(isset($request['social_media'])) $fair->social_media = $request['social_media'];
