@@ -8,6 +8,7 @@ use App\Notifications\PasswordResetRequest;
 use App\Notifications\PasswordResetSuccess;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class PasswordResetController extends Controller
@@ -107,7 +108,7 @@ class PasswordResetController extends Controller
             return response()->json([
                 'message' => 'No se puedo encontrar un usuario con ese dirección de correo.'
             ], 404);
-        $user->password = bcrypt($request->password);
+        $user->password = Hash::make($request->password);
         $user->save();
         $passwordReset->delete();
         $user->notify(new PasswordResetSuccess($passwordReset));
