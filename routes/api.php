@@ -111,3 +111,7 @@ Route::get('/meeting/generate-video-token/{fair_id?}/{meeting_id?}', 'AgendaCont
 Route::post('/payment/generate', 'PaymentController@createNewReference');
 Route::post('/payment/user/fair', 'PaymentController@getPaymentUser');
 
+
+//contact support
+//
+Route::post('/contactsupport/notification', 'ContactSupportController@notification');
