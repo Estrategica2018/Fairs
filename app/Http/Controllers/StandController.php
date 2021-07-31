@@ -97,8 +97,8 @@ class StandController extends Controller
             'data' => $stands,
         ];
     }
-	
-	public function delete(Request $request){
+    
+    public function delete(Request $request){
 
         $validator = Validator::make($request->all(), [
             'id'=>'required'
@@ -115,7 +115,7 @@ class StandController extends Controller
 
         $stand =  Stand::find($data['id']);
         $stand->delete();
-		
+        
         return [
             'success' => 201
         ];

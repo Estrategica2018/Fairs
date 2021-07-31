@@ -98,41 +98,46 @@ class UserController extends Controller
 
 
         $user = auth()->guard('api')->user();
-        $data = $validator->validated();
-        
-        $fileName = null;
-        if(isset($data['image'])){
-            $image = $request->image;  // your base64 encoded
-            $extension = explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];   // .jpg .png .pdf
+        if($user) {
+            $data = $validator->validated();
             
-            $fileName = '/images_users/'. date('mdYHis') . uniqid() . '_user_' . $user->id .'.' .$extension;
-             
-            $image = str_replace('data:image/png;base64,', '', $image);
-            $image = str_replace('data:image/jpeg;base64,', '', $image);
-            $path = str_replace('\\\\', '/' , base_path());
-          
-            if(!Storage::exists($path.'/images_users')){
-                Storage::makeDirectory($path.'/images_users');
+            $fileName = null;
+            if(isset($data['image'])){
+                $image = $request->image;  // your base64 encoded
+                $extension = explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];   // .jpg .png .pdf
+                
+                $fileName = '/images_users/'. date('mdYHis') . uniqid() . '_user_' . $user->id .'.' .$extension;
+                 
+                $image = str_replace('data:image/png;base64,', '', $image);
+                $image = str_replace('data:image/jpeg;base64,', '', $image);
+                $path = str_replace('\\\\', '/' , base_path());
+              
+                if(!Storage::exists($path.'/images_users')){
+                    Storage::makeDirectory($path.'/images_users');
+                }
+                File::put($path . '/public' . $fileName, base64_decode($image));
             }
-            File::put($path . '/public' . $fileName, base64_decode($image));
-        }
-        
-        if(isset($data['user_name']))  $user->user_name = $data['user_name'];
-        if(isset($data['name'])) $user->name = $data['name'];
-        if(isset($data['last_name'])) $user->last_name = $data['last_name'];
-        if(isset($data['email'])) $user->email = $data['email'];
-        if($fileName) $user->url_image = $fileName;
-        if(isset($data['contact'])){ 
-            $user->contact = $data['contact'];
-        }
-        if(isset($data['password'])) $user->password = Hash::make($data['password']);
-        
-        $user->save();
+            
+            if(isset($data['user_name']))  $user->user_name = $data['user_name'];
+            if(isset($data['name'])) $user->name = $data['name'];
+            if(isset($data['last_name'])) $user->last_name = $data['last_name'];
+            if(isset($data['email'])) $user->email = $data['email'];
+            if($fileName) $user->url_image = $fileName;
+            if(isset($data['contact'])){ 
+                $user->contact = $data['contact'];
+            }
+            if(isset($data['password'])) $user->password = Hash::make($data['password']);
+            
+            $user->save();
 
-        return [
-            'success' => 201,
-            'data' => $user,
-        ];
+            return [
+                'success' => 201,
+                'data' => $user,
+            ];
+        }
+        else {
+            return response()->json(['message' => 'La sesión ha cadudcado.'], 403);
+        }
 
     }
 }

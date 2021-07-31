@@ -64,7 +64,7 @@ class PavilionController extends Controller
             'data' => Pavilion::with('fair','stands.merchant')->where('fair_id',$data['fair_id'])->get(),
         ];
     }
-	
+    
     public function update(Request $request, $pavilionId){
 
         $validator = Validator::make($request->all(), [
@@ -94,8 +94,8 @@ class PavilionController extends Controller
             'data' => $pavilion,
         ];
     }
-	
-	public function delete(Request $request, $pavilionId){
+    
+    public function delete(Request $request, $pavilionId){
 
         $validator = Validator::make($request->all(), [
             'pavilion_id'=>'required'

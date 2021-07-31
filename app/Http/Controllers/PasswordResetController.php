@@ -24,14 +24,14 @@ class PasswordResetController extends Controller
     {
         $request->validate([
             'email' => 'required|string|email',
-			'origin' => 'string',
+            'origin' => 'string',
         ]);
 
 
         $user = User::where('email', $request->email)->first();
         if (!$user) {
           return response()->json(['message' => 'No se pudo encontrar un usuario con ese dirección de correo.'], 404);
-		} 
+        } 
         $passwordReset = PasswordReset::updateOrCreate(
             ['email' => $user->email],
             [
@@ -42,13 +42,13 @@ class PasswordResetController extends Controller
         if ($user && $passwordReset) {
           $user->notify(  new PasswordResetRequest($passwordReset->token, $request->origin) );
           return response()->json([
-		    'success' => 201, 
+            'success' => 201, 
             'message' => 'Hemos enviado un correo electrónico con el enlace de restablecimiento de contraseña.!'
           ]);
-		}
-		else {
-			return response()->json(['message' => 'Error enviando el correo electrónico .'], 403);
-		}
+        }
+        else {
+            return response()->json(['message' => 'Error enviando el correo electrónico .'], 403);
+        }
     }
     /**
      * Find token password reset

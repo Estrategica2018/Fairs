@@ -81,8 +81,8 @@ class MerchantController extends Controller
 
     public function to_list ($fair_id){
         
-		$list = Merchant::all();
-		return [
+        $list = Merchant::all();
+        return [
             'success' => 201,
             'data' => $list
         ];

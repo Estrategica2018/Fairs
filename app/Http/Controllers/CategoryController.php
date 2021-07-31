@@ -12,12 +12,12 @@ use File;
 class CategoryController extends Controller
 {
     //
-	public function create(Request $request){
+    public function create(Request $request){
 
         $validator = Validator::make($request->all(), [
             'type'=>'required',
             'name'=>'required',
-			'fair_id'=>'required',
+            'fair_id'=>'required',
             'resources'=>''
         ]);
 
@@ -31,25 +31,25 @@ class CategoryController extends Controller
         $data = $validator->validated();
         $category = new Category();
         $category->type = $data('type');
-		$category->name = $data('name');
+        $category->name = $data('name');
         $category->fair_id = $data('fair_id');
-		$category->resources = $data('resources');
+        $category->resources = $data('resources');
         $category->save();
-		
-		return [
+        
+        return [
             'success' => 201,
             'data' => $category
         ];
 
     }
-	
-	public function update(Request $request){
+    
+    public function update(Request $request){
 
         $validator = Validator::make($request->all(), [
             'id'=>'required',
             'type'=>'required',
             'name'=>'required',
-			'fair_id'=>'required',
+            'fair_id'=>'required',
             'resources'=>''
         ]);
 
@@ -63,23 +63,23 @@ class CategoryController extends Controller
         $data = $validator->validated();
         $category = Category::find($data['id']);
         $category->type = $data('type');
-		$category->name = $data('name');
+        $category->name = $data('name');
         $category->fair_id = $data('fair_id');
-		$category->resources = $data('resources');
+        $category->resources = $data('resources');
         $category->save();
-		
-		return [
+        
+        return [
             'success' => 201,
             'data' => $category
         ];
     }
-	
-	public function delete(Request $request){
+    
+    public function delete(Request $request){
 
         $validator = Validator::make($request->all(), [
             'id'=>'required',
             'type'=>'required',
-			'fair_id'=>'required'
+            'fair_id'=>'required'
         ]);
 
         if ($validator->fails()) {
@@ -90,14 +90,14 @@ class CategoryController extends Controller
         }
 
         $data = $validator->validated();
-		
+        
         $category = Category::find($data['id'])
-		  ->where('fair_id',$data['fair_id'])
-		  ->where('type',$data['type']);
-		  
+          ->where('fair_id',$data['fair_id'])
+          ->where('type',$data['type']);
+          
         $category->delete();
-		
-		return [
+        
+        return [
             'success' => 201,
             'message' => 'Categoría borrada exitósamente'
         ];

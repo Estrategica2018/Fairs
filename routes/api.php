@@ -103,7 +103,11 @@ Route::get('/category/to_list/{type}', 'CategoryController@to_list');
 Route::post('/fair/create', 'FairController@create');
 Route::post('/fair/update/{fair_id}', 'FairController@update');
 Route::post('/fair/delete', 'FairController@delete');
+Route::post('/fair/support/contact-notification', 'ContactSupportController@notification');
 
 Route::post('/audience/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_audience');
 Route::get('/meeting/generate-video-token/{fair_id?}/{meeting_id?}', 'AgendaController@generateVideoToken');
+
+Route::post('/payment/generate', 'PaymentController@createNewReference');
+Route::post('/payment/user/fair', 'PaymentController@getPaymentUser');
 

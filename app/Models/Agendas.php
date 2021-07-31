@@ -18,12 +18,12 @@ class Agendas extends Model
 
         return $this->hasMany(InvitedSpeaker::class,'agenda_id','id');
     }
-	
-	public function category (){
+    
+    public function category (){
 
         return $this->hasOne(Category::class,'id','category_id');
     }
-	
+    
     public function audience (){
 
         return $this->hasMany(Audience::class,'agenda_id','id');

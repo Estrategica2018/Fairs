@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class StandType extends Model
 {
     use HasFactory;
-	
-	protected $table = 'stand_types';
+    
+    protected $table = 'stand_types';
 }

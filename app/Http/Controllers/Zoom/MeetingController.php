@@ -116,11 +116,11 @@ class MeetingController extends Controller
             'duration_time' => 'required|numeric',
             'agenda' => 'string|nullable',
             'timezone' => 'required|string',
-			'category_id' => 'required|numeric',
+            'category_id' => 'required|numeric',
             'fair_id' => 'required|numeric',
             'resources' => 'string|nullable    ',
             'token' => 'string|nullable',
-			'audience_config' => 'required|string'
+            'audience_config' => 'required|string'
         ]);
 
         if ($validator->fails()) {
@@ -158,10 +158,10 @@ class MeetingController extends Controller
             $agenda->fair_id = $data['fair_id'];
             $agenda->resources = $data['resources'];
             $agenda->timezone = $meeting['timezone'];
-			$agenda->category_id = $data['category_id'];
+            $agenda->category_id = $data['category_id'];
             $agenda->audience_config = $data['audience_config'];
             $agenda->zoom_code = $meeting['id'];
-			$agenda->price = $meeting['price'];
+            $agenda->price = isset($data['price']) ? $data['price'] : 0;
             $agenda->zoom_password = $meeting['encrypted_password'];
             if(isset($data['token'])) {
                 $agenda->token = $data['token'];
@@ -176,15 +176,15 @@ class MeetingController extends Controller
                     'success' => $response->status() === 201,
             ], 201);
         }
-		else {
-			dd($response->status() ,$response->body()->code );
-			return response()->json([
-					'data' => json_decode($response->body(), true),
-					'agenda' => $agenda,
-					'message', 'Error creando la reunion',
-					'success' => false,
-			], 201);
-		}
+        else {
+            dd($response->status() ,$response->body()->code );
+            return response()->json([
+                    'data' => json_decode($response->body(), true),
+                    'agenda' => $agenda,
+                    'message', 'Error creando la reunion',
+                    'success' => false,
+            ], 201);
+        }
     }
 
     public function get(Request $request, string $id)
@@ -210,14 +210,14 @@ class MeetingController extends Controller
             'topic' => 'required|string',
             'start_time' => 'required|date',
             'duration_time' => 'required|numeric',
-			'category_id' => 'required|numeric',
+            'category_id' => 'required|numeric',
             'agenda' => 'string|nullable',
             'timezone' => 'required|string',
             'fair_id' => 'required|numeric',
-			'price' => 'numeric',
+            'price' => 'numeric',
             'resources' => 'string',
             'token' => 'string|nullable',
-			'audience_config' => 'required|string'
+            'audience_config' => 'required|string'
         ]);
 
 
@@ -234,7 +234,7 @@ class MeetingController extends Controller
             'topic' => $data['topic'], //titulo
             'type' => self::MEETING_TYPE_SCHEDULE, //tipo agenda 2
             'start_time' => (new \DateTime($data['start_time']))->format('Y-m-d\TH:i:s'),
-			'timezone' => $data['timezone'],
+            'timezone' => $data['timezone'],
             'duration' =>  $data['duration_time'],
             'agenda' => $data['agenda'],
             'settings' => [
@@ -253,9 +253,9 @@ class MeetingController extends Controller
             $agenda->duration_time = $data['duration_time'];
             $agenda->start_at = strtotime($data['start_time']);
             $agenda->fair_id = $data['fair_id'];
-			$agenda->category_id = $data['category_id'];
+            $agenda->category_id = $data['category_id'];
             $agenda->resources = $data['resources'];
-			$agenda->price = $data['price'];
+            $agenda->price = isset($data['price']) ? $data['price'] : 0;
             $agenda->timezone = $data['timezone'];
             $agenda->audience_config = $data['audience_config'];
             $agenda->save();
