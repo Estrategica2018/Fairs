@@ -26,7 +26,7 @@ class FairSeeder extends Seeder
         $fair->halls_number = 1;
         $fair->init_date = '2021-12-24';
         $fair->end_date = '2021-12-31';
-        $fair->resources = '[]';
+        $fair->resources = '{"scenes":[]}';
 		$fair->location = '{}';
         $fair->social_media = '{"icon":"assets/icon/icon.png","iconNight":"assets/icon/icon-black.png"}';
         $fair->save();
