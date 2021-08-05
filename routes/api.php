@@ -58,6 +58,7 @@ Route::get('/fair/find/{id?}', 'FairController@find');
 //*
 //
 Route::post('/pavilion/create', 'PavilionController@create');
+Route::post('/pavilion/create2', 'PavilionController@create');
 Route::get('/pavilion/find_by_fair/{fair_id?}', 'PavilionController@find_by_fair');
 Route::post('/pavilion/update/{pavilionId}', 'PavilionController@update');
 Route::post('/pavilion/delete/{pavilionId}', 'PavilionController@delete');
