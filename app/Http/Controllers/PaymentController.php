@@ -35,7 +35,8 @@ class PaymentController extends Controller
           return response()->json([
             'success' => 201, 
             'publicKey'=>'pub_test_EbunIjUmrCtIyrh28fFqr9sFUVqI43XA',
-            'reference'=>'4XMPGKWWPKWQ',
+            //'reference'=>'4XMPGKWWPKWQ',
+			'reference'=>dechex(time()),
             'currency'=>'COP',
             'message' => 'Referencia de pago tipo ['.$request->type.'] codigo de producto ['.$request->id.']!'
           ]); 

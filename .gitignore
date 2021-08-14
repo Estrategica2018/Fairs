@@ -21,3 +21,9 @@ bootstrap/cache/packages.php
 bootstrap/cache/services.php
 composer.lock
 *.log
+public/payments-logs
+public/payments-logs/*
+public/payments-logs/*.*
+storage/framework/cache
+storage/framework/cache/*
+storage/logs/laravel.log
