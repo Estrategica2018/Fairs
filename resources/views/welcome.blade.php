@@ -1,5 +1,5 @@
 <script>
-   window.location = '<?= $_SERVER['HTTP_HOST'].'/Fair-website'; ?>';
+   window.location = '<?= "/Fair-website"; ?>';
 </script>
 
 <!DOCTYPE html>
