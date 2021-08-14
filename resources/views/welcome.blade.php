@@ -1,5 +1,5 @@
 <script>
-   window.location = <?= $_SERVER['PHP_SELF'].'/Fair-website'; ?>
+   window.location = '<?= $_SERVER['PHP_SELF'].'/Fair-website'; ?>';
 </script>
 
 <!DOCTYPE html>
