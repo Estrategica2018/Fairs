@@ -1,3 +1,7 @@
+<script>
+   window.location = <?= $_SERVER['PHP_SELF'].'/Fair-website'; ?>
+</script>
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
