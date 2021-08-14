@@ -79,5 +79,56 @@ class UserSeeder extends Seeder
         $user_rol_fair->fair_id = 1;
         $user_rol_fair->save();
 		
+		
+		///** Fair Two *///
+		
+		$user = new User();
+        $user->user_name = 'DanielPerez';
+        $user->name = 'Daniel';
+        $user->last_name = 'Perez';
+        $user->email = 'dperez@speaker.com';
+        $user->url_image = '';
+        $user->contact = '{}';
+        $user->password = Hash::make('12345678');
+        $user->save();
+		
+		$user_rol_fair = new RoleUserFair();
+        $user_rol_fair->user_id = $user->id;
+        $user_rol_fair->role_id = 6;
+        $user_rol_fair->fair_id = 2;
+        $user_rol_fair->save();
+		
+		$user = new User();
+        $user->user_name = 'DavidMonteagudo';
+        $user->name = 'David';
+        $user->last_name = 'Monteagudo';
+        $user->email = 'mdavid@speaker.com';
+        $user->url_image = '';
+        $user->contact = '{}';
+        $user->password = Hash::make('12345678');
+        $user->save();
+		
+		$user_rol_fair = new RoleUserFair();
+        $user_rol_fair->user_id = $user->id;
+        $user_rol_fair->role_id = 6;
+        $user_rol_fair->fair_id = 2;
+        $user_rol_fair->save();
+		
+        $user = new User();
+        $user->user_name = 'ngugiwa';
+        $user->name = 'Ngũgĩ wa ';
+        $user->last_name = ' Thiong\'o';
+        $user->email = 'nggiwa@speaker.com';
+        $user->url_image = '';
+        $user->contact = '{}';
+        $user->password = Hash::make('12345678');
+        $user->save();
+		
+		$user_rol_fair = new RoleUserFair();
+        $user_rol_fair->user_id = $user->id;
+        $user_rol_fair->role_id = 6;
+        $user_rol_fair->fair_id = 2;
+        $user_rol_fair->save();
+		
     }
 }

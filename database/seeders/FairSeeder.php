@@ -30,5 +30,18 @@ class FairSeeder extends Seeder
 		$fair->location = '{}';
         $fair->social_media = '{"icon":"assets/icon/icon.png","iconNight":"assets/icon/icon-black.png"}';
         $fair->save();
+		
+        $fair = new Fair();
+        $fair->name = 'libromania';
+        $fair->description = 'I Feria Independiente del libro 2021';
+        $fair->halls_number = 1;
+        $fair->init_date = '2021-09-02';
+        $fair->end_date = '2021-09-17';
+        $fair->resources = '{"scenes":[]}';
+		$fair->location = '{}';
+        $fair->social_media = '{"icon":"assets/icon/icon.png","iconNight":"assets/icon/icon-black.png"}';
+        $fair->save();
+		
+		
     }
 }

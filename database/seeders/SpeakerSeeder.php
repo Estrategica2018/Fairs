@@ -39,6 +39,32 @@ class SpeakerSeeder extends Seeder
         $speaker->title = "Talent Manager CO";
         $speaker->resources = '{"url_image":"https://images.vexels.com/media/users/3/140749/isolated/preview/4fb58265f9e1ad8d8dd7c35f06fa58d6-avatar-de-perfil-masculino-1-by-vexels.png"}';
         $speaker->save();
+		
+		
+		
+		////***** Fair Two ////
+        $speaker = new Speaker();
+        $speaker->user_id = 5;
+        $speaker->description = 'Obra ganadora del Premio Guillermo de Baskerville 2017 a la mejor novela corta';
+        $speaker->title = "Escritora";
+        $speaker->resources = '{"url_image":"https://www.libros-prohibidos.com/wp-content/uploads/2017/06/los-principes-de-madera-Libros-Prohibidos-300x451.jpg"}';
+        $speaker->save();
+        
+        $speaker = new Speaker();
+        $speaker->user_id = 6;
+        $speaker->description = 'David Monteagudo (Vivero, Lugo, 1962) es un escritor español. En 2012, este relato fue llevado al cine con el mismo título, dirigida por Jorge Torregrossa. Desde entonces ha publicado siete nuevos libros. Ha sido traducido a seis idiomas';
+        $speaker->title = "Escritor";
+        $speaker->resources = '{"url_image":"https://www.libros-prohibidos.com/wp-content/uploads/2017/11/cronicas-del-amacrana-Libros-Prohibidos-300x451.jpg"}';
+        $speaker->save();
+		
+        $speaker = new Speaker();
+        $speaker->user_id = 7;
+        $speaker->description = 'Ngũgĩ wa Thiong\'o Kenia, 5 de enero de 19381​) es un escritor de Kenia. Ha escrito varias novelas, ensayos y cuentos; fundado el periódico en kikuyu Mutiiri y colaborado en el departamento de traducción e interpretación de la Universidad de California en Irvine. ';
+        $speaker->title = "Escritor";
+        $speaker->resources = '{"url_image":"http://t3.gstatic.com/licensed-image?q=tbn:ANd9GcSFHWyAhqMW1D11YySc-m2fY45z4nRtiiShSKCiMsWPdgNWd_0Hg-2KiVj7FVzy"}';
+        $speaker->save();
+
+
 
     }
 }

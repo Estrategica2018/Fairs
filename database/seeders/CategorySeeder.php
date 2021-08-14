@@ -37,5 +37,36 @@ class CategorySeeder extends Seeder
         $catAgend->fair_id = 1;
 		$catAgend->resources = '{"color":"pink"}';
         $catAgend->save();
+		
+		
+		
+		/** Fair two  **/
+		$catAgend = new Category();
+        $catAgend->type = 'AgendaType';
+		$catAgend->name = "Manga‎";
+        $catAgend->fair_id = 2;
+		$catAgend->resources = '{"color":"red"}';
+        $catAgend->save();
+		
+		$catAgend = new Category();
+        $catAgend->type = 'AgendaType';
+		$catAgend->name = "Novelas‎";
+        $catAgend->fair_id = 2;
+		$catAgend->resources = '{"color":"yellow"}';
+        $catAgend->save();
+		
+		$catAgend = new Category();
+        $catAgend->type = 'AgendaType';
+		$catAgend->name = "Ciencia Ficción";
+        $catAgend->fair_id = 2;
+		$catAgend->resources = '{"color":"pink"}';
+        $catAgend->save();
+
+		$catAgend = new Category();
+        $catAgend->type = 'AgendaType';
+		$catAgend->name = "Infantiles";
+        $catAgend->fair_id = 2;
+		$catAgend->resources = '{"color":"green"}';
+        $catAgend->save();		
     }
 }

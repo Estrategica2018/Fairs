@@ -46,6 +46,36 @@ class MerchantSeeder extends Seeder
         $merchant->social_media = "{}";
         $merchant->location = "{}";
         $merchant->save(); 
+		
+		
+		
+		//** Fair two*//
+		$merchant = new Merchant();
+        $merchant->nick = 'Cerbero';
+        $merchant->name = 'Daniel Pérez Navarro';
+        $merchant->resources = "{\"url_image\":\"https://www.libros-prohibidos.com/wp-content/uploads/2017/10/los-principes-de-madera-150x150.jpg\"}";
+        $merchant->social_media = "{}";
+        $merchant->location = "{}";
+        $merchant->save();        
+		
+		
+		$merchant = new Merchant();
+        $merchant->nick = 'Rayo Verde';
+        $merchant->name = 'David Monteagudo';
+        $merchant->resources = "{\"url_image\":\" https://www.libros-prohibidos.com/wp-content/uploads/2017/11/cronicas-del-amacrana-Libros-Prohibidos-300x451.jpg\"}";
+        $merchant->social_media = "{}";
+        $merchant->location = "{}";
+        $merchant->save();        
+        
+        
+		
+		$merchant = new Merchant();
+        $merchant->nick = 'Ngũgĩ wa Thiong’o';
+        $merchant->name = 'Ngũgĩ wa Thiong’o';
+        $merchant->resources = "{\"url_image\":\"https://www.libros-prohibidos.com/wp-content/uploads/2017/09/no-llores-pequeño-300x451.jpg\"}";
+        $merchant->social_media = "{}";
+        $merchant->location = "{}";
+        $merchant->save(); 
 
     }
 }
