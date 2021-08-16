@@ -97,7 +97,7 @@ Route::get('/agenda/getEmails/{fair_id}/{agenda_id}', 'AgendaController@getEmail
 Route::post('/category/create', 'CategoryController@create');
 Route::post('/category/update', 'CategoryController@update');
 Route::post('/category/delete', 'CategoryController@delete');
-Route::get('/category/to_list/{type}', 'CategoryController@to_list');
+Route::get('/category/to_list/{fair_id}/{type}', 'CategoryController@to_list');
 //*
 
 // super admin role rules

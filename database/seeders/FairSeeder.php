@@ -20,6 +20,8 @@ class FairSeeder extends Seeder
      */
     public function run()
     {
+		
+		//*** Fair 1 **//
         $fair = new Fair();
         $fair->name = 'feriatecnologica2021';
         $fair->description = 'XI Feria Tecnológica 2021';
@@ -31,6 +33,7 @@ class FairSeeder extends Seeder
         $fair->social_media = '{"icon":"assets/icon/icon.png","iconNight":"assets/icon/icon-black.png"}';
         $fair->save();
 		
+		//*** Fair 2 **//
         $fair = new Fair();
         $fair->name = 'libromania';
         $fair->description = 'I Feria Independiente del libro 2021';
@@ -42,6 +45,17 @@ class FairSeeder extends Seeder
         $fair->social_media = '{"icon":"assets/icon/icon.png","iconNight":"assets/icon/icon-black.png"}';
         $fair->save();
 		
-		
+
+        //*** Fair 3 **//
+        $fair = new Fair();
+        $fair->name = 'testsub';
+        $fair->description = 'I Feria Independiente del libro 2021';
+        $fair->halls_number = 1;
+        $fair->init_date = '2021-09-02';
+        $fair->end_date = '2021-09-17';
+        $fair->resources = '{"scenes":[]}';
+		$fair->location = '{}';
+        $fair->social_media = '{"icon":"assets/icon/icon.png","iconNight":"assets/icon/icon-black.png"}';
+        $fair->save();		
     }
 }

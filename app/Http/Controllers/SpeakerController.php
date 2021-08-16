@@ -12,15 +12,15 @@ class SpeakerController extends Controller
 
     public function list (Request $request){
 
-        $speakers = Speaker::with('user')
+        //$speakers = Speaker::with('user')
             //->whereHas('user',function ($query) use ($request) {
             //  $query->whereHas('role_user_fairs',function ($queryRol) use ($request){
             //      $queryRol->where('fair_id','=',$request->fair_id);
             //  });
             //})
-            ->with(['agenda'=>function ($queryAgenda) use ($request) {
-              $queryAgenda->where('fair_id','=',$request->fair_id);
-            }])->get();
+        //    ->with(['agenda'=>function ($queryAgenda) use ($request) {
+        //      $queryAgenda->where('fair_id','=',$request->fair_id);
+        //    }])->get();
            
         //$speakers = json_decode( $speakers,true);
         //
@@ -32,7 +32,16 @@ class SpeakerController extends Controller
         //        if($zoom['success'] == true)
         //            $speakers[$keyI]['agenda'][$key]['zoom'] = $zoom['data'];
         //    }
-        //}
+        //} 
+
+        /*$speakers = Speaker::with(['user.role_user_fairs' => function ($query) use ($request) {
+            $query->where('role_id',6);
+        }])->get();*/
+        
+        $speakers = Speaker::with('user')->whereHas('user.role_user_fairs',function ($query) use ($request) {
+            $query->where('fair_id', $request->fair_id);
+        })->get();
+
         
         return response()->json([
             'data' => $speakers,
