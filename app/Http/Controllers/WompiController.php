@@ -15,7 +15,7 @@ class WompiController extends Controller
         
         ///LOG
         $input = $request->all();
-        $id = $input['id'];
+        $id = isset($input['id']) ? $input['id'] : $request->id;
         $log_path = public_path(). '/payments-logs/';
         File::isDirectory($log_path) or File::makeDirectory($log_path, 0777, true, true);
         $file = 'payment-bash-'.date('YmdHis').'.txt';
