@@ -11,9 +11,11 @@ use File;
 
 class WompiController extends Controller
 {
-    public function index (Request $request,$id) {
+    public function index (Request $request) {
         
         ///LOG
+        $input = $request->all();
+        $id = $input['id'];
         $log_path = public_path(). '/payments-logs/';
         File::isDirectory($log_path) or File::makeDirectory($log_path, 0777, true, true);
         $file = 'payment-bash-'.date('YmdHis').'.txt';
