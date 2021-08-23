@@ -114,3 +114,8 @@ Route::post('/payment/user/fair', 'PaymentController@getPaymentUser');
 
 //contact support
 Route::post('/contactsupport/notification', 'ContactSupportController@notification');
+
+
+//products
+Route::get('/products/find_by/{fair_id?}/{pavilion_id?}/{stand_id?}/{product_id?}', 'ProductController@findBy');
+Route::post('/products/create', 'ProductController@create');

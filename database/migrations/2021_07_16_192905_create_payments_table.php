@@ -21,7 +21,7 @@ class CreatePaymentsTable extends Migration
 			$table->string('code_item_order')->comment('Código del elemento a pagar en la orden.. Código de la feria o código del evento o código del producto');
 			$table->string('payment_status')->comment('Código del estado de pago. 1.Pendiente, 2.Rechazado, 3.Aprobado');
 			$table->date('payment_date')->nullable()->comment('Fecha de pago realizado');
-			$table->date('reference')->comment('Referencia de pago generada');
+			$table->string('reference')->comment('Referencia de pago generada');
             $table->timestamps();
         });
     }
