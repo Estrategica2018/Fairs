@@ -13,10 +13,15 @@ class Product extends Model
 
         return $this->belongsTo(Stand::class,'stand_id','id');
     }
-	
+    
     public function prices(){
 
         return $this->hasMany(ProductPrice::class,'product_id','id');
+    }
+
+    public function category() {
+
+        return $this->belongsTo(Category::class,'category_id','id');
     }
  
 }

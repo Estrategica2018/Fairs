@@ -19,54 +19,54 @@ class CategorySeeder extends Seeder
 
         $catAgend = new Category();
         $catAgend->type = 'AgendaType';
-		$catAgend->name = "Emprenderismo";
+        $catAgend->name = "Emprenderismo";
         $catAgend->fair_id = 1;
-		$catAgend->resources = '{"color":"red"}';
+        $catAgend->resources = '{"color":"red"}';
         $catAgend->save();
-		
-		$catAgend = new Category();
+        
+        $catAgend = new Category();
         $catAgend->type = 'AgendaType';
-		$catAgend->name = "Tecnología";
+        $catAgend->name = "Tecnología";
         $catAgend->fair_id = 1;
-		$catAgend->resources = '{"color":"yellow"}';
+        $catAgend->resources = '{"color":"yellow"}';
         $catAgend->save();
-		
-		$catAgend = new Category();
+        
+        $catAgend = new Category();
         $catAgend->type = 'AgendaType';
-		$catAgend->name = "Negocios";
+        $catAgend->name = "Negocios";
         $catAgend->fair_id = 1;
-		$catAgend->resources = '{"color":"pink"}';
+        $catAgend->resources = '{"color":"pink"}';
         $catAgend->save();
-		
-		
-		
-		/** Fair two  **/
-		$catAgend = new Category();
+        
+        
+        
+        /** Fair two  **/
+        $catAgend = new Category();
         $catAgend->type = 'AgendaType';
-		$catAgend->name = "Manga‎";
+        $catAgend->name = "Manga‎";
         $catAgend->fair_id = 2;
-		$catAgend->resources = '{"color":"red"}';
+        $catAgend->resources = '{"color":"red"}';
         $catAgend->save();
-		
-		$catAgend = new Category();
+        
+        $catAgend = new Category();
         $catAgend->type = 'AgendaType';
-		$catAgend->name = "Novelas‎";
+        $catAgend->name = "Novelas‎";
         $catAgend->fair_id = 2;
-		$catAgend->resources = '{"color":"yellow"}';
+        $catAgend->resources = '{"color":"yellow"}';
         $catAgend->save();
-		
-		$catAgend = new Category();
+        
+        $catAgend = new Category();
         $catAgend->type = 'AgendaType';
-		$catAgend->name = "Ciencia Ficción";
+        $catAgend->name = "Ciencia Ficción";
         $catAgend->fair_id = 2;
-		$catAgend->resources = '{"color":"pink"}';
+        $catAgend->resources = '{"color":"pink"}';
         $catAgend->save();
 
-		$catAgend = new Category();
+        $catAgend = new Category();
         $catAgend->type = 'AgendaType';
-		$catAgend->name = "Infantiles";
+        $catAgend->name = "Infantiles";
         $catAgend->fair_id = 2;
-		$catAgend->resources = '{"color":"green"}';
-        $catAgend->save();		
+        $catAgend->resources = '{"color":"green"}';
+        $catAgend->save();        
     }
 }

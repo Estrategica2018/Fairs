@@ -62,7 +62,7 @@ class MerchantSeeder extends Seeder
 		$merchant = new Merchant();
         $merchant->nick = 'Rayo Verde';
         $merchant->name = 'David Monteagudo';
-        $merchant->resources = "{\"url_image\":\" https://www.libros-prohibidos.com/wp-content/uploads/2017/11/cronicas-del-amacrana-Libros-Prohibidos-300x451.jpg\"}";
+        $merchant->resources = "{\"url_image\":\"https://www.libros-prohibidos.com/wp-content/uploads/2017/11/cronicas-del-amacrana-Libros-Prohibidos-300x451.jpg\"}";
         $merchant->social_media = "{}";
         $merchant->location = "{}";
         $merchant->save();        

@@ -116,6 +116,16 @@ Route::post('/payment/user/fair', 'PaymentController@getPaymentUser');
 Route::post('/contactsupport/notification', 'ContactSupportController@notification');
 
 
-//products
-Route::get('/products/find_by/{fair_id?}/{pavilion_id?}/{stand_id?}/{product_id?}', 'ProductController@findBy');
-Route::post('/products/create', 'ProductController@create');
+//product
+Route::get('/product/find_by/{fair_id?}/{pavilion_id?}/{stand_id?}/{product_id?}', 'ProductController@findBy');
+Route::post('/product/create', 'ProductController@create');
+Route::post('/product/update/{product_id}', 'ProductController@update');
+Route::post('/product/delete/{product_id}', 'ProductController@delete');
+
+//product price
+Route::post('/product-price/create', 'ProductPriceController@create');
+Route::post('/product-price/update/{product_price_id}', 'ProductPriceController@update');
+Route::post('/product-price/delete/{product_price_id}', 'ProductPriceController@delete');
+
+
+

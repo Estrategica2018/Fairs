@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Stand;
 use App\Models\Product;
+use App\Models\ProductPrice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,10 +16,10 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             'fair_id'=>'required',
             'pavilion_id'=>'required',
-			'category_id'=>'',
-			'stand_id'=>'required',
-			'name'=>'required',
-			'description'=>'required',
+            'category_id'=>'',
+            'stand_id'=>'required',
+            'name'=>'required',
+            'description'=>'required',
         ]);
 
         if ($validator->fails()) {
@@ -32,10 +33,16 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->name = $data['name'];
-		$product->description = $data['description'];
-        if(isset($data['category_id'])) $product->category_id = $data['category_id'];
+        $product->description = $data['description'];
+        $product->category_id = $data['category_id'] ? $data['category_id'] : $product->category_id = 1;
         $product->stand_id = $data['stand_id'];
         $product->save();
+        
+        $productPrice = new ProductPrice();
+        $productPrice->resources = '{"images":[{"url_image":"https://dummyimage.com/114x105/EFEFEF/000.png"}]}';
+        $productPrice->product_id = $product->id;
+        $productPrice->price = 0;
+        $productPrice->save();
 
         return [
             'success' => 201,
@@ -47,10 +54,12 @@ class ProductController extends Controller
 
         $validator = Validator::make($request->all(), [
             'id'=>'required',
-            'merchant_id'=>'required',
+            'fair_id'=>'required',
             'pavilion_id'=>'required',
-            'resources'=>'required',
-            'stand_type_id'=>'required',
+            'category_id'=>'',
+            'stand_id'=>'required',
+            'name'=>'required',
+            'description'=>'required',
         ]);
 
         if ($validator->fails()) {
@@ -62,16 +71,16 @@ class ProductController extends Controller
 
         $data = $validator->validated();
 
-        $stand =  Stand::find($data['id']);
-        $stand->merchant_id = $data['merchant_id'];
-        $stand->pavilion_id = $data['pavilion_id'];
-        $stand->resources = $data['resources'];
-        $stand->stand_type_id = $data['stand_type_id'];
-        $stand->save();
-
+        $product = Product::find($data['id']);
+        $product->name = $data['name'];
+        $product->description = $data['description'];
+        $product->category_id = $data['category_id'] ? $data['category_id'] : $product->category_id = 1;
+        $product->stand_id = $data['stand_id'];
+        $product->save();
+        
         return [
             'success' => 201,
-            'data' => $stand,
+            'data' => $product,
         ];
     }
 
@@ -79,10 +88,10 @@ class ProductController extends Controller
         
         $validator = Validator::make($request->all(), [
             'fair_id'=>'required',
-			'pavilion_id'=>'',
-			'stand_id'=>'',
-			'product_id'=>''
-			
+            'pavilion_id'=>'',
+            'stand_id'=>'',
+            'product_id'=>''
+            
         ]);
 
         if ($validator->fails()) {
@@ -93,12 +102,25 @@ class ProductController extends Controller
         }
 
         $data = $validator->validated();
+        $standId = $data['stand_id'];
 
         /*$product = Product::with(['pavilion' => function ($query) use ($request) {
             $query->where('id',$request->pavilion_id);
         }])->get();*/
-		$products = Product::with('prices')->get();
-
+        
+        if(isset($data['product_id']) && $data['product_id'] != null && $data['product_id'] != 'null'){
+           
+           $products = Product::
+           with('prices','category')
+           ->where('id', '=', $data['product_id'])
+           ->get();        
+        }
+        else {
+           $products = Product::with('prices','category')
+            ->whereHas('stand', function($q) use($standId) {
+               $q->where('id', '=', $standId);
+            })->get();
+        }
         return [
             'success' => 201,
             'data' => $products,
@@ -120,8 +142,8 @@ class ProductController extends Controller
 
         $data = $validator->validated();
 
-        $stand =  Stand::find($data['id']);
-        $stand->delete();
+        $product =  Product::find($data['id']);
+        $product->delete();
         
         return [
             'success' => 201
