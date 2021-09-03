@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fair;
 use App\Models\RoleUserFair;
 use App\Models\Speaker;
 use App\Models\User;
+use App\Notifications\AccountRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -36,6 +38,12 @@ class UserController extends Controller
 
         $data = $validator->validated();
          
+        $fair = Fair::find($request->fair_id);
+        if(!$fair)
+            return [
+                'success' => 400,
+                'data' => 'Código de feria no existe',
+            ];
 
         $user = new User();
         $user->user_name = $data['user_name'];
@@ -61,6 +69,17 @@ class UserController extends Controller
             $speaker->title = $request->speaker["title"];
             $speaker->resources = $request->speaker["resources"];
             $speaker->save();
+        }
+
+
+
+        try{
+            $user->notify(  new AccountRegistration($user,$fair) );
+        }catch (\Exception $exception){
+            return [
+                'success' => 400,
+                'data' => $exception,
+            ];
         }
 
         return [
@@ -139,5 +158,30 @@ class UserController extends Controller
             return response()->json(['message' => 'La sesión ha cadudcado.'], 403);
         }
 
+    }
+
+    public function activate_account (Request $request, $user_id){
+
+        $user = User::where('id', $user_id)
+            ->first();
+
+        if (!$user)
+            return response()->json([
+                'message' => 'No fue posible encontrar el usuario.'
+            ], 404);
+
+        if($user->activate_account)
+            return response()->json([
+                'message' => 'Esta cuenta ya ha sido activada.'
+            ], 404);
+
+
+        $user->activate_account = true;
+        $user->save();
+
+        return response()->json([
+            'data' => $user,
+            'status' => 'successfull',
+        ],200);
     }
 }

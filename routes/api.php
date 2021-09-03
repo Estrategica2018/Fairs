@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('password/create', 'PasswordResetController@create');
 Route::get('password/find/{token}', 'PasswordResetController@find');
 Route::post('password/reset', 'PasswordResetController@reset');
+
+
 Route::get('/', function () {
     return [
         'result' => true,
@@ -43,67 +45,65 @@ Route::post('/logout', 'LoginController@logout')->middleware('auth:api');
 Route::get('/meetings', 'Zoom\MeetingController@list');
 
 // Create meeting room using topic, agenda, start_time.
-Route::post('/meetings', 'Zoom\MeetingController@create');
+Route::post('/meetings', 'Zoom\MeetingController@create');//permisos:superadministrado
 
 // Get information of the meeting room by ID.
 Route::get('/meetings/{id}', 'Zoom\MeetingController@get')->where('id', '[0-9]+');
-Route::patch('/meetings/{id}', 'Zoom\MeetingController@update')->where('id', '[0-9]+');
-Route::delete('/meetings/{id}', 'Zoom\MeetingController@delete')->where('id', '[0-9]+');
+Route::patch('/meetings/{id}', 'Zoom\MeetingController@update')->where('id', '[0-9]+');//permisos:superadministrado
+Route::delete('/meetings/{id}', 'Zoom\MeetingController@delete')->where('id', '[0-9]+');//permisos:superadministrado
 
 //
-Route::post('/fair/create', 'FairController@create');
+Route::post('/fair/create', 'FairController@create');//permisos:superadministrado
 Route::get('/fair/to_list', 'FairController@to_list');
 Route::get('/fair/find/{id?}', 'FairController@find');
+Route::post('/fair/update/{fair_id}', 'FairController@update');//permisos:superadministrado
 
 //*
 //
-Route::post('/pavilion/create', 'PavilionController@create');
-Route::post('/pavilion/create2', 'PavilionController@create');
+Route::post('/pavilion/create', 'PavilionController@create');//permisos:superadministrado
+Route::post('/pavilion/create2', 'PavilionController@create');//permisos:superadministrado
 Route::get('/pavilion/find_by_fair/{fair_id?}', 'PavilionController@find_by_fair');
-Route::post('/pavilion/update/{pavilionId}', 'PavilionController@update');
-Route::post('/pavilion/delete/{pavilionId}', 'PavilionController@delete');
+Route::post('/pavilion/update/{pavilionId}', 'PavilionController@update');//permisos:superadministrado
+Route::post('/pavilion/delete/{pavilionId}', 'PavilionController@delete');//permisos:superadministrado
 
 //*
 //
-Route::post('/merchant/create', 'MerchantController@create');
-Route::post('/merchant/update', 'MerchantController@update');
+Route::post('/merchant/create', 'MerchantController@create');//permisos:superadministrado
+Route::post('/merchant/update', 'MerchantController@update');//permisos:superadministrado
 Route::get('/merchant/to_list/{fair_id}', 'MerchantController@to_list');
 //*
 //
-Route::post('/stand/create', 'StandController@create');
-Route::post('/stand/update/{stand_id}', 'StandController@update');
-Route::post('/stand/delete/{stand_id}', 'StandController@delete');
+Route::post('/stand/create', 'StandController@create');//permisos:superadministrado
+Route::post('/stand/update/{stand_id}', 'StandController@update');//permisos:superadministrado
+Route::post('/stand/delete/{stand_id}', 'StandController@delete');//permisos:superadministrado
 Route::get('/stand/to_list/{pavilion_id?}', 'StandController@to_list');
 //*
 //
 Route::post('/user/create', 'UserController@create');
 Route::post('/user/update', 'UserController@update');
-Route::get('/user/to_list', 'UserController@to_list');
+Route::get('/user/to_list', 'UserController@to_list');//permisos:superadministrado
+Route::get('/user/activate/account/{user_id}', 'UserController@activate_account');
 //*
 //
-Route::post('/operator_user/create', 'OperatorUserController@create');
+Route::post('/operator_user/create', 'OperatorUserController@create');//permisos:superadministrado
 
 //*
 //
 Route::get('/speakers/meetings/{fair_id?}', 'SpeakerController@list');
-Route::post('/speakers/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_speakers');
+Route::post('/speakers/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_speakers');//permisos:superadministrado
 
 Route::get('/agenda/list/{fair_id?}/{pavilion_id?}/{stand_id?}', 'AgendaController@list');
 
 // super admin or admin role rules
-Route::get('/agenda/getEmails/{fair_id}/{agenda_id}', 'AgendaController@getEmails');
+Route::get('/agenda/getEmails/{fair_id}/{agenda_id}', 'AgendaController@getEmails');//permisos:superadministrado
 
 // super admin role rules
-Route::post('/category/create', 'CategoryController@create');
-Route::post('/category/update', 'CategoryController@update');
-Route::post('/category/delete', 'CategoryController@delete');
+Route::post('/category/create', 'CategoryController@create');//permisos:superadministrado
+Route::post('/category/update', 'CategoryController@update');//permisos:superadministrado
+Route::post('/category/delete', 'CategoryController@delete');//permisos:superadministrado
 Route::get('/category/to_list/{fair_id}/{type}', 'CategoryController@to_list');
 //*
 
-// super admin role rules
-Route::post('/fair/create', 'FairController@create');
-Route::post('/fair/update/{fair_id}', 'FairController@update');
-Route::post('/fair/delete', 'FairController@delete');
 
 Route::post('/audience/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_audience');
 Route::get('/meeting/generate-video-token/{fair_id?}/{meeting_id?}', 'AgendaController@generateVideoToken');

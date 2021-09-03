@@ -76,6 +76,8 @@ class LoginController extends Controller
         }
 
         return response()->json(['data' => $user->createToken('Auth Token')->accessToken, 'message' => 'Token generado satisfactoriamente', 'user' => $user], 200);
+        //user_roles_fair
+        //agregar los roles y ferias a los que pertence
     }
 
     public function logout(Request $request){

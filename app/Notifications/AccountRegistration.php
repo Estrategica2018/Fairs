@@ -7,21 +7,25 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class PasswordResetRequest extends Notification
+class AccountRegistration extends Notification
 {
     use Queueable;
 
-    protected $token;
-    protected $origin;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($token,$origin)
+    private $user;
+    private $fair;
+    private $origin;
+    public function __construct($user,$fair,$origin)
     {
-        $this->token = $token;
+        //
+        $this->user = $user;
+        $this->fair = $fair;
         $this->origin = $origin;
+
     }
 
     /**
@@ -43,11 +47,11 @@ class PasswordResetRequest extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = $this->origin.'/#/recoverPassword/'.$this->token;
         return (new MailMessage)
-            ->line('Estas recibiendo este correo porque nosotros hemos recibido una solicitud para restablecer la contraseña de tu cuenta.')
-            ->action('Restablecer Contraseña', url($url))
-            ->line('Si no solicitaste un restablecimiento de contraseña, no es necesario realizar ninguna otra acción.');
+            ->line('Esta recibiendo este correo porque se ha finalizado con éxito el registro de su cuenta.')
+            ->line('Deberá dar clic sobre este botón para activar su cuenta.')
+            ->action('Activar cuenta', $this->origin.'/user/activate/account/'.$this->user->id)
+            ->line('Gracias por usar nuestra aplicación!');
     }
 
     /**
