@@ -27,6 +27,7 @@ class UserController extends Controller
             'password'=>'required',
             'role_id'=>'required',
             'fair_id'=>'required',
+            'origin'=>'required',
         ]);
 
         if ($validator->fails()) {
@@ -71,15 +72,13 @@ class UserController extends Controller
             $speaker->save();
         }
 
-
-
         try{
-            $user->notify(  new AccountRegistration($user,$fair) );
+            $user->notify(  new AccountRegistration($user,$fair, $origin) );
         }catch (\Exception $exception){
-            return [
+            /*return [
                 'success' => 400,
                 'data' => $exception,
-            ];
+            ];*/
         }
 
         return [

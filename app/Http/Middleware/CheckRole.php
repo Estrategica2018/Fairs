@@ -17,15 +17,22 @@ class CheckRole
     public function handle(Request $request, Closure $next, $role)
     {
 
-        if (! $request->user()->hasRole($role)) {
+        $user = auth()->guard('api')->user();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'La sesión ha caducado.'
+            ], 411);
+        }
+
+        if(! $user->hasRole($role)) {
             return response()->json([
                 'message' => 'No tienes autorización para ingresar.'
             ], 403);
         }
 
-        return response()->json([
-            'message' => 'tienes autorización para ingresar.',
-            'request' => $next($request)
-        ], 200);
+        return response()->json(
+            $next($request)->original
+        , 200);
     }
 }
