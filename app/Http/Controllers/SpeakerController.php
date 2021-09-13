@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Zoom\MeetingController;
+
 use App\Models\Speaker;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SpeakerController extends Controller
 {
@@ -49,4 +50,42 @@ class SpeakerController extends Controller
             'success' => true,
         ], 201);
     }
+
+    public function update(Request $request){
+
+            $validator = Validator::make($request->all(), [
+                'user_id'=>'',
+                'description'=>'',
+                'title'=>'',
+                'resources'=>''
+            ]);
+
+            if ($validator->fails()) {
+                return [
+                    'success' => false,
+                    'data' => $validator->errors(),
+                ];
+            }
+
+            $speaker = Speaker::find($request->user_id);
+            if(!$speaker) {
+                $data = $validator->validated();
+
+                $speaker->user_name = $data['user_name'];
+                $speaker->description = $data['description'];
+                $speaker->title = $data['title'];
+                $speaker->resources = $data['resources'];
+                $speaker->save();
+
+                return [
+                    'success' => 201,
+                    'data' => $speaker,
+                ];
+            }
+            else {
+                return response()->json(['message' => 'No se puedo encontrar el conferencista.'], 403);
+            }
+
+        }
+
 }
