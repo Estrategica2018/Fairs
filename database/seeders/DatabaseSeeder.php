@@ -19,8 +19,10 @@ class DatabaseSeeder extends Seeder
         //$this->call(UserSeeder::class);
 		//$this->call(StandTypesSeeder::class);
 		//$this->call(CategorySeeder::class);
+		$this->call(CategorySeeder1::class);
+		$this->call(MerchantSeeder1::class);
 		//$this->call(MerchantSeeder::class);
 		//$this->call(SpeakerSeeder::class);
-		$this->call(UserAdminSeeder::class);
+		//$this->call(UserAdminSeeder::class);
     }
 }

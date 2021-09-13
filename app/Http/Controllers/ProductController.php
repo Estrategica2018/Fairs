@@ -103,6 +103,7 @@ class ProductController extends Controller
 
         $data = $validator->validated();
         $standId = $data['stand_id'];
+        $pavilionId = $data['pavilion_id'];
 
         /*$product = Product::with(['pavilion' => function ($query) use ($request) {
             $query->where('id',$request->pavilion_id);
@@ -115,10 +116,16 @@ class ProductController extends Controller
            ->where('id', '=', $data['product_id'])
            ->get();        
         }
-        else {
+        else if(isset($data['stand_id']) && $data['stand_id'] != null && $data['stand_id'] != 'null'){
            $products = Product::with('prices','category')
             ->whereHas('stand', function($q) use($standId) {
                $q->where('id', '=', $standId);
+            })->get();
+        }
+        else if(isset($data['pavilion_id']) && $data['pavilion_id'] != null && $data['pavilion_id'] != 'null'){
+           $products = Product::with('prices','category')
+            ->whereHas('stand', function($q) use($pavilionId) {
+               $q->where('pavilion_id', '=', $pavilionId);
             })->get();
         }
         return [
