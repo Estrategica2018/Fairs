@@ -88,4 +88,32 @@ class MerchantController extends Controller
         ];
     }
 
+    public function get_merchant(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'id'=>'required',
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+        $data = $validator->validated();
+
+        $merchant = Merchant::find($data['id']);
+        if($merchant){
+            return [
+                'success' => 201,
+                'data' => $merchant
+            ];
+        }else{
+            return [
+                'success' => false,
+                'data' => 'No se encontró el comercio',
+            ];
+        }
+
+    }
 }
