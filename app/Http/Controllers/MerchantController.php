@@ -35,6 +35,8 @@ class MerchantController extends Controller
         $merchant->resources = $data['resources'];
         $merchant->social_media = $data['social_media'];
         $merchant->location = $data['location'];
+        $merchant->name_contact = $data['name_contact'];
+        $merchant->name_eamil = $data['name_eamil'];
 
         $merchant->save();
 
@@ -53,7 +55,9 @@ class MerchantController extends Controller
             'nick'=>'required',
             'resources'=>'required',
             'social_media'=>'required',
-            'location'=>'required'
+            'location'=>'required',
+            'name_contact'=>'',
+            'email_contact'=>''
         ]);
 
         if ($validator->fails()) {
@@ -65,12 +69,13 @@ class MerchantController extends Controller
         $data = $validator->validated();
 
         $merchant = Merchant::find($data['id']);
-
         $merchant->name = $data['name'];
-        $merchant->name = $data['nick'];
-        $merchant->name = $data['resources'];
-        $merchant->name = $data['social_media'];
-        $merchant->name = $data['location'];
+        $merchant->nick = $data['nick'];
+        $merchant->resources = $data['resources'];
+        $merchant->social_media = $data['social_media'];
+        $merchant->location = $data['location'];
+        $merchant->name_contact = $data['name_contact'];
+        $merchant->email_contact = $data['email_contact'];
 
         $merchant->save();
         return [

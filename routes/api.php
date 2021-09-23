@@ -69,7 +69,7 @@ Route::post('/pavilion/delete/{pavilionId}', 'PavilionController@delete')->middl
 //*
 //
 Route::post('/merchant/create', 'MerchantController@create');//->middleware('role:super_administrador');
-Route::post('/merchant/update', 'MerchantController@update')->middleware('role:super_administrador');
+Route::post('/merchant/update', 'MerchantController@update');//->middleware('role:super_administrador');
 Route::get('/merchant/to_list/{fair_id}', 'MerchantController@to_list');
 Route::post('/merchant/get_merchant', 'MerchantController@get_merchant');//->middleware('role:super_administrador');
 //*
