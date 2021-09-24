@@ -20,7 +20,7 @@ class CreateFairTable extends Migration
             $table->integer('halls_number')->unsigned();
             $table->date('init_date')->comment('Descripción del rol del festival, evento o campaña promocional.');
             $table->date('end_date')->comment('Fecha de inicio del festival, evento o campaña.');
-            $table->longText('resources')->comment('Fecha de finalización del festival, evento o campaña.');
+            $table->longText('resources')->comment('Recursos de visualización en el Frontend.');
             $table->longText('location')->comment('Campo de recursos usado en el front');
             $table->longText('social_media')->comment('Ubicación del local comercial');
             $table->timestamps();

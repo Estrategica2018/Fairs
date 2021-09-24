@@ -73,7 +73,7 @@ class AgendaController extends Controller
         $validator = Validator::make($request->all(), [
             'fair_id' => 'required',
             'meeting_id' => 'required',
-            'invited_speakers' => 'required',
+            'invited_speakers' => '',
         ]);
 
         if ($validator->fails()) {

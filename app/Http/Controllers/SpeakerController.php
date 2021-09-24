@@ -41,9 +41,10 @@ class SpeakerController extends Controller
         
         $speakers = Speaker::with('user')->whereHas('user.role_user_fairs',function ($query) use ($request) {
             $query->where('fair_id', $request->fair_id);
-        })->get();
-
-        
+        })->with(['agenda'=>function ($queryAgenda) use ($request) {
+              $queryAgenda->where('fair_id','=',$request->fair_id);
+            }])->get();
+		
         return response()->json([
             'data' => $speakers,
             'message'=> 'Lista de conferencista con agenda',

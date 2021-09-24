@@ -60,6 +60,7 @@ class ProductController extends Controller
             'stand_id'=>'required',
             'name'=>'required',
             'description'=>'required',
+            'resources'=>'required',
         ]);
 
         if ($validator->fails()) {
@@ -74,6 +75,7 @@ class ProductController extends Controller
         $product = Product::find($data['id']);
         $product->name = $data['name'];
         $product->description = $data['description'];
+        $product->resources = $data['resources'];
         $product->category_id = $data['category_id'] ? $data['category_id'] : $product->category_id = 1;
         $product->stand_id = $data['stand_id'];
         $product->save();
