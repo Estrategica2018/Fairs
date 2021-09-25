@@ -20,14 +20,14 @@ class CategorySeeder1 extends Seeder
         $catAgend = new Category();
         $catAgend->type = 'ProductCategory';
         $catAgend->name = "Productos";
-        $catAgend->fair_id = 1;
+        $catAgend->fair_id = 4;
         $catAgend->resources = '{"color":"red"}';
         $catAgend->save();
         
         $catAgend = new Category();
         $catAgend->type = 'ProductCategory';
         $catAgend->name = "Servicios";
-        $catAgend->fair_id = 1;
+        $catAgend->fair_id = 4;
         $catAgend->resources = '{"color":"yellow"}';
         $catAgend->save();
         
