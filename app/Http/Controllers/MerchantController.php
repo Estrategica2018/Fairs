@@ -33,10 +33,10 @@ class MerchantController extends Controller
 
         $merchant = new Merchant();
         $merchant->name = $data['name'];
-        $merchant->nick = $data['nick'];
-        $merchant->resources = $data['resources'];
+        $merchant->nick = isset($data['nick'])?$data['nick']:'';
+        $merchant->resources = isset($data['resources'])?$data['resources']:'';
         $merchant->social_media = $data['social_media'];
-        $merchant->location = $data['location'];
+        $merchant->location = isset($data['location'])?$data['location']:'';
         $merchant->name_contact = $data['name_contact'];
         $merchant->email_contact = $data['email_contact'];
 
