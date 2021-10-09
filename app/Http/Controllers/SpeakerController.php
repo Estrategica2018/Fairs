@@ -3,13 +3,88 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Fair;
+use App\Models\RoleUserFair;
 use App\Models\Speaker;
+use App\Models\User;
+use App\Notifications\AccountRegistration;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class SpeakerController extends Controller
 {
     //
+
+    public function create (Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'user_name'=>'required',
+            'name'=>'required',
+            'last_name'=>'required',
+            'email'=>'required|email|unique:users,email',
+            'password'=>'required',
+            'fair_id'=>'required',
+            'origin'=>'required',
+            'profile_picture'=>'',
+            'company_logo'=>'',
+            'description_one'=>'requered',
+            'description_two'=>'requered',
+            'position'=>'requered',
+            'profession'=>'requered',
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+
+        $data = $validator->validated();
+        $fair = Fair::find($request->fair_id);
+        if(!$fair)
+            return [
+                'success' => 400,
+                'data' => 'Código de feria no existe',
+            ];
+
+        $user = new User();
+        $user->user_name = $data['user_name'];
+        $user->name = $data['name'];
+        $user->last_name = $data['last_name'];
+        $user->email = $data['email'];
+        if(isset($data['contact'])){
+            $user->contact = $data['contact'];
+        }
+        $user->password = Hash::make($data['password']);
+        $user->save();
+
+        $user_rol_fair = new RoleUserFair();
+        $user_rol_fair->user_id = $user->id;
+        $user_rol_fair->role_id = 6;
+        $user_rol_fair->fair_id = $data['fair_id'];
+        $user_rol_fair->save();
+
+
+        $speaker = new Speaker();
+        $speaker->user_id = $user->id;
+        $speaker->description = $request->speaker["description"];
+        $speaker->title = $request->speaker["title"];
+        $speaker->resources = $request->speaker["resources"];
+        $speaker->save();
+
+
+        try{
+            $user->notify(  new AccountRegistration($user,$fair, $origin) );
+        }catch (\Exception $exception){
+            /*return [
+                'success' => 400,
+                'data' => $exception,
+            ];*/
+        }
+
+    }
 
     public function list (Request $request){
 

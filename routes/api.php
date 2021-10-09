@@ -90,6 +90,7 @@ Route::post('/operator_user/create', 'OperatorUserController@create')->middlewar
 
 //*
 //
+Route::get('/speakers/create/', 'SpeakerController@create');
 Route::get('/speakers/meetings/{fair_id?}', 'SpeakerController@list');
 Route::post('/speaker/update/', 'SpeakerController@update');
 Route::post('/speakers/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_speakers')->middleware('role:super_administrador');
