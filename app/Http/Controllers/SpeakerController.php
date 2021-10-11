@@ -28,10 +28,10 @@ class SpeakerController extends Controller
             'origin'=>'required',
             'profile_picture'=>'',
             'company_logo'=>'',
-            'description_one'=>'requered',
-            'description_two'=>'requered',
-            'position'=>'requered',
-            'profession'=>'requered',
+            'description_one'=>'required',
+            'description_two'=>'required',
+            'position'=>'required',
+            'profession'=>'required',
         ]);
 
         if ($validator->fails()) {
