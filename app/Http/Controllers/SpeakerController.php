@@ -11,6 +11,7 @@ use App\Notifications\AccountRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use mysql_xdevapi\Collection;
 
 class SpeakerController extends Controller
 {
@@ -23,7 +24,7 @@ class SpeakerController extends Controller
             'name'=>'required',
             'last_name'=>'required',
             'email'=>'required|email|unique:users,email',
-            'password'=>'required',
+            //'password'=>'required',
             'fair_id'=>'required',
             'origin'=>'required',
             'profile_picture'=>'',
@@ -57,7 +58,7 @@ class SpeakerController extends Controller
         if(isset($data['contact'])){
             $user->contact = $data['contact'];
         }
-        $user->password = Hash::make($data['password']);
+        $user->password = Hash::make(12345678);
         $user->save();
 
         $user_rol_fair = new RoleUserFair();
@@ -69,21 +70,32 @@ class SpeakerController extends Controller
 
         $speaker = new Speaker();
         $speaker->user_id = $user->id;
-        $speaker->description = $request->speaker["description"];
-        $speaker->title = $request->speaker["title"];
-        $speaker->resources = $request->speaker["resources"];
+        $speaker->description = '';
+        $speaker->title = '';
+        $speaker->resources = '{}';
+        $speaker->profile_picture = $data['profile_picture'];
+        $speaker->company_logo = $data['company_logo'];
+        $speaker->description_one = $data['description_one'];
+        $speaker->description_two = $data['description_two'];
+        $speaker->position = $data['position'];
+        $speaker->profession = $data['profession'];
         $speaker->save();
 
 
         try{
-            $user->notify(  new AccountRegistration($user,$fair, $origin) );
+            $user->notify(  new AccountRegistration($user,$fair, $data['origin']) );
         }catch (\Exception $exception){
             /*return [
                 'success' => 400,
                 'data' => $exception,
             ];*/
         }
-
+        $user = collect($user);
+        $speaker = collect($speaker);
+        return [
+            'success' => 201,
+            'data' => $user->merge($speaker),
+        ];
     }
 
     public function list (Request $request){
