@@ -31,8 +31,8 @@ class SpeakerController extends Controller
             'company_logo'=>'',
             'description_one'=>'required',
             'description_two'=>'required',
-            'position'=>'required',
-            'profession'=>'required',
+            'position'=>'',
+            'profession'=>'',
         ]);
 
         if ($validator->fails()) {
@@ -55,6 +55,7 @@ class SpeakerController extends Controller
         $user->name = $data['name'];
         $user->last_name = $data['last_name'];
         $user->email = $data['email'];
+        $user->url_image = $data['profile_picture'];
         if(isset($data['contact'])){
             $user->contact = $data['contact'];
         }
@@ -142,10 +143,20 @@ class SpeakerController extends Controller
     public function update(Request $request){
 
             $validator = Validator::make($request->all(), [
-                'user_id'=>'',
-                'description'=>'',
-                'title'=>'',
-                'resources'=>''
+                'id'=>'required',
+                'user_name'=>'',
+                'name'=>'required',
+                'last_name'=>'required',
+                //'email'=>'required|email|unique:users,email',
+                //'password'=>'required',
+                //'fair_id'=>'required',
+                //'origin'=>'required',
+                'profile_picture'=>'',
+                'company_logo'=>'',
+                'description_one'=>'required',
+                'description_two'=>'required',
+                'position'=>'',
+                'profession'=>'',
             ]);
 
             if ($validator->fails()) {
@@ -155,20 +166,35 @@ class SpeakerController extends Controller
                 ];
             }
 
-            $speaker = Speaker::find($request->user_id);
-            if(!$speaker) {
-                $data = $validator->validated();
+            $speaker = Speaker::find($request->id);
 
-                $speaker->user_name = $data['user_name'];
-                $speaker->description = $data['description'];
-                $speaker->title = $data['title'];
-                $speaker->resources = $data['resources'];
-                $speaker->save();
+            if($speaker !== null) {
+                $user = User::find($speaker->user_id);
+                if($user !== null){
+                    $data = $validator->validated();
+                    $speaker->description = '';
+                    $speaker->title = '';
+                    $speaker->resources = '{}';
+                    $speaker->profile_picture = $data['profile_picture'];
+                    $speaker->company_logo = $data['company_logo'];
+                    $speaker->description_one = $data['description_one'];
+                    $speaker->description_two = $data['description_two'];
+                    $speaker->position = $data['position'];
+                    $speaker->profession = $data['profession'];
+                    $speaker->save();
 
-                return [
-                    'success' => 201,
-                    'data' => $speaker,
-                ];
+                    $user->name = $data['name'];
+                    $user->last_name = $data['last_name'];
+                    $user->url_image = $data['profile_picture'];
+                    $user->save();
+                    return [
+                        'success' => 201,
+                        'data' => $speaker,
+                    ];
+                }else{
+                    return response()->json(['message' => 'No se puedo encontrar el usuario.'], 403);
+                }
+
             }
             else {
                 return response()->json(['message' => 'No se puedo encontrar el conferencista.'], 403);
