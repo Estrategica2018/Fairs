@@ -114,18 +114,18 @@ class ProductController extends Controller
         if(isset($data['product_id']) && $data['product_id'] != null && $data['product_id'] != 'null'){
            
            $products = Product::
-           with('prices','category')
+           with('prices','stand','category')
            ->where('id', '=', $data['product_id'])
            ->get();        
         }
         else if(isset($data['stand_id']) && $data['stand_id'] != null && $data['stand_id'] != 'null'){
-           $products = Product::with('prices','category')
+           $products = Product::with('prices','stand','category')
             ->whereHas('stand', function($q) use($standId) {
                $q->where('id', '=', $standId);
             })->get();
         }
         else if(isset($data['pavilion_id']) && $data['pavilion_id'] != null && $data['pavilion_id'] != 'null'){
-           $products = Product::with('prices','category')
+           $products = Product::with('prices','stand','category')
             ->whereHas('stand', function($q) use($pavilionId) {
                $q->where('pavilion_id', '=', $pavilionId);
             })->get();
