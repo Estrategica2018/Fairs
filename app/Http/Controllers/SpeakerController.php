@@ -147,10 +147,6 @@ class SpeakerController extends Controller
                 'user_name'=>'',
                 'name'=>'required',
                 'last_name'=>'required',
-                //'email'=>'required|email|unique:users,email',
-                //'password'=>'required',
-                //'fair_id'=>'required',
-                //'origin'=>'required',
                 'profile_picture'=>'',
                 'company_logo'=>'',
                 'description_one'=>'required',
@@ -201,5 +197,31 @@ class SpeakerController extends Controller
             }
 
         }
+
+    public function delete(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'id'=>'required',
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+
+        $speaker = Speaker::find($request->id);
+        if($speaker !== null) {
+            $speaker->active = !$speaker->active;
+            $speaker->save();
+            return [
+                'success' => 201,
+                'data' => $speaker,
+            ];
+        }else{
+            return response()->json(['message' => 'No se puedo encontrar el conferencista.'], 403);
+        }
+    }
 
 }
