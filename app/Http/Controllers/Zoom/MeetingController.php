@@ -15,7 +15,8 @@ class MeetingController extends Controller
     use ZoomJWT;
 
     const MEETING_TYPE_INSTANT = 1;
-    const MEETING_TYPE_SCHEDULE = 2;
+    //const MEETING_TYPE_SCHEDULE = 2;
+    const MEETING_TYPE_SCHEDULE = 1;
     const MEETING_TYPE_RECURRING = 3;
     const MEETING_TYPE_FIXED_RECURRING_FIXED = 8;
 
@@ -259,12 +260,20 @@ class MeetingController extends Controller
             $agenda->timezone = $data['timezone'];
             $agenda->audience_config = $data['audience_config'];
             $agenda->save();
+			
+			return [
+              'success' => $response->status() === 204,
+              'data' => json_decode($agenda, true),
+            ];
         }
+		else {
+			return [
+            'success' => false,
+            'message' => json_decode($response, true),
+           ];	
+		}
         
-        return [
-            'success' => $response->status() === 204,
-            'data' => json_decode($agenda, true),
-        ];
+        
     }
 
     public function delete(Request $request, string $id)

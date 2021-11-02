@@ -119,7 +119,10 @@ class ProductController extends Controller
            ->get();        
         }
         else if(isset($data['stand_id']) && $data['stand_id'] != null && $data['stand_id'] != 'null'){
-           $products = Product::with('prices','stand','category')
+           $products = Product::with('prices','category')
+		    ->with(['stand'=>function($query) {
+				$query->select('id','pavilion_id');
+			}])
             ->whereHas('stand', function($q) use($standId) {
                $q->where('id', '=', $standId);
             })->get();
