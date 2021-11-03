@@ -57,7 +57,6 @@ Route::post('/fair/create', 'FairController@create')->middleware('role:super_adm
 Route::get('/fair/to_list', 'FairController@to_list');
 Route::get('/fair/find/{id?}', 'FairController@find');
 Route::post('/fair/update/{fair_id}', 'FairController@update')->middleware('role:super_administrador');
-
 //*
 //
 Route::post('/pavilion/create', 'PavilionController@create')->middleware('role:super_administrador');
@@ -117,7 +116,8 @@ Route::post('/payment/user/fair', 'PaymentController@getPaymentUser');
 
 
 //contact support
-Route::post('/contactsupport/notification', 'ContactSupportController@notification');
+Route::post('/fair/contactsupport/notification', 'ContactSupportController@notification');
+Route::post('/stand/contactsupport/notification', 'ContactSupportController@notification');
 
 
 //product
@@ -132,4 +132,4 @@ Route::post('/product-price/update/{product_price_id}', 'ProductPriceController@
 Route::post('/product-price/delete/{product_price_id}', 'ProductPriceController@delete');
 
 
-
+Route::post('/store/shopping_car', 'ShoppingCartController@store');
