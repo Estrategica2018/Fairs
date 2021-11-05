@@ -15,8 +15,6 @@ class CategorySeeder1 extends Seeder
      */
     public function run()
     {
-        //
-
         $catAgend = new Category();
         $catAgend->type = 'ProductCategory';
         $catAgend->name = "Productos";
