@@ -155,7 +155,7 @@ class MeetingController extends Controller
             $agenda->title = $meeting['topic'];
             $agenda->description = $meeting['agenda'];
             $agenda->duration_time = $data['duration_time'];
-            $agenda->start_at = strtotime($meeting['start_time']);
+            $agenda->start_at = isset($meeting['start_time']) ? strtotime($meeting['start_time']) : strtotime($data['start_time']);
             $agenda->fair_id = $data['fair_id'];
             $agenda->resources = $data['resources'];
             $agenda->timezone = $meeting['timezone'];
