@@ -82,7 +82,7 @@ class LoginController extends Controller
 
     public function logout(Request $request){
 		if($request->user()) {
-           $request->user()->tokens()->delete();
+           //$request->user()->tokens()->delete();
 		}
 
         return response()->json(['status'=>'successfull']);
