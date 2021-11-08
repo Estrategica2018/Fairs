@@ -32,6 +32,13 @@ class UserAdminSeeder1 extends Seeder
         $user_rol_fair->fair_id = 4;
         $user_rol_fair->save();
 		
+        $user = User::find(1);
+		$user_rol_fair = new RoleUserFair();
+        $user_rol_fair->user_id = $user->id;
+        $user_rol_fair->role_id = 1;
+        $user_rol_fair->fair_id = 4;
+        $user_rol_fair->save();
+		
 
 		
     }
