@@ -39,7 +39,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Login
 Route::post('/login', 'LoginController@login');
 
-Route::post('/logout', 'LoginController@logout')->middleware('auth:api');
+Route::post('/logout', 'LoginController@logout');
 
 // Get list of meetings.
 Route::get('/meetings', 'Zoom\MeetingController@list');
