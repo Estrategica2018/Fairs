@@ -14,4 +14,10 @@ class ShoppingCart extends Model
         return $this->belongsTo(productPrice::class,'product_price_id','id');
     }
 
+    public function agenda() {
+
+        return $this->belongsTo(Agendas::class,'agenda_id','id');
+
+    }
+
 }

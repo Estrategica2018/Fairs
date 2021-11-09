@@ -133,5 +133,7 @@ Route::post('/product-price/delete/{product_price_id}', 'ProductPriceController@
 
 
 Route::post('/store/shopping-cart/{fair_id}', 'ShoppingCartController@store');
-Route::get('/store/shopping-cart/{fair_id}', 'ShoppingCartController@list');
+Route::get('/list/shopping-cart/{fair_id}', 'ShoppingCartController@list');
+Route::get('/find/shopping-cart/{id}', 'ShoppingCartController@find');
+Route::post('/update/shopping-cart/', 'ShoppingCartController@update');
 
