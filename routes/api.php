@@ -132,4 +132,6 @@ Route::post('/product-price/update/{product_price_id}', 'ProductPriceController@
 Route::post('/product-price/delete/{product_price_id}', 'ProductPriceController@delete');
 
 
-Route::post('/store/shopping_car', 'ShoppingCartController@store');
+Route::post('/store/shopping-cart/{fair_id}', 'ShoppingCartController@store');
+Route::get('/store/shopping-cart/{fair_id}', 'ShoppingCartController@list');
+

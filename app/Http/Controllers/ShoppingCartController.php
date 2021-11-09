@@ -14,11 +14,11 @@ class ShoppingCartController extends Controller
 
         $validator = Validator::make($request->all(), [
             'fair_id'=> 'required',
-            'user_id'=> 'required',
+            //'user_id'=> 'required',
             'product_id'=> 'required',
             'product_price_id'=> 'required',
             'amount'=> 'required',
-            'references_id'=> 'required',
+            //'references_id'=> '',
             //'state'=> 'required',
         ]);
 
@@ -32,17 +32,56 @@ class ShoppingCartController extends Controller
 
         $shoppingCart = new ShoppingCart();
         $shoppingCart->fair_id = $data['fair_id'];
-        $shoppingCart->user_id = $data['user_id'];
+        
+        $user = auth()->guard('api')->user();
+        if (!$user) {
+            return response()->json([
+                'message' => 'La sesión ha caducado.'
+            ], 411);
+        }
+        
+        $shoppingCart->user_id = $user->id;
+        
         $shoppingCart->product_id = $data['product_id'];
         $shoppingCart->product_price_id = $data['product_price_id'];
         $shoppingCart->amount = $data['amount'];
-        $shoppingCart->references_id = $data['references_id'];
-        $shoppingCart->state = $data['state'];
+        $shoppingCart->references_id = ' ';
+        $shoppingCart->state = 'N';//$data['state'];
         $shoppingCart->save();
 
         return [
             'success' => 201,
             'data' => $shoppingCart
+        ];
+    }
+
+    public function list (Request $request) {
+
+        $validator = Validator::make($request->all(), [
+            'fair_id'=> 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+        $data = $validator->validated();
+		
+		$user = auth()->guard('api')->user();
+        if (!$user) {
+            return response()->json([
+                'message' => 'La sesión ha caducado.'
+            ], 411);
+        }
+		
+        $shoppingCarts = ShoppingCart::with('productPrice.product')
+		->where([["user_id",$user->id],["fair_id",$data['fair_id']]])
+		->get();
+        return [
+            'success' => 201,
+            'data' => $shoppingCarts
         ];
     }
 }
