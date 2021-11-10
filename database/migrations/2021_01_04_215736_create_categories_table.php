@@ -20,7 +20,9 @@ class CreateCategoriesTable extends Migration
             $table->longText('resources')->comment('Campo de recursos usado en el front.');
 			$table->bigInteger('fair_id')->nullable()->unsigned()->comment('Código único de la feria.');
 			$table->foreign('fair_id')->references('id')->on('fairs');
-            $table->timestamps();
+			$table->integer('category_id')->nullable()->comment('id padre de la categoría.');
+            $table->foreign('category_id')->references('id')->on('categories');
+			$table->timestamps();
         });
     }
 
