@@ -50,7 +50,7 @@ class ShoppingCartController extends Controller
         $shoppingCart->amount = $data['amount'];
         $shoppingCart->references_id = ' ';
         $shoppingCart->state = 'N';//$data['state'];
-        $shoppingCart->save();
+        //$shoppingCart->save();
 
         return [
             'success' => 201,
@@ -80,7 +80,7 @@ class ShoppingCartController extends Controller
         }
 		
         $shoppingCarts = ShoppingCart::with('productPrice.product')
-		->where([["user_id",$user->id],["fair_id",$data['fair_id']]])
+		->where([['state','N'],['user_id',$user->id]])
 		->get();
         return [
             'success' => 201,
@@ -126,27 +126,35 @@ class ShoppingCartController extends Controller
                 'data' => $validator->errors(),
             ];
         }
+		
+		$user = auth()->guard('api')->user();
+        if (!$user) {
+            return response()->json([
+                'message' => 'La sesión ha caducado.'
+            ], 411);
+        }
+
         $data = $validator->validated();
-        $shoppingCart = ShoppingCart::find($data['id']);
+        $shoppingCart = ShoppingCart::where([['id',$data['id']],['user_id',$user->id]])->first();
+		
         if(!$shoppingCart)
             return [
                 'success' => 400,
                 'data' => 'Código de carrito de compras no existe',
             ];
 
-        $shoppingCart->product_id = null;
-        $shoppingCart->product_price_id = null;
-        $shoppingCart->agenda_id = null;
-
-        if(isset($data['product_id']))
-            $shoppingCart->product_id = $data['product_id'];
-        if(isset($data['product_price_id']))
-            $shoppingCart->product_price_id = $data['product_price_id'];
-        if(isset($data['agenda_id']))
-            $shoppingCart->agenda_id = $data['agenda_id'];
-        $shoppingCart->amount = $data['amount'];
-        $shoppingCart->references_id = ' ';
-        $shoppingCart->state = $data['state'];
+        if(isset($request['product_id']))
+            $shoppingCart->product_id = $request['product_id'];
+        if(isset($request['product_price_id']))
+            $shoppingCart->product_price_id = $request['product_price_id'];
+        if(isset($request['agenda_id']))
+            $shoppingCart->agenda_id = $request['agenda_id'];
+        if(isset($request['amount']))
+			$shoppingCart->amount = $request['amount'];
+        if(isset($request['references_id']))
+            $shoppingCart->references_id = $request['references_id'];;
+        if(isset($request['state']))
+           $shoppingCart->state = $request['state'];
         $shoppingCart->save();
 
         return response()->json([
