@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\ShoppingCart;
 use App\Models\Payment;
 use Illuminate\Support\Str;
 
@@ -32,7 +33,12 @@ class PaymentController extends Controller
 
         $user = auth()->guard('api')->user();
         if($user) {
-            $payment = Payment::where([['user_id',$user->id],['type_order',$request->type],['code_item_order',$request->id],['payment_status',3]])->first();
+            if($request->id ==1) {
+              $payment = Payment::where([['user_id',$user->id],['type_order',$request->type],['code_item_order',$request->id],['payment_status',1]])->first();
+			}
+			else {
+              $payment = Payment::where([['user_id',$user->id],['type_order',$request->type],['code_item_order',$request->id],['payment_status',3]])->first();
+			}
             if(!$payment) {
                 $payment = new Payment();
                 $payment->user_id = $user->id;
@@ -42,6 +48,11 @@ class PaymentController extends Controller
                 $payment->payment_status = 1;
                 $payment->save();
             }
+			
+			if($request->id ==1) {
+			  $update = ShoppingCart::where([['user_id',$user->id],['state','N']])
+			  ->update(['references_id' => $payment->reference]);
+			}
 			
           return response()->json([
             'success' => 201, 

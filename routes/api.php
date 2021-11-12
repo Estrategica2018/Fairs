@@ -116,8 +116,8 @@ Route::post('/payment/user/fair', 'PaymentController@getPaymentUser');
 
 
 //contact support
-Route::post('/fair/contactsupport/notification', 'ContactSupportController@notification');
-Route::post('/stand/contactsupport/notification', 'ContactSupportController@notification');
+Route::post('/fair/contactsupport/notification', 'ContactSupportController@notification_support_fair');
+Route::post('/stand/contactsupport/notification', 'ContactSupportController@notification_support_stand');
 
 
 //product
