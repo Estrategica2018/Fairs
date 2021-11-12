@@ -26,7 +26,7 @@ class CreateShoppingCartTable extends Migration
             $table->foreign('product_price_id')->references('id')->on('product_prices');
             $table->integer('amount');
             $table->bigInteger('agenda_id')->nullable()->unsigned()->comment('Indice con la tabla agendas');
-            $table->foreign('agenda_id')->references('id')->on('agendas');
+            //$table->foreign('agenda_id')->references('id')->on('agendas');
             $table->longText('references_id')->nullable()->comment('Codigo de referencia para gateway de pago');
             $table->string('state')->nullable()->comment('Estado de carrito de compras: A: Anulado, C: Cancelado, R: Rechazado, P: pagado, N: nuevo');
             $table->timestamps();
