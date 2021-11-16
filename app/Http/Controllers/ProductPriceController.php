@@ -18,7 +18,7 @@ class ProductPriceController extends Controller
             'product_id'=>'required',
             'category_id'=>'',
             'resources'=>'required',
-            'price'=>'required',
+            'price'=>'',
         ]);
 
         if ($validator->fails()) {
@@ -52,7 +52,7 @@ class ProductPriceController extends Controller
             'product_id'=>'required',
             'category_id'=>'',
             'resources'=>'required',
-            'price'=>'required',
+            'price'=>'',
         ]);
 
         if ($validator->fails()) {
