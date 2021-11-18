@@ -15,8 +15,8 @@ class ShoppingCartController extends Controller
         $validator = Validator::make($request->all(), [
             'fair_id'=> 'required',
             //'user_id'=> 'required',
-            //'product_id'=> 'required',
-            //'product_price_id'=> 'required',
+            'product_id'=> '',
+            'product_price_id'=> '',
             'amount'=> 'required',
             //'references_id'=> '',
             //'state'=> 'required',
@@ -50,7 +50,7 @@ class ShoppingCartController extends Controller
         $shoppingCart->amount = $data['amount'];
         $shoppingCart->references_id = ' ';
         $shoppingCart->state = 'N';//$data['state'];
-        //$shoppingCart->save();
+        $shoppingCart->save();
 
         return [
             'success' => 201,

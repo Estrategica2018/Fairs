@@ -14,7 +14,7 @@ class AddPriceToFairTable extends Migration
     public function up()
     {
         Schema::table('fairs', function (Blueprint $table) {
-            $table->bigInteger('price')->after('end_date')->nullable();
+            $table->bigInteger('price')->after('end_date')->nullable()->comment('Precio base del producto');
         });
     }
 

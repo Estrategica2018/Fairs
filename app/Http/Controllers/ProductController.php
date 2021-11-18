@@ -20,6 +20,7 @@ class ProductController extends Controller
             'stand_id'=>'required',
             'name'=>'required',
             'description'=>'required',
+            'price'=>'',
         ]);
 
         if ($validator->fails()) {
@@ -36,6 +37,7 @@ class ProductController extends Controller
         $product->description = $data['description'];
         $product->category_id = $data['category_id'] ? $data['category_id'] : $product->category_id = 1;
         $product->stand_id = $data['stand_id'];
+        $product->price = $data['price'];
         $product->save();
         
         $productPrice = new ProductPrice();
@@ -60,6 +62,7 @@ class ProductController extends Controller
             'stand_id'=>'required',
             'name'=>'required',
             'description'=>'required',
+            'price'=>'',
             'resources'=>'required',
         ]);
 
@@ -78,6 +81,7 @@ class ProductController extends Controller
         $product->resources = $data['resources'];
         $product->category_id = $data['category_id'] ? $data['category_id'] : $product->category_id = 1;
         $product->stand_id = $data['stand_id'];
+		$product->price = $data['price'];
         $product->save();
         
         return [
