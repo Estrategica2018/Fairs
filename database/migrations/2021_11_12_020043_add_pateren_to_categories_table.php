@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,8 +14,8 @@ class AddPaterenToCategoriesTable extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->integer('category_id')->after('fair_id')->nullable()->comment('id padre de la categoría.');
-            $table->foreign('category_id')->references('id')->on('categories');
+           //$table->integer('category_id')->after('fair_id')->nullable()->comment('id padre de la categoría.');
+           //$table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
