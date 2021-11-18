@@ -18,7 +18,7 @@ class CreateCategoriesTable extends Migration
 			$table->string('type')->comment('Código del Tipo de categoría.');
             $table->string('name')->comment('Nombre de la categoría.');
             $table->longText('resources')->comment('Campo de recursos usado en el front.');
-			$table->bigInteger('category_id')->nullable()->comment('id padre de la categoría.');
+			$table->bigInteger('category_id')->nullable()->unsigned()->comment('id padre de la categoría.');
             $table->foreign('category_id')->references('id')->on('categories');
 			$table->bigInteger('fair_id')->nullable()->unsigned()->comment('Código único de la feria.');
 			$table->foreign('fair_id')->references('id')->on('fairs');
