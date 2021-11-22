@@ -106,11 +106,11 @@ class CategoryController extends Controller
     public function to_list($fair_id,$type){
 
         if($type=='all'){
-			return [
+            return [
             'success' => 201,
             'data' => Category::where([['fair_id',$fair_id]])->get()
             ];
-		}
+        }
         return [
             'success' => 201,
             'data' => Category::where([['type',$type],['fair_id',$fair_id]])->get()

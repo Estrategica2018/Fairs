@@ -260,18 +260,18 @@ class MeetingController extends Controller
             $agenda->timezone = $data['timezone'];
             $agenda->audience_config = $data['audience_config'];
             $agenda->save();
-			
-			return [
+            
+            return [
               'success' => $response->status() === 204,
               'data' => json_decode($agenda, true),
             ];
         }
-		else {
-			return [
+        else {
+            return [
             'success' => false,
             'message' => json_decode($response, true),
-           ];	
-		}
+           ];    
+        }
         
         
     }

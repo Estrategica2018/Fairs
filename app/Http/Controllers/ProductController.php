@@ -81,7 +81,7 @@ class ProductController extends Controller
         $product->resources = $data['resources'];
         $product->category_id = $data['category_id'] ? $data['category_id'] : $product->category_id = 1;
         $product->stand_id = $data['stand_id'];
-		$product->price = $data['price'];
+        $product->price = $data['price'];
         $product->save();
         
         return [
@@ -124,9 +124,9 @@ class ProductController extends Controller
         }
         else if(isset($data['stand_id']) && $data['stand_id'] != null && $data['stand_id'] != 'null'){
            $products = Product::with('prices','category')
-		    ->with(['stand'=>function($query) {
-				$query->select('id','pavilion_id');
-			}])
+            ->with(['stand'=>function($query) {
+                $query->select('id','pavilion_id');
+            }])
             ->whereHas('stand', function($q) use($standId) {
                $q->where('id', '=', $standId);
             })->get();

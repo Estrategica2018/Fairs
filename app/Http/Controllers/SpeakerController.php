@@ -132,7 +132,7 @@ class SpeakerController extends Controller
         })->with(['agenda'=>function ($queryAgenda) use ($request) {
               $queryAgenda->where('fair_id','=',$request->fair_id);
             }])->get();
-		
+        
         return response()->json([
             'data' => $speakers,
             'message'=> 'Lista de conferencista con agenda',

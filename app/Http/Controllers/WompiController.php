@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
+use App\Models\ShoppingCart;
 use File;
 
 class WompiController extends Controller
@@ -19,10 +21,16 @@ class WompiController extends Controller
         $log_path = public_path(). '/payments-logs/';
         File::isDirectory($log_path) or File::makeDirectory($log_path, 0777, true, true);
         $file = 'payment-bash-'.date('YmdHis').'.txt';
-	    $this->writeLog($log_path.'/'.$file,'----- Wompi Id ['.$id.']');
-		$this->writeLog($log_path.'/'.$file,$request);
-
-		return view('wompi.paymentViewer');
+        $this->writeLog($log_path.'/'.$file,'----- Wompi Id ['.$id.']');
+        $this->writeLog($log_path.'/'.$file,$request);
+        
+        $test = new TestApiWompiController();
+        $request->id = $input['id'];
+        $response = $test->auth($request, 'php');
+        
+       
+       return view('wompi.paymentViewer',['location'=>'http:']);
+       
     }
 
     public function writeLog($filename, $string) {

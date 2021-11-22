@@ -33,34 +33,41 @@ class PaymentController extends Controller
 
         $user = auth()->guard('api')->user();
         if($user) {
-            if($request->id ==1) {
-              $payment = Payment::where([['user_id',$user->id],['type_order',$request->type],['code_item_order',$request->id],['payment_status',1]])->first();
-			}
-			else {
-              $payment = Payment::where([['user_id',$user->id],['type_order',$request->type],['code_item_order',$request->id],['payment_status',3]])->first();
-			}
+
+            $payment = Payment::where([['user_id',$user->id],['type_order',$request->type],['code_item_order',$request->id],['payment_status',1]])->first();
+
             if(!$payment) {
                 $payment = new Payment();
                 $payment->user_id = $user->id;
                 $payment->type_order = $request->type;
                 $payment->code_item_order = $request->id;
-                $payment->reference = dechex(time()). '-' . $user->id  .'-'. Str::random(2);
+                $payment->reference = time(). '-' . $user->id  .'-'. Str::random(2);
                 $payment->payment_status = 1;
                 $payment->save();
             }
-			
-			if($request->id ==1) {
-			  $update = ShoppingCart::where([['user_id',$user->id],['state','N']])
-			  ->update(['references_id' => $payment->reference]);
-			}
-			
-          return response()->json([
-            'success' => 201, 
-            'publicKey'=>'pub_test_EbunIjUmrCtIyrh28fFqr9sFUVqI43XA',
-            'reference'=> $payment->reference,
-            'currency'=>'COP',
-            'message' => 'Referencia de pago tipo ['.$request->type.'] codigo de producto ['.$request->id.']!'
-          ]); 
+            else {
+                $test = new TestApiWompiController();
+                $request->id = $payment->reference;
+                $response = $test->auth($request, 'php');
+                if(isset($response['error']) && $response['error']['type']=='NOT_FOUND_ERROR') {
+                    $payment->reference = time(). '-' . $user->id  .'-'. Str::random(2);
+                    $payment->save();
+                } else {
+                    dd($response);
+                }
+            }
+            
+            $update = ShoppingCart::where([['user_id',$user->id],['state','N']])
+            ->update(['references_id' => $payment->reference]);
+            
+            return response()->json([
+              'success' => 201, 
+              'publicKey'=>'pub_test_EbunIjUmrCtIyrh28fFqr9sFUVqI43XA',
+              'reference'=> $payment->reference,
+              'currency'=>'COP',
+              'message' => 'Referencia de pago tipo ['.$request->type.'] codigo de producto ['.$request->id.']!'
+            ]);
+
         }
         else {
            return response()->json(['message' => 'La sesión ha cadudcado.'], 403);

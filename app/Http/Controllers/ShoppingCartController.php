@@ -11,6 +11,8 @@ class ShoppingCartController extends Controller
     //
 
     public function store (Request $request) {
+        
+        $stateNew = 'N';
 
         $validator = Validator::make($request->all(), [
             'fair_id'=> 'required',
@@ -29,8 +31,20 @@ class ShoppingCartController extends Controller
             ];
         }
         $data = $validator->validated();
-
-        $shoppingCart = new ShoppingCart();
+        
+        if(isset($data['product_price_id'])) {
+           $shoppingCart = ShoppingCart::
+           where([ ["product_id",$data['product_id']],["product_price_id",$data['product_price_id']], ["state",$stateNew]])
+           ->first();
+        }
+        if(isset($data['product_price_id'])) {
+           $shoppingCart = ShoppingCart::
+           where([["product_id",$data['product_id']],["product_price_id",$data['product_price_id'],["state",$stateNew]]])
+           ->first();
+        }
+        if(!$shoppingCart) {
+          $shoppingCart = new ShoppingCart();
+        }
         $shoppingCart->fair_id = $data['fair_id'];
         
         $user = auth()->guard('api')->user();
@@ -71,17 +85,17 @@ class ShoppingCartController extends Controller
             ];
         }
         $data = $validator->validated();
-		
-		$user = auth()->guard('api')->user();
+        
+        $user = auth()->guard('api')->user();
         if (!$user) {
             return response()->json([
                 'message' => 'La sesión ha caducado.'
             ], 411);
         }
-		
+        
         $shoppingCarts = ShoppingCart::with('productPrice.product')
-		->where([['state','N'],['user_id',$user->id]])
-		->get();
+        ->where([['state','N'],['user_id',$user->id]])
+        ->get();
         return [
             'success' => 201,
             'data' => $shoppingCarts
@@ -126,8 +140,8 @@ class ShoppingCartController extends Controller
                 'data' => $validator->errors(),
             ];
         }
-		
-		$user = auth()->guard('api')->user();
+        
+        $user = auth()->guard('api')->user();
         if (!$user) {
             return response()->json([
                 'message' => 'La sesión ha caducado.'
@@ -136,7 +150,7 @@ class ShoppingCartController extends Controller
 
         $data = $validator->validated();
         $shoppingCart = ShoppingCart::where([['id',$data['id']],['user_id',$user->id]])->first();
-		
+        
         if(!$shoppingCart)
             return [
                 'success' => 400,
@@ -150,7 +164,7 @@ class ShoppingCartController extends Controller
         if(isset($request['agenda_id']))
             $shoppingCart->agenda_id = $request['agenda_id'];
         if(isset($request['amount']))
-			$shoppingCart->amount = $request['amount'];
+            $shoppingCart->amount = $request['amount'];
         if(isset($request['references_id']))
             $shoppingCart->references_id = $request['references_id'];;
         if(isset($request['state']))
