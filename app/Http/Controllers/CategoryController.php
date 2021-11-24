@@ -18,7 +18,7 @@ class CategoryController extends Controller
             'type'=>'required',
             'name'=>'required',
             'fair_id'=>'required',
-            'resources'=>''
+            'resource'=>''
         ]);
 
         if ($validator->fails()) {
@@ -30,10 +30,10 @@ class CategoryController extends Controller
 
         $data = $validator->validated();
         $category = new Category();
-        $category->type = $data('type');
-        $category->name = $data('name');
-        $category->fair_id = $data('fair_id');
-        $category->resources = $data('resources');
+        $category->type = $data['type'];
+        $category->name = $data['name'];
+        $category->fair_id = $data['fair_id'];
+        $category->resources = json_encode($data['resource']);
         $category->save();
         
         return [
@@ -105,10 +105,13 @@ class CategoryController extends Controller
 
     public function to_list($fair_id,$type){
 
-        if($type=='all'){
+        if( $type =='all' ){
             return [
             'success' => 201,
-            'data' => Category::where([['fair_id',$fair_id]])->get()
+            'data' => Category::where([['fair_id',$fair_id]])->get(),
+            'data_category' => Category::where([['fair_id',$fair_id],['category_id',null]])->get(),
+            'data_subcategory' =>
+                Category::with('category')->whereHas('category')->where([['fair_id',$fair_id]])->get(),
             ];
         }
         return [
