@@ -102,9 +102,12 @@ Route::get('/agenda/getEmails/{fair_id}/{agenda_id}', 'AgendaController@getEmail
 
 // super admin role rules
 Route::post('/category/create', 'CategoryController@create');//->middleware('role:super_administrador');
-Route::post('/category/update', 'CategoryController@update')->middleware('role:super_administrador');
+Route::post('/category/update', 'CategoryController@update');//->middleware('role:super_administrador');
 Route::post('/category/delete', 'CategoryController@delete')->middleware('role:super_administrador');
 Route::get('/category/to_list/{fair_id}/{type}', 'CategoryController@to_list');
+Route::get('/category/get/{category_id}', 'CategoryController@get');
+
+Route::post('/subcategory/create', 'CategoryController@create_sub_category');//->middleware('role:super_administrador');
 //*
 
 

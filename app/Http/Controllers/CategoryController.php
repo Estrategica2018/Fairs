@@ -50,7 +50,7 @@ class CategoryController extends Controller
             'type'=>'required',
             'name'=>'required',
             'fair_id'=>'required',
-            'resources'=>''
+            'resource'=>''
         ]);
 
         if ($validator->fails()) {
@@ -62,15 +62,21 @@ class CategoryController extends Controller
 
         $data = $validator->validated();
         $category = Category::find($data['id']);
-        $category->type = $data('type');
-        $category->name = $data('name');
-        $category->fair_id = $data('fair_id');
-        $category->resources = $data('resources');
-        $category->save();
-        
+        if($category){
+            $category->type = $data['type'];
+            $category->name = $data['name'];
+            $category->fair_id = $data['fair_id'];
+            $category->resources = json_encode($data['resource']);
+            $category->save();
+
+            return [
+                'success' => 201,
+                'data' => $category
+            ];
+        }
         return [
-            'success' => 201,
-            'data' => $category
+            'success' => 401,
+            'data' => 'No se encontro la categoría'
         ];
     }
     
@@ -120,5 +126,55 @@ class CategoryController extends Controller
         ];
     }
 
+    public function get (Request $request , $category_id){
+
+        $category = Category::find($category_id);
+
+        if($category){
+            return [
+                'success' => true,
+                'data' => $category,
+            ];
+        }
+
+        return [
+            'success' => 404,
+            'message' => 'Categoría no encontrada',
+        ];
+
+    }
+
+    public function create_sub_category(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'category_id'=>'required',
+            'type'=>'required',
+            'name'=>'required',
+            'fair_id'=>'required',
+            'resource'=>''
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+
+        $data = $validator->validated();
+        $category = new Category();
+        $category->type = $data['type'];
+        $category->name = $data['name'];
+        $category->fair_id = $data['fair_id'];
+        $category->category_id = $data['category_id'];
+        $category->resources = json_encode($data['resource']);
+        $category->save();
+
+        return [
+            'success' => 201,
+            'data' => $category
+        ];
+
+    }
 
 }

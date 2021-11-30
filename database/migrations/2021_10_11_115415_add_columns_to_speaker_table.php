@@ -17,7 +17,7 @@ class AddColumnsToSpeakerTable extends Migration
             //
             $table->string('profile_picture')->nullable();
             $table->string('company_logo')->nullable();
-            $table->longText('description_one');
+            $table->longText('description_one')->nullable();
             $table->longText('description_two')->nullable();
             $table->string('position')->nullable();
             $table->string('profession')->nullable();
