@@ -84,11 +84,27 @@ class PaymentController extends Controller
         $user = auth()->guard('api')->user();
         
         if ($user) {
-          $payment = Payment::where(['user_id'=>$user->id,'type_order'=>$request->type,'code_item_order'=>$request->id,'payment_status'=>3])->first();
+          if($request->type == 'Event') {
+            $payment = Payment::
+			//with(['shoppingCart' => function ($query) use ($request) {
+               //$query->where('references_id',$request->id);
+			//}])
+			with('shoppingCart')
+			->whereHas('shoppingCart',function ($query) use ($request) {
+              $query->where('agenda_id', $request->id);
+            })
+			->where(['user_id'=>$user->id,'payment_status'=>3])
+			->first();
+			
+		  }
+		  else {
+			$payment = Payment::where(['user_id'=>$user->id,'type_order'=>$request->type,'code_item_order'=>$request->id,'payment_status'=>3])->first();
+		  }
+		  
           if($payment){
             return response()->json([
             'success' => 201, 
-            'message' => 'payment xxxxx!'
+            'message' => 'payment '.$payment->reference.'!'
             ]);  
           } else {
               return response()->json([

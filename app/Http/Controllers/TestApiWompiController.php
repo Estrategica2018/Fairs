@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\ShoppingCart;
+use App\Models\Payment;
 
 class TestApiWompiController extends Controller
 {
@@ -42,17 +45,20 @@ class TestApiWompiController extends Controller
             else {
               if($returnAction == 'html') { echo "CURL Susscess #:" . $response; }
               else {
-                if(isset($response) && $response && $response['sucess']) {
-                  if($response['sucess']['data']['status'] == 'APPROVED') {
-                    $payment = Payment::where('reference',$response['sucess']['data']['reference'])->first();
+                if(isset($response) && $response) {
+                  if($response['data']['status'] == 'APPROVED') {
+                    $payment = Payment::where('reference',$response['data']['reference'])->first();
                     $payment->payment_status = 3;
                     $payment->save();
-                    $validateShopping = ShoppingCart::where([['references_id',$response['sucess']['data']['reference']],['state','N']])->first();
+                    $validateShopping = ShoppingCart::where([['references_id',$response['data']['reference']],['state','N']])->first();
                     if($validateShopping && $validateShopping->state == 'N') {
-                      $update = ShoppingCart::where([['references_id',$response['sucess']['data']['reference']],['state','N']])
+                      $update = ShoppingCart::where([['references_id',$response['data']['reference']],['state','N']])
                       ->update(['state' => 'P' ]);
                     }
                   }
+				  else {
+					dd($response);
+				  }
                 }
                 return ["sucess"=>$response]; 
               }

@@ -20,7 +20,7 @@ class ShoppingCartController extends Controller
             'product_id'=> '',
             'product_price_id'=> '',
             'amount'=> 'required',
-            //'references_id'=> '',
+            'agenda_id'=> '',
             //'state'=> 'required',
         ]);
 
@@ -37,9 +37,9 @@ class ShoppingCartController extends Controller
            where([ ["product_id",$data['product_id']],["product_price_id",$data['product_price_id']], ["state",$stateNew]])
            ->first();
         }
-        if(isset($data['product_price_id'])) {
+        else if(isset($data['agenda_id'])) {
            $shoppingCart = ShoppingCart::
-           where([["product_id",$data['product_id']],["product_price_id",$data['product_price_id'],["state",$stateNew]]])
+           where([["agenda_id",$data['agenda_id']],["state",$stateNew]])
            ->first();
         }
         if(!$shoppingCart) {
@@ -93,7 +93,7 @@ class ShoppingCartController extends Controller
             ], 411);
         }
         
-        $shoppingCarts = ShoppingCart::with('productPrice.product')
+        $shoppingCarts = ShoppingCart::with(['productPrice.product','agenda'])
         ->where([['state','N'],['user_id',$user->id]])
         ->get();
         return [

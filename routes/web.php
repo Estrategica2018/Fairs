@@ -24,4 +24,4 @@ Route::get('viewerZoom/meetings/{fair_id}/{meeting_id}/{name?}/{email?}/{token?}
 Route::get('wompi/pagos/eventos/{id}', 'WompiController@index');
 Route::get('wompi/pagos/eventos', 'WompiController@index');
 
-Route::get('wompi/auth/{id}', 'TestApiWompiController@auth');
+Route::post('wompi/auth/{id}', 'TestApiWompiController@auth');
