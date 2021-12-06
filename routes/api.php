@@ -83,6 +83,7 @@ Route::post('/user/create', 'UserController@create');
 Route::post('/user/update', 'UserController@update');
 Route::get('/user/to_list', 'UserController@to_list')->middleware('role:super_administrador');
 Route::get('/user/activate/account/{user_id}', 'UserController@activate_account');
+Route::get('/user/find/{email}', 'UserController@find');
 //*
 //
 Route::post('/operator_user/create', 'OperatorUserController@create')->middleware('role:super_administrador');
