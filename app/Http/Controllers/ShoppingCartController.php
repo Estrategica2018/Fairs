@@ -16,12 +16,12 @@ class ShoppingCartController extends Controller
 
         $validator = Validator::make($request->all(), [
             'fair_id'=> 'required',
-            //'user_id'=> 'required',
             'product_id'=> '',
             'product_price_id'=> '',
             'amount'=> 'required',
             'agenda_id'=> '',
-            //'state'=> 'required',
+            'detail'=> '',
+            'price'=> '',
         ]);
 
         if ($validator->fails()) {
@@ -32,7 +32,7 @@ class ShoppingCartController extends Controller
         }
         $data = $validator->validated();
         
-        if(isset($data['product_price_id'])) {
+        /*if(isset($data['product_price_id'])) {
            $shoppingCart = ShoppingCart::
            where([ ["product_id",$data['product_id']],["product_price_id",$data['product_price_id']], ["state",$stateNew]])
            ->first();
@@ -44,7 +44,9 @@ class ShoppingCartController extends Controller
         }
         if(!$shoppingCart) {
           $shoppingCart = new ShoppingCart();
-        }
+        }*/
+		
+		$shoppingCart = new ShoppingCart();
         $shoppingCart->fair_id = $data['fair_id'];
         
         $user = auth()->guard('api')->user();
@@ -61,7 +63,11 @@ class ShoppingCartController extends Controller
             $shoppingCart->product_price_id = $data['product_price_id'];
         if(isset($data['agenda_id']))
             $shoppingCart->agenda_id = $data['agenda_id'];
-        $shoppingCart->amount = $data['amount'];
+        if(isset($data['detail']))
+            $shoppingCart->detail = $data['detail'];
+        if(isset($data['price']))
+            $shoppingCart->price = $data['price'];
+		$shoppingCart->amount = $data['amount'];
         $shoppingCart->references_id = ' ';
         $shoppingCart->state = 'N';//$data['state'];
         $shoppingCart->save();
