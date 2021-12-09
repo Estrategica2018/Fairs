@@ -30,7 +30,7 @@ class SpeakerController extends Controller
             'profile_picture'=>'',
             'company_logo'=>'',
             'description_one'=>'required',
-            'description_two'=>'required',
+            //'description_two'=>'required',
             'position'=>'',
             'profession'=>'',
         ]);
@@ -77,7 +77,7 @@ class SpeakerController extends Controller
         $speaker->profile_picture = $data['profile_picture'];
         $speaker->company_logo = $data['company_logo'];
         $speaker->description_one = $data['description_one'];
-        $speaker->description_two = $data['description_two'];
+        //$speaker->description_two = $data['description_two'];
         $speaker->position = $data['position'];
         $speaker->profession = $data['profession'];
         $speaker->save();
@@ -150,7 +150,7 @@ class SpeakerController extends Controller
                 'profile_picture'=>'',
                 'company_logo'=>'',
                 'description_one'=>'required',
-                'description_two'=>'required',
+                //'description_two'=>'required',
                 'position'=>'',
                 'profession'=>'',
             ]);
@@ -174,7 +174,7 @@ class SpeakerController extends Controller
                     $speaker->profile_picture = $data['profile_picture'];
                     $speaker->company_logo = $data['company_logo'];
                     $speaker->description_one = $data['description_one'];
-                    $speaker->description_two = $data['description_two'];
+                    //$speaker->description_two = $data['description_two'];
                     $speaker->position = $data['position'];
                     $speaker->profession = $data['profession'];
                     $speaker->save();

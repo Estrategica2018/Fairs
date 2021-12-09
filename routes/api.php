@@ -84,6 +84,9 @@ Route::post('/user/update', 'UserController@update');
 Route::get('/user/to_list', 'UserController@to_list')->middleware('role:super_administrador');
 Route::get('/user/activate/account/{user_id}', 'UserController@activate_account');
 Route::get('/user/find/{email}', 'UserController@find');
+Route::get('/user/sendSignConfirm/{email}', 'UserController@notifyConfirmEmail');
+Route::get('/user/sendSignConfirm/validate/{email}/{code}', 'UserController@validateConfirmEmail');
+Route::get('/user/sendSignConfirm/reset/{email}', 'UserController@resetNotifyConfirmEmail');
 //*
 //
 Route::post('/operator_user/create', 'OperatorUserController@create')->middleware('role:super_administrador');
@@ -109,6 +112,8 @@ Route::get('/category/to_list/{fair_id}/{type}', 'CategoryController@to_list');
 Route::get('/category/get/{category_id}', 'CategoryController@get');
 
 Route::post('/subcategory/create', 'CategoryController@create_sub_category');//->middleware('role:super_administrador');
+Route::post('/subcategory/update', 'CategoryController@update_sub_category');
+Route::get('/subcategory/get/{category_id}', 'CategoryController@get_sub_category');
 //*
 
 

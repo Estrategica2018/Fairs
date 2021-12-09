@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ConfirmAccount;
 use App\Models\Fair;
 use App\Models\RoleUserFair;
 use App\Models\Speaker;
 use App\Models\User;
 use App\Notifications\AccountRegistration;
+//use App\Notifications\Fair\ContactSupportRequest as ContactSupportRequestFair;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use File;
@@ -72,14 +75,18 @@ class UserController extends Controller
             $speaker->save();
         }
 
+
+        $code = '0123456789';
+        $code = substr(str_shuffle($code), 0, 6);
+        /*
         try{
-            $user->notify(  new AccountRegistration($user,$fair, $origin) );
+            $user->notify(  new AccountRegistration($user,$fair, $origin, $code) );
         }catch (\Exception $exception){
             /*return [
                 'success' => 400,
                 'data' => $exception,
             ];*/
-        }
+        //}
 
         return [
             'success' => 201,
@@ -200,5 +207,89 @@ class UserController extends Controller
                 'status' => 201
             ], 200);
         }
+    }
+
+    public function notifyConfirmEmail (Request $request, $email) {
+
+
+        $code = '0123456789';
+        $code = substr(str_shuffle($code), 0, 6);
+        $confirm_account = new ConfirmAccount();
+        $confirm_account->email = $email;
+        $confirm_account->code = $code;
+        $confirm_account->save();
+
+        try{
+            Notification::route('mail', $email)
+                ->notify(new AccountRegistration($email, $code));
+
+        }catch (\Exception $e){
+            return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
+        }
+        
+        return response()->json([
+            'success' => 201,
+            'message' => 'Hemos enviado un correo electrónico'
+        ]);
+    }
+
+    public function validateConfirmEmail (Request $request, $email,$code) {
+
+
+        $confirm_account = ConfirmAccount::where([
+            ['email',$email],
+        ])->first();
+
+        if($confirm_account){
+            if($confirm_account->code == $code){
+                $d1 = strtotime();
+                $d2 = strtotime($confirm_account->created_at);
+                $totalSecondsDiff = abs($d1 - $d2);
+                $totalMinutesDiff = $totalSecondsDiff / 60;
+                if( $totalMinutesDiff > 15 ){
+                    return response()->json(['message' => 'Error el código expiró, solicite otro código'], 403);
+                }else{
+                    return response()->json([
+                        'success' => 201,
+                        'message' => 'Hemos enviado un correo electrónico'
+                    ]);
+                }
+            }
+            return response()->json(['message' => 'Error, Código incorrecto'], 403);
+        }else{
+            return response()->json(['message' => 'Error no se encontro el correo'], 403);
+        }
+
+
+    }
+
+    public function resetNotifyConfirmEmail (Request $request, $email) {
+
+        $confirm_account = ConfirmAccount::where([
+            ['email',$email],
+        ])->first();
+
+        if($confirm_account){
+            $code = '0123456789';
+            $code = substr(str_shuffle($code), 0, 6);
+            $confirm_account = new ConfirmAccount();
+            $confirm_account->email = $email;
+            $confirm_account->code = $code;
+            $confirm_account->save();
+
+            try{
+                Notification::route('mail', $request->send_to)
+                    ->notify(new AccountRegistration($email, $code));
+                return response()->json([
+                    'success' => 201,
+                    'message' => 'Hemos enviado un correo electrónico'
+                ]);
+            }catch (\Exception $e){
+                return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
+            }
+        }
+
+        return response()->json(['message' => 'No se pudo reenviar el código, correo no valido .'], 403);
+
     }
 }

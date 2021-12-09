@@ -109,7 +109,7 @@ class CategoryController extends Controller
         ];
     }
 
-    public function to_list($fair_id,$type){
+    public function to_list(Request $request, $fair_id,$type){
 
         if( $type =='all' ){
             return [
@@ -175,6 +175,27 @@ class CategoryController extends Controller
             'data' => $category
         ];
 
+    }
+
+    public function update_sub_category(Request $request){
+        dd($request->all());
+    }
+
+    public function get_sub_category(Request $request, $sub_category_id){
+
+        $subcategory = Category::with('category')->whereHas('category')->where('id',$sub_category_id)->first();
+
+        if($subcategory){
+            return [
+                'success' => true,
+                'data' => $subcategory,
+            ];
+        }
+
+        return [
+            'success' => 404,
+            'message' => 'Categoría no encontrada',
+        ];
     }
 
 }
