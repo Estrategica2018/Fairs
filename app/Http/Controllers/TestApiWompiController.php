@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
+use App\Models\ShoppingCart;
+use App\Notifications\AccountRegistration;
+use App\Notifications\SuccessfulPayment;
+use App\Notifications\SuccessFulPaymentMechant;
+use App\Notifications\UnsuccessfulPayment;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\ShoppingCart;
-use App\Models\Payment;
+use Illuminate\Support\Facades\Notification;
 
 class TestApiWompiController extends Controller
 {
@@ -46,6 +51,7 @@ class TestApiWompiController extends Controller
               if($returnAction == 'html') { echo "CURL Susscess #:" . $response; }
               else {
                 if(isset($response) && $response) {
+                    //dd($response);
                   if($response['data']['status'] == 'APPROVED') {
                     $payment = Payment::where('reference',$response['data']['reference'])->first();
                     $payment->payment_status = 3;
@@ -55,10 +61,67 @@ class TestApiWompiController extends Controller
                       $update = ShoppingCart::where([['references_id',$response['data']['reference']],['state','N']])
                       ->update(['state' => 'P' ]);
                     }
-                  }
-				  else {
-					dd($response);
-				  }
+                      //if(!$payment->flag_notify){
+                          //enviar notificación usuario que pago
+                          //validar si tiene envio
+                          //enviar notificación responsable del local
+                        //$user = auth()->guard('api')->user();
+                        //if($user){
+                            try{
+                                Notification::route('mail', 'jesaleja07@hotmail.com')
+                                    ->notify(new SuccessfulPayment($response['data'] ));
+
+                                /*ShoppingCart::with()->where('references_id',$response['data']['reference'])->get();
+                                Notification::route('mail', 'cristianjojoa01@gmail.com')
+                                    ->notify(new SuccessfulPaymentMechant($response['data'] ));
+                                */
+                                $payment->flag_notify = true;
+                                $payment->save();
+                                dd('bien');
+
+                            }catch (\Exception $e){
+                                dd('mal',$e);
+                                return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
+                            }
+                        /*}else{
+                            return response()->json(['message' => 'La sesión ha cadudcado.'], 403);
+                        }*/
+
+//                      }
+                  }else if($response['data']['status'] == 'DECLINED') {
+                     // dd($response['data']['status'] == 'DECLINED',$response['data']);
+                        //$user = auth()->guard('api')->user();
+                        //if($user){
+                            $payment = Payment::where('reference',$response['data']['reference'])->first();
+                            $payment->payment_status = 2;
+                            $payment->save();
+                            /*$validateShopping = ShoppingCart::where([['references_id',$response['data']['reference']],['state','N']])->first();
+                            if($validateShopping && $validateShopping->state == 'N') {
+                                $update = ShoppingCart::where([['references_id',$response['data']['reference']],['state','N']])
+                                    ->update(['state' => 'P' ]);
+                                //enviar notificación
+                            }
+                            */
+                            //if(!$payment->flag_notify){
+                            //enviar notificación rechazo
+                            try{
+                                Notification::route('mail','jesaleja07@hotmail.com' )
+                                    ->notify(new UnsuccessfulPayment($response['data'] ));
+                                $payment->flag_notify = true;
+                                $payment->save();
+                                dd('bien');
+
+                            }catch (\Exception $e){
+                                dd('mal',$e);
+                                return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
+                            }
+                            //}
+                      //}else{
+                        //    return response()->json(['message' => 'La sesión ha cadudcado.'], 403);
+                       // }
+
+                      }
+
                 }
                 return ["sucess"=>$response]; 
               }

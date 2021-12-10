@@ -245,7 +245,7 @@ class UserController extends Controller
 
         if($confirm_account){
             if($confirm_account->code == $code){
-                $d1 = strtotime();
+                $d1 = strtotime('now');
                 $d2 = strtotime($confirm_account->created_at);
                 $totalSecondsDiff = abs($d1 - $d2);
                 $totalMinutesDiff = $totalSecondsDiff / 60;
@@ -266,33 +266,4 @@ class UserController extends Controller
 
     }
 
-    public function resetNotifyConfirmEmail (Request $request, $email) {
-
-        $confirm_account = ConfirmAccount::where([
-            ['email',$email],
-        ])->first();
-
-        if($confirm_account){
-            $code = '0123456789';
-            $code = substr(str_shuffle($code), 0, 6);
-            $confirm_account = new ConfirmAccount();
-            $confirm_account->email = $email;
-            $confirm_account->code = $code;
-            $confirm_account->save();
-
-            try{
-                Notification::route('mail', $request->send_to)
-                    ->notify(new AccountRegistration($email, $code));
-                return response()->json([
-                    'success' => 201,
-                    'message' => 'Hemos enviado un correo electrónico'
-                ]);
-            }catch (\Exception $e){
-                return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
-            }
-        }
-
-        return response()->json(['message' => 'No se pudo reenviar el código, correo no valido .'], 403);
-
-    }
 }

@@ -55,7 +55,7 @@ class AccountRegistration extends Notification
             ->line('Esta recibiendo este correo porque esta registrando su correo para la Feria.')
             //->line('Deberá dar clic sobre este botón y usuar el siguiente código para activar su cuenta.')
             ->line('Deberá usuar el siguiente código para activar su cuenta.')
-            //->line('Código:'.$this->code)
+            ->line('Código:'.$this->code)
             //->action('Activar cuenta', $this->origin.'/user/activate/account/'.$this->user->id)
             ->line('Gracias por usar nuestra aplicación!');
     }

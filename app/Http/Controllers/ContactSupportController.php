@@ -21,14 +21,14 @@ class ContactSupportController extends Controller
 
 
         try{
-            Notification::route('mail', 'cristianjojoa01@gmail.com')
+            Notification::route('mail', $request->send_to)
                 ->notify(new ContactSupportRequestFair($request));
             return response()->json([
                 'success' => 201,
                 'message' => 'Hemos enviado un correo electrónico al grupo de soporte'
             ]);
         }catch (\Exception $e){
-            return response()->json(['message' => 'Error enviando el correo electrónico .'], 403);
+            return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
         }
 
     }

@@ -7,20 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SuccessfulPayment extends Notification
+class SuccessfulPaymentMechant extends Notification
 {
     use Queueable;
-    private $data;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-
-    public function __construct($data)
+    public function __construct()
     {
         //
-        $this->data = $data;
     }
 
     /**
@@ -43,13 +41,9 @@ class SuccessfulPayment extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Se ha registrado un pago con esta Exitoso.')
-                    ->line('A continuación pude ver el detalle de la compra.')
-                    ->line('Metodo :'.$this->data['payment_method_type'])
-                    ->line('Costo total :'.$this->data['amount_in_cents'].' '.$this->data['currency'])
-                    ->line('Descripción :'.$this->data['payment_method']['payment_description'])
-                    ->line('Estado :'.$this->data['status'])
-                    ->line('Gracias por usar nuestra aplicación');
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**

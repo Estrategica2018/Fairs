@@ -82,7 +82,7 @@ class SpeakerController extends Controller
         $speaker->profession = $data['profession'];
         $speaker->save();
 
-
+/*
         try{
             $user->notify(  new AccountRegistration($user,$fair, $data['origin']) );
         }catch (\Exception $exception){
@@ -90,7 +90,8 @@ class SpeakerController extends Controller
                 'success' => 400,
                 'data' => $exception,
             ];*/
-        }
+        //}
+
         $user = collect($user);
         $speaker = collect($speaker);
         return [
