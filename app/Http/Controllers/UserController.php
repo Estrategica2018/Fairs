@@ -197,7 +197,7 @@ class UserController extends Controller
 
         if (!$user) {
             return response()->json([
-                'message' => 'No fue posible encontrar el usuario.',
+                'message' => 'No se encuentra el usuario.',
                 'status' => 404
             ], 200);
         }
@@ -214,8 +214,11 @@ class UserController extends Controller
 
         $code = '0123456789';
         $code = substr(str_shuffle($code), 0, 6);
-        $confirm_account = new ConfirmAccount();
-        $confirm_account->email = $email;
+		$confirm_account = ConfirmAccount::where('email',$email)->first();
+		if(!$confirm_account) {
+          $confirm_account = new ConfirmAccount();
+          $confirm_account->email = $email;
+		}
         $confirm_account->code = $code;
         $confirm_account->save();
 
