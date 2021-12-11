@@ -78,10 +78,10 @@ class ShoppingCartController extends Controller
         ];
     }
 
-    public function list (Request $request) {
+    public function list (Request $request, $fair_id) {
 
         $validator = Validator::make($request->all(), [
-            'fair_id'=> 'required'
+            'fair_id'=> ''
         ]);
 
         if ($validator->fails()) {
@@ -100,7 +100,7 @@ class ShoppingCartController extends Controller
         }
         
         $shoppingCarts = ShoppingCart::with(['productPrice.product','agenda'])
-        ->where([['state','N'],['user_id',$user->id]])
+        ->where([['state','N'],['user_id',$user->id], ['fair_id',$fair_id]])
         ->get();
         return [
             'success' => 201,
@@ -108,20 +108,11 @@ class ShoppingCartController extends Controller
         ];
     }
 
-    public function find(Request $request){
+    public function find(Request $request, $fair_id, $reference_id){
 
-        $validator = Validator::make($request->all(), [
-            'id'=> 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return [
-                'success' => false,
-                'data' => $validator->errors(),
-            ];
-        }
-        $data = $validator->validated();
-        $shoppingCart = ShoppingCart::with(['productPrice.product','agenda'])->find($data['id']);
+        $shoppingCart = ShoppingCart::with(['productPrice.product','agenda'])
+		//->find($data['id']);
+		->where([['fair_id',$fair_id],['references_id',$reference_id]])->get();
         if(!$shoppingCart)
             return [
                 'success' => 400,

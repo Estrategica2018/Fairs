@@ -1,3 +1,3 @@
-<div>
-Payment Wompi
-</div>
+<script>
+   window.location = "<?php echo $location?>";
+</script>

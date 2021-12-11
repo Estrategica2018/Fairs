@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Payment;
 use App\Models\ShoppingCart;
 use File;
+use Illuminate\Support\Facades\App;
 
 class WompiController extends Controller
 {
@@ -27,9 +28,20 @@ class WompiController extends Controller
         $test = new TestApiWompiController();
         $request->id = $input['id'];
         $response = $test->auth($request, 'php');
-        
-       
-       return view('wompi.paymentViewer',['location'=>'http:']);
+		$reference = $response['sucess']['data']['reference'];
+		
+		$validateShopping = ShoppingCart::with('fair')->where('references_id',$reference)->first();
+		$references_id = $validateShopping->references_id;
+		
+		$environment = App::environment();
+		if (App::environment('local')) {
+			$href = 'http://localhost:8100/payment/' . $references_id;
+		}
+		else {
+			$href = 'http://' . $validateShopping->fair->name . '.e-logic.com.co/Fair-website/payment/' . $references_id;
+		}
+
+       return view('wompi.paymentViewer',['location'=>$href]);
        
     }
 

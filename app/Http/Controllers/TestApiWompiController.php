@@ -77,10 +77,10 @@ class TestApiWompiController extends Controller
                                 */
                                 $payment->flag_notify = true;
                                 $payment->save();
-                                dd('bien');
+                                //dd('bien');
 
                             }catch (\Exception $e){
-                                dd('mal',$e);
+                                //dd('mal',$e);
                                 return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
                             }
                         /*}else{
