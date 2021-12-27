@@ -119,7 +119,7 @@ class MeetingController extends Controller
             'timezone' => 'required|string',
             'category_id' => 'required|numeric',
             'fair_id' => 'required|numeric',
-            'resources' => 'string|nullable    ',
+            'resources' => 'nullable',
             'token' => 'string|nullable',
             'audience_config' => 'required|string'
         ]);
@@ -157,7 +157,9 @@ class MeetingController extends Controller
             $agenda->duration_time = $data['duration_time'];
             $agenda->start_at = isset($meeting['start_time']) ? strtotime($meeting['start_time']) : strtotime($data['start_time']);
             $agenda->fair_id = $data['fair_id'];
-            $agenda->resources = $data['resources'];
+			if(isset($data['resources'])) {
+				$agenda->resources = $data['resources'];
+			}
             $agenda->timezone = $meeting['timezone'];
             $agenda->category_id = $data['category_id'];
             $agenda->audience_config = $data['audience_config'];
@@ -216,7 +218,7 @@ class MeetingController extends Controller
             'timezone' => 'required|string',
             'fair_id' => 'required|numeric',
             'price' => 'numeric',
-            'resources' => 'string',
+            'resources' => 'nullable',
             'token' => 'string|nullable',
             'audience_config' => 'required|string'
         ]);
