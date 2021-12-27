@@ -99,7 +99,7 @@ class ShoppingCartController extends Controller
             ], 411);
         }
         
-        $shoppingCarts = ShoppingCart::with(['productPrice.product','agenda'])
+        $shoppingCarts = ShoppingCart::with(['productPrice.product','agenda.category'])
         ->where([['state','N'],['user_id',$user->id], ['fair_id',$fair_id]])
         ->get();
         return [
