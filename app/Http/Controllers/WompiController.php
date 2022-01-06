@@ -28,18 +28,18 @@ class WompiController extends Controller
         $test = new TestApiWompiController();
         $request->id = $input['id'];
         $response = $test->auth($request, 'php');
-		$reference = $response['sucess']['data']['reference'];
-		
-		$validateShopping = ShoppingCart::with('fair')->where('references_id',$reference)->first();
-		$references_id = $validateShopping->references_id;
-		
-		$environment = App::environment();
-		if (App::environment('local')) {
-			$href = 'http://localhost:8100/payment/' . $references_id;
-		}
-		else {
-			$href = 'http://' . $validateShopping->fair->name . '.e-logic.com.co/Fair-website/payment/' . $references_id;
-		}
+        $reference = $response['sucess']['data']['reference'];
+        
+        $validateShopping = ShoppingCart::with('fair')->where('references_id',$reference)->first();
+        $references_id = $validateShopping->references_id;
+        
+        $environment = App::environment();
+        if (App::environment('local')) {
+            $href = 'http://localhost:8100/payment/' . $references_id;
+        }
+        else {
+            $href = 'http://' . $validateShopping->fair->name . '.e-logic.com.co/Fair-website/payment/' . $references_id;
+        }
 
        return view('wompi.paymentViewer',['location'=>$href]);
        

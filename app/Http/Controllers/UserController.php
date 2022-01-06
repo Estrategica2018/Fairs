@@ -127,11 +127,13 @@ class UserController extends Controller
             $data = $validator->validated();
             
             $fileName = null;
+            $app_url = env('APP_URL', 'http://127.0.0.1:8000');
+            
             if(isset($data['image'])){
                 $image = $request->image;  // your base64 encoded
                 $extension = explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];   // .jpg .png .pdf
                 
-                $fileName = '/images_users/'. date('mdYHis') . uniqid() . '_user_' . $user->id .'.' .$extension;
+                $fileName = 'images_users/'. date('mdYHis') . uniqid() . '_user_' . $user->id .'.' .$extension;
                  
                 $image = str_replace('data:image/png;base64,', '', $image);
                 $image = str_replace('data:image/jpeg;base64,', '', $image);
@@ -140,14 +142,23 @@ class UserController extends Controller
                 if(!Storage::exists($path.'/images_users')){
                     Storage::makeDirectory($path.'/images_users');
                 }
-                File::put($path . '/public' . $fileName, base64_decode($image));
+                File::put($path . '/public/' . $fileName, base64_decode($image));
+                
+                $speaker = Speaker::where('user_id', $user->id)->first();
+                if($speaker) {
+                    $speaker->profile_picture = $app_url .'/'. $fileName;
+                    $speaker->save();
+                }
+                
             }
             
             if(isset($data['user_name']))  $user->user_name = $data['user_name'];
             if(isset($data['name'])) $user->name = $data['name'];
             if(isset($data['last_name'])) $user->last_name = $data['last_name'];
             if(isset($data['email'])) $user->email = $data['email'];
-            if($fileName) $user->url_image = $fileName;
+            if($fileName) { 
+              $user->url_image = $app_url .'/'. $fileName;
+            }
             if(isset($data['contact'])){ 
                 $user->contact = $data['contact'];
             }
@@ -214,11 +225,11 @@ class UserController extends Controller
 
         $code = '0123456789';
         $code = substr(str_shuffle($code), 0, 6);
-		$confirm_account = ConfirmAccount::where('email',$email)->first();
-		if(!$confirm_account) {
+        $confirm_account = ConfirmAccount::where('email',$email)->first();
+        if(!$confirm_account) {
           $confirm_account = new ConfirmAccount();
           $confirm_account->email = $email;
-		}
+        }
         $confirm_account->code = $code;
         $confirm_account->save();
 
