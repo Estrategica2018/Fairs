@@ -265,13 +265,16 @@ class UserController extends Controller
                 }else{
                     return response()->json([
                         'success' => 201,
-                        'message' => 'Hemos enviado un correo electrónico'
+                        'message' => 'Código validado exitósamente'
                     ]);
                 }
             }
-            return response()->json(['message' => 'Error, Código incorrecto'], 403);
+            return response()->json([
+                'error' => 200,
+                'message' => 'Código incorrecto'
+            ]);
         }else{
-            return response()->json(['message' => 'Error no se encontro el correo'], 403);
+            return response()->json(['message' => 'Error no se encontró el correo'], 403);
         }
 
 

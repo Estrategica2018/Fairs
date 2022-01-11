@@ -110,7 +110,7 @@ class ShoppingCartController extends Controller
 
     public function find(Request $request, $fair_id, $reference_id){
 
-        $shoppingCart = ShoppingCart::with(['productPrice.product','agenda'])
+        $shoppingCart = ShoppingCart::with(['productPrice.product','agenda.category'])
         //->find($data['id']);
         ->where([['fair_id',$fair_id],['references_id',$reference_id]])->get();
         if(!$shoppingCart)

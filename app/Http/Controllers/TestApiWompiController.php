@@ -68,7 +68,7 @@ class TestApiWompiController extends Controller
                         //$user = auth()->guard('api')->user();
                         //if($user){
                             try{
-                                Notification::route('mail', 'jesaleja07@hotmail.com')
+                                Notification::route('mail', 'davithc01@gmail.com')
                                     ->notify(new SuccessfulPayment($response['data'] ));
 
                                 /*ShoppingCart::with()->where('references_id',$response['data']['reference'])->get();
@@ -105,7 +105,7 @@ class TestApiWompiController extends Controller
                             //if(!$payment->flag_notify){
                             //enviar notificación rechazo
                             try{
-                                Notification::route('mail','jesaleja07@hotmail.com' )
+                                Notification::route('mail','davithc@gmail.com' )
                                     ->notify(new UnsuccessfulPayment($response['data'] ));
                                 $payment->flag_notify = true;
                                 $payment->save();
