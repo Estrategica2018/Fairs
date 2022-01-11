@@ -13,6 +13,7 @@ class ShoppingCartController extends Controller
     public function store (Request $request) {
         
         $stateNew = 'N';
+		$shoppingCart = null;
 
         $validator = Validator::make($request->all(), [
             'fair_id'=> 'required',
