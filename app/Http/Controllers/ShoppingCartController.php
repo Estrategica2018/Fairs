@@ -13,6 +13,7 @@ class ShoppingCartController extends Controller
     public function store (Request $request) {
         
         $stateNew = 'N';
+		$shoppingCart = null;
 
         $validator = Validator::make($request->all(), [
             'fair_id'=> 'required',
@@ -32,21 +33,21 @@ class ShoppingCartController extends Controller
         }
         $data = $validator->validated();
         
-        /*if(isset($data['product_price_id'])) {
-           $shoppingCart = ShoppingCart::
-           where([ ["product_id",$data['product_id']],["product_price_id",$data['product_price_id']], ["state",$stateNew]])
-           ->first();
-        }
-        else if(isset($data['agenda_id'])) {
+        if(isset($data['agenda_id'])) {
            $shoppingCart = ShoppingCart::
            where([["agenda_id",$data['agenda_id']],["state",$stateNew]])
            ->first();
         }
+        /*else if(isset($data['product_price_id'])) {
+           $shoppingCart = ShoppingCart::
+           where([ ["product_id",$data['product_id']],["product_price_id",$data['product_price_id']], ["state",$stateNew]])
+           ->first();
+        }*/
+        
         if(!$shoppingCart) {
           $shoppingCart = new ShoppingCart();
-        }*/
-		
-		$shoppingCart = new ShoppingCart();
+        }
+        
         $shoppingCart->fair_id = $data['fair_id'];
         
         $user = auth()->guard('api')->user();
@@ -67,7 +68,7 @@ class ShoppingCartController extends Controller
             $shoppingCart->detail = $data['detail'];
         if(isset($data['price']))
             $shoppingCart->price = $data['price'];
-		$shoppingCart->amount = $data['amount'];
+        $shoppingCart->amount = $data['amount'];
         $shoppingCart->references_id = ' ';
         $shoppingCart->state = 'N';//$data['state'];
         $shoppingCart->save();
@@ -110,9 +111,9 @@ class ShoppingCartController extends Controller
 
     public function find(Request $request, $fair_id, $reference_id){
 
-        $shoppingCart = ShoppingCart::with(['productPrice.product','agenda'])
-		//->find($data['id']);
-		->where([['fair_id',$fair_id],['references_id',$reference_id]])->get();
+        $shoppingCart = ShoppingCart::with(['productPrice.product','agenda.category'])
+        //->find($data['id']);
+        ->where([['fair_id',$fair_id],['references_id',$reference_id]])->get();
         if(!$shoppingCart)
             return [
                 'success' => 400,

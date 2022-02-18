@@ -137,23 +137,23 @@ class AgendaController extends Controller
     public function generateVideoToken(Request $request, $fair_id, $meeting_id ) {
         
         $agenda = Agendas::with('audience')->find($meeting_id);
+		$user = auth()->guard('api')->user();
 
-        if($agenda->audience_config == 2) {
-            $user = auth()->guard('api')->user();
-            if($user) {
+        if($user) {
+			function microtime_float() {
+			  list($usec, $sec) = explode(" ", microtime());
+			  return ((float)$usec + (float)$sec);
+			}
+			$time = microtime_float();
+			$token = uniqid('user_').$user->id.$time;
+			
+			if($agenda->audience_config == 2) {
                $email = $user->email;
                foreach($agenda->audience as $audience) {
                   if($audience->email === $email) {
-                      function microtime_float()
-                      {
-                          list($usec, $sec) = explode(" ", microtime());
-                          return ((float)$usec + (float)$sec);
-                      }
-                      usleep(100);
-                      $time = microtime_float();
-                      $audience->token = uniqid('user_').$user->id.$time;
+                      $audience->token = $token;
+                      $audience->user_id = $user->id;
                       $audience->save();
-                    
                     return [
                       'success' => 201,
                       'data' => $audience->token,
@@ -164,20 +164,36 @@ class AgendaController extends Controller
                   'success' => 402,
                   'message' => 'agenda no configurada para el usuario',
                 ];
-            }
-            else {
-                return [
-                      'success' => 403,
-                      'message' => 'La sesión ha caducado',
-                    ];
-            }
-        }
-        else {
-            return [
-              'success' => 404,
-              'message' => 'agenda no configurada con restricción de lista de correo',
-          ];
-        }
+			}
+			else {
+				$audience = Audience::where([['agenda_id',$agenda->id],['email',$user->email]])->first();
+				
+				if(!$audience) {
+				  $audience = new Audience();
+				  $audience->agenda_id = $agenda->id;
+				  $audience->email = $user->email;
+				  $audience->user_id = $user->id;
+				}
+				$audience->check = 1;
+				$audience->token = $token;
+				$audience->save();
+				return [
+				  'success' => 201,
+				  'data' => $audience->token,
+				];
+				$audience->save();
+
+				
+				
+				
+			}
+		}
+		else {
+			return [
+				  'success' => 403,
+				  'message' => 'La sesión ha caducado',
+				];
+		}
     }
     
     // super admin or admin role rules
