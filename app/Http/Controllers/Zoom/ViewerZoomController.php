@@ -6,6 +6,7 @@ use App\Models\Agendas;
 use App\Models\InvitedSpeaker;
 use App\Models\RoleUserFair;
 use App\Models\Audience;
+use App\Models\Fair;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -75,7 +76,8 @@ class ViewerZoomController extends Controller
             ];
 			
             session_start();
-			$_SESSION["newFair"]=$agenda->fair_id;
+			$fair = Fair::find($agenda->fair_id);
+			$_SESSION["newFair"]='https://'.$fair->name.'.e-logic.com.co/Fair-website/#/schedule';
             return view('zoom.zoomViewer',$opt);
         }
         else {
