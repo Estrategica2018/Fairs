@@ -19,8 +19,7 @@ Route::get('/', function () {
 
 Route::get('/index.html', function () {
 	session_start();
-	dd($_SESSION["newFair"]);
-    return view('welcome2s');
+    return '<script> window.location='.$_SESSION["newFair"].'</script>';
 });
 
 
