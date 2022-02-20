@@ -18,12 +18,8 @@ Route::get('/', function () {
 });
 
 Route::get('/index.html', function () {
-	dd('hola index');
-    return view('welcome2s');
-});
-
-Route::get('/index', function () {
-	dd('hola index');
+	session_start();
+	dd($_SESSION["newFair"]);
     return view('welcome2s');
 });
 
