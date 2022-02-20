@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Zoom;
 
 use App\Http\Controllers\Controller;
 use App\Models\Agendas;
+use App\Models\InvitedSpeaker;
+use App\Models\Audience;
 use App\Traits\ZoomJWT;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -285,6 +287,11 @@ class MeetingController extends Controller
         
         $meeting = json_decode($response->body(), true);
         if($response->status() === 204 || $meeting['code'] === 3001) {
+			
+			
+			InvitedSpeaker::where('agenda_id',$id)->delete();
+			Audience::where('agenda_id',$id)->delete();
+			
             $agenda = Agendas::where('zoom_code',$id);
             $agenda->delete();
         }
