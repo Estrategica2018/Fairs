@@ -17,11 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/index.php', function () {
+Route::get('/index.html', function () {
+	dd('hola index');
     return view('welcome2s');
 });
 
 Route::get('/index', function () {
+	dd('hola index');
     return view('welcome2s');
 });
 
