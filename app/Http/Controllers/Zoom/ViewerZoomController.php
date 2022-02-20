@@ -74,7 +74,8 @@ class ViewerZoomController extends Controller
               'apiKey'=>$API_KEY
             ];
 			
-            
+            session_start();
+			$_SESSION["newFair"]=$agenda->fair_id;
             return view('zoom.zoomViewer',$opt);
         }
         else {
