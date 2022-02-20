@@ -17,6 +17,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/index.php', function () {
+    return view('welcome2s');
+});
+
+Route::get('/index', function () {
+    return view('welcome2s');
+});
+
+
 //zoom viewer client
 Route::get('viewerZoom/meetings/{token}', 'Zoom\ViewerZoomController@index');
 
