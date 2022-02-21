@@ -11,14 +11,18 @@ class SuccessfulPaymentMechant extends Notification
 {
     use Queueable;
 
+    private $data;
+    private $merchant;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct( $data , $merchant)
     {
         //
+        $this->data = $data;
+        $this->merchant = $merchant;
     }
 
     /**
@@ -41,9 +45,13 @@ class SuccessfulPaymentMechant extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('Se ha registrado un pago para su comercio '. $this->merchant['name'] .'  con estado Exitoso.')
+            ->line('A continuación pude ver el detalle de la compra.')
+            ->line('Metodo :'.$this->data['payment_method_type'])
+            ->line('Costo total :'.$this->merchant['total'])
+            ->line('Descripción :'.$this->data['payment_method']['payment_description'])
+            ->line('Estado :'.$this->data['status'])
+            ->line('Gracias por usar nuestra aplicación');
     }
 
     /**

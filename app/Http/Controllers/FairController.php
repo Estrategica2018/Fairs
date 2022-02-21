@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Fair;
 use App\Models\Pavilion;
+use App\Notifications\ContactSupportRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
 class FairController extends Controller
@@ -142,4 +144,5 @@ class FairController extends Controller
         ];
 
     }
+
 }

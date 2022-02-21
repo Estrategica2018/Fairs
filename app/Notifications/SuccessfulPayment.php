@@ -10,17 +10,21 @@ use Illuminate\Notifications\Notification;
 class SuccessfulPayment extends Notification
 {
     use Queueable;
-    private $data;
+    private $transaction;
+    private $shoppingCart;
+    private $totalPrice;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
 
-    public function __construct($data)
+    public function __construct($transaction,$shoppingCart,$totalPrice)
     {
         //
-        $this->data = $data;
+        $this->transaction = $transaction;
+        $this->shoppingCart = $shoppingCart;
+        $this->totalPrice = $totalPrice;
     }
 
     /**
@@ -42,7 +46,14 @@ class SuccessfulPayment extends Notification
      */
     public function toMail($notifiable)
     {
+
+        return (new MailMessage)->view('notifications.successfulPayment')
+            ->with('transaction', $this->transaction)
+            ->with('shoppingCart', $this->shoppingCart)
+            ->with('totalPrice', $this->totalPrice);
+        /*
         return (new MailMessage)
+
                     ->line('Se ha registrado un pago con esta Exitoso.')
                     ->line('A continuación pude ver el detalle de la compra.')
                     ->line('Metodo :'.$this->data['payment_method_type'])
@@ -50,6 +61,7 @@ class SuccessfulPayment extends Notification
                     ->line('Descripción :'.$this->data['payment_method']['payment_description'])
                     ->line('Estado :'.$this->data['status'])
                     ->line('Gracias por usar nuestra aplicación');
+            */
     }
 
     /**

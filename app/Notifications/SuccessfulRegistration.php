@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Notifications\Stand;
+namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ContactSupportRequest extends Notification
+class SuccessfulRegistration extends Notification
 {
     use Queueable;
 
@@ -40,14 +40,7 @@ class ContactSupportRequest extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->view('notifications.stand.contactSupportRequest')
-            ->with('data',$this->request);
-
-        return (new MailMessage)
-            ->line('Notificación Contacto Soporte')
-            ->line(''.$this->request->name.' ha registrado una solicitud de soporte con el siguiente mensaje:')
-            ->line(''.$this->request->message)
-            ->line('Correo registrado : '.$this->request->email);
+        return (new MailMessage)->view('notifications.successfulRegistration');
     }
 
     /**

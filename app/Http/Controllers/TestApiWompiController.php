@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Merchant;
 use App\Models\Payment;
+use App\Models\Product;
 use App\Models\ShoppingCart;
 use App\Notifications\AccountRegistration;
 use App\Notifications\SuccessfulPayment;
@@ -68,13 +70,47 @@ class TestApiWompiController extends Controller
                         //$user = auth()->guard('api')->user();
                         //if($user){
                             try{
-                                Notification::route('mail', 'davithc01@gmail.com')
-                                    ->notify(new SuccessfulPayment($response['data'] ));
-
-                                /*ShoppingCart::with()->where('references_id',$response['data']['reference'])->get();
+                                $shoppingCart = ShoppingCart::with('product.stand.merchant')->where('references_id',$response['data']['reference'])->get();
+                                $totalPrice = 0;
+                                foreach ($shoppingCart as $data){
+                                    $totalPrice += intval($data->price);
+                                }
                                 Notification::route('mail', 'cristianjojoa01@gmail.com')
-                                    ->notify(new SuccessfulPaymentMechant($response['data'] ));
-                                */
+                                    ->notify(new SuccessfulPayment($response['data'],$shoppingCart ,$totalPrice));
+
+                                $shoppingCart = ShoppingCart::with('product.stand.merchant')->where('references_id',$response['data']['reference'])->get()->unique('product_id');
+                                $array_merchant = [];
+                                foreach ($shoppingCart as $merchant){
+                                    if(!in_array($merchant->product->stand->merchant->id,$array_merchant)){
+                                        array_push($array_merchant,$merchant->product->stand->merchant->id);
+                                    }
+                                }
+                                $merchant_users = Merchant::with('stand')->whereIn('id',$array_merchant)->get();
+                                $merchant_data = [];
+                                foreach($merchant_users as $index => $merchant_user){
+                                    $temp_array = ['name' =>$merchant_user->name,'total'=>0];
+                                    $merchant_list_products = Product::whereIn('stand_id',$merchant_user->stand->pluck('id'))->get();
+                                    $merchant_list_products_ids = Product::whereIn('stand_id',$merchant_user->stand->pluck('id'))->get()->pluck('id')->toArray();
+
+                                    $shoppingCart = ShoppingCart::where('references_id',$response['data']['reference'])->get();
+                                    $total = 0;
+                                    foreach ($shoppingCart as $product){
+                                        if(in_array($product->product_id,$merchant_list_products_ids)){
+                                            //dd('existe',$merchant_list_product->id);
+                                            $total += $merchant_list_products->where('id',$product->product_id)->first()->price * $product->amount;
+
+                                        }
+
+                                    }
+                                    $temp_array['total'] = $total;
+                                    array_push($merchant_data,$temp_array);
+                                    Notification::route('mail', $merchant_user->email_contact)
+                                        ->notify(new SuccessfulPaymentMechant( $response['data'] , $temp_array ) );
+                                }
+                                //dd($merchant_data);
+
+
+
                                 $payment->flag_notify = true;
                                 $payment->save();
                                 //dd('bien');

@@ -43,6 +43,9 @@ class ContactSupportRequest extends Notification
      */
     public function toMail($notifiable)
     {
+        return (new MailMessage)->view('notifications.fair.contactSupportRequest')
+            ->with('data',$this->request);
+
         return (new MailMessage)
                     ->line('Notificación Contacto Soporte')
                     ->line(''.$this->request->name.' ha registrado una solicitud de soporte con el siguiente mensaje:')

@@ -24,5 +24,9 @@ class ShoppingCart extends Model
         return $this->belongsTo(Fair::class,'fair_id','id');
     }
 
+    public function product () {
 
+        return $this->belongsTo(Product::class,'product_id','id');
+
+    }
 }

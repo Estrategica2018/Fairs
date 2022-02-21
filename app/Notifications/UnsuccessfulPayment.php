@@ -43,6 +43,10 @@ class UnsuccessfulPayment extends Notification
      */
     public function toMail($notifiable)
     {
+        return (new MailMessage)->view('notifications.unsuccessfulPayment')
+            ->with('transaction', $this->transaction);
+
+        /*
         return (new MailMessage)
                     ->line('Se ha registrado un pago con esta Declinado.')
                     ->line('A continuación pude ver el detalle de la compra.')
@@ -51,6 +55,7 @@ class UnsuccessfulPayment extends Notification
                     ->line('Descripción :'.$this->data['payment_method']['payment_description'])
                     ->line('Estado :'.$this->data['status'])
                     ->line('Gracias por usar nuestra aplicación');
+        */
     }
 
     /**
