@@ -315,7 +315,7 @@ class MeetingController extends Controller
             $agenda->delete();
 			
 			return [
-            'success' => true;
+            'success' => true,
             'data' => json_decode($response->body(), true),
             ];
         }
