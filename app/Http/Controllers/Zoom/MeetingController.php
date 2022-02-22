@@ -291,7 +291,7 @@ class MeetingController extends Controller
             $agenda->save();
             
             return [
-              'success' => $response->status() === 204,
+              'success' => true,
               'data' => json_decode($agenda, true),
             ];
         }
