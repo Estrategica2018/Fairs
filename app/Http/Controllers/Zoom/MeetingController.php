@@ -271,10 +271,29 @@ class MeetingController extends Controller
             ];
         }
         else {
+           // return [
+           // 'success' => false,
+           // 'message' => json_decode($response, true),
+           //];    
+		   
+		    
+            $agenda = Agendas::find($data['id']);
+            $agenda->title = $data['topic'];
+            $agenda->description = $data['agenda'];
+            $agenda->duration_time = $data['duration_time'];
+            $agenda->start_at = strtotime($data['start_time']);
+            $agenda->fair_id = $data['fair_id'];
+            $agenda->category_id = $data['category_id'];
+            $agenda->resources = $data['resources'];
+            $agenda->price = isset($data['price']) ? $data['price'] : 0;
+            $agenda->timezone = $data['timezone'];
+            $agenda->audience_config = $data['audience_config'];
+            $agenda->save();
+            
             return [
-            'success' => false,
-            'message' => json_decode($response, true),
-           ];    
+              'success' => $response->status() === 204,
+              'data' => json_decode($agenda, true),
+            ];
         }
         
         
@@ -294,10 +313,16 @@ class MeetingController extends Controller
 			
             $agenda = Agendas::where('zoom_code',$id);
             $agenda->delete();
-        }
-        return [
-            'success' => $response->status() === 204 || $meeting['code'] === 3001,
+			
+			return [
+            'success' => true;
             'data' => json_decode($response->body(), true),
+            ];
+        }
+		
+        return [
+            'success' => true,
+            'data' => null
         ];
     }
 }
