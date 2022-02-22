@@ -8,7 +8,7 @@ use App\Models\RoleUserFair;
 use App\Models\Speaker;
 use App\Models\User;
 use App\Notifications\AccountRegistration;
-//use App\Notifications\Fair\ContactSupportRequest as ContactSupportRequestFair;
+use App\Notifications\SuccessfulRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
@@ -75,18 +75,13 @@ class UserController extends Controller
             $speaker->save();
         }
 
-
-        $code = '0123456789';
-        $code = substr(str_shuffle($code), 0, 6);
-        /*
         try{
-            $user->notify(  new AccountRegistration($user,$fair, $origin, $code) );
-        }catch (\Exception $exception){
-            /*return [
-                'success' => 400,
-                'data' => $exception,
-            ];*/
-        //}
+            Notification::route('mail', $data['email'])
+                ->notify(new SuccessfulRegistration());
+
+        }catch (\Exception $e){
+            return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
+        }
 
         return [
             'success' => 201,
@@ -221,9 +216,8 @@ class UserController extends Controller
     }
 
     public function notifyConfirmEmail (Request $request, $email) {
-
-
-        $code = '0123456789';
+        
+        $code = '123456789';
         $code = substr(str_shuffle($code), 0, 6);
         $confirm_account = ConfirmAccount::where('email',$email)->first();
         if(!$confirm_account) {

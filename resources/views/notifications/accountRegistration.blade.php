@@ -57,8 +57,8 @@
 
         .box-number {
             background-color: #e7e9eb;
-            width: 5px;
-            padding: 30px;
+            width: 4px;
+            padding: 28px;
             margin: 20px;
             border-radius: 10px;
             flex-basis: 0;
@@ -117,17 +117,12 @@
                             <tr>
                                 <td>
                                     <div class="box-number">
-                                        {{$array_code[0]}}
+                                        {{$array_code[5]}}
                                     </div>
                                 </td>
                                 <td>
                                     <div class="box-number">
-                                        {{$array_code[1]}}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="box-number">
-                                        {{$array_code[2]}}
+                                        {{$array_code[4]}}
                                     </div>
                                 </td>
                                 <td>
@@ -137,7 +132,17 @@
                                 </td>
                                 <td>
                                     <div class="box-number">
-                                        {{$array_code[4]}}
+                                        {{$array_code[2]}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="box-number">
+                                        {{$array_code[1]}}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="box-number">
+                                        {{$array_code[0]}}
                                     </div>
                                 </td>
                             </tr>
