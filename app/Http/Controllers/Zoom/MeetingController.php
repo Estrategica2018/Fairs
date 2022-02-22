@@ -308,10 +308,10 @@ class MeetingController extends Controller
         if($response->status() === 204 || $meeting['code'] === 3001) {
 			
 			
-			InvitedSpeaker::where('agenda_id',$id)->delete();
-			Audience::where('agenda_id',$id)->delete();
-			
             $agenda = Agendas::where('zoom_code',$id);
+			InvitedSpeaker::where('agenda_id',$agenda->id)->delete();
+			Audience::where('agenda_id',$agenda->id)->delete();
+			
             $agenda->delete();
 			
 			return [
