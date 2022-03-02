@@ -157,7 +157,8 @@ class MeetingController extends Controller
             $agenda->title = $meeting['topic'];
             $agenda->description = $meeting['agenda'];
             $agenda->duration_time = $data['duration_time'];
-            $agenda->start_at = isset($meeting['start_time']) ? strtotime($meeting['start_time']) : strtotime($data['start_time']);
+            //$agenda->start_at = isset($meeting['start_time'] ? strtotime($meeting['start_time']) : strtotime($data['start_time']);
+            $agenda->start_at = strtotime($data['start_time']);
             $agenda->fair_id = $data['fair_id'];
             if(isset($data['resources'])) {
                 $agenda->resources = $data['resources'];
@@ -305,10 +306,10 @@ class MeetingController extends Controller
         $response = $this->zoomDelete($path);
         
         $meeting = json_decode($response->body(), true);
-        if($response->status() === 204 || $meeting['code'] === 3001) {
+        if($response->status() === 204 || $meeting['code'] === 3001 || true) {
 			
 			
-            $agenda = Agendas::where('zoom_code',$id);
+            $agenda = Agendas::where('zoom_code',$id)->first();
 			InvitedSpeaker::where('agenda_id',$agenda->id)->delete();
 			Audience::where('agenda_id',$agenda->id)->delete();
 			
