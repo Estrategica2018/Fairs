@@ -40,8 +40,8 @@ class ContactSupportRequest extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->view('notifications.stand.contactSupportRequest')
-            ->with('data',$this->request);
+        return (new MailMessage)->view('notifications.stand.contactSupportRequest',['data'=>$this->request]);
+            //->with('data',$this->request);
 
         return (new MailMessage)
             ->line('Notificación Contacto Soporte')
