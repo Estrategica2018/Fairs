@@ -43,7 +43,10 @@ class ContactSupportRequest extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->view('notifications.fair.contactSupportRequest',['data'=>$this->request]);
+        return (new MailMessage)
+            ->from('admin@e-logic.com.co', 'admin')
+            ->cc('jesaleja07@hotmail.com')
+            ->view('notifications.fair.contactSupportRequest',['data'=>$this->request]);
             //->with('data',$this->request);
 
         return (new MailMessage)

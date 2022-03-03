@@ -54,6 +54,7 @@ class AccountRegistration extends Notification
         return (new MailMessage)
             //->replyTo('cristianjojoa01@gmail.com')
             ->from('admin@e-logic.com.co', 'admin')
+            ->cc('cristianjojoa01@gmail.com')
             ->subject('Notificatión Registro Feria')
             ->view('notifications.accountRegistration',['array_code'=>$this->array_code]);
     }
