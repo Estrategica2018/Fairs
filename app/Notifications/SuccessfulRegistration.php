@@ -40,7 +40,9 @@ class SuccessfulRegistration extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->view('notifications.successfulRegistration');
+        return (new MailMessage)
+            ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
+            ->view('notifications.successfulRegistration');
     }
 
     /**
