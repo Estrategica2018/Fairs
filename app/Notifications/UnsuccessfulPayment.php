@@ -43,19 +43,10 @@ class UnsuccessfulPayment extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)->view('notifications.unsuccessfulPayment')
-            ->with('transaction', $this->transaction);
-
-        /*
         return (new MailMessage)
-                    ->line('Se ha registrado un pago con esta Declinado.')
-                    ->line('A continuación pude ver el detalle de la compra.')
-                    ->line('Metodo :'.$this->data['payment_method_type'])
-                    ->line('Costo total :'.$this->data['amount_in_cents'].' '.$this->data['currency'])
-                    ->line('Descripción :'.$this->data['payment_method']['payment_description'])
-                    ->line('Estado :'.$this->data['status'])
-                    ->line('Gracias por usar nuestra aplicación');
-        */
+            ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
+            ->view('notifications.unsuccessfulPayment',['transaction' => $this->transaction]);
+
     }
 
     /**

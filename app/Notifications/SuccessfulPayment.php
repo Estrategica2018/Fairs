@@ -47,21 +47,14 @@ class SuccessfulPayment extends Notification
     public function toMail($notifiable)
     {
 
-        return (new MailMessage)->view('notifications.successfulPayment')
-            ->with('transaction', $this->transaction)
-            ->with('shoppingCart', $this->shoppingCart)
-            ->with('totalPrice', $this->totalPrice);
-        /*
         return (new MailMessage)
-
-                    ->line('Se ha registrado un pago con esta Exitoso.')
-                    ->line('A continuación pude ver el detalle de la compra.')
-                    ->line('Metodo :'.$this->data['payment_method_type'])
-                    ->line('Costo total :'.$this->data['amount_in_cents'].' '.$this->data['currency'])
-                    ->line('Descripción :'.$this->data['payment_method']['payment_description'])
-                    ->line('Estado :'.$this->data['status'])
-                    ->line('Gracias por usar nuestra aplicación');
-            */
+            ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
+            ->view('notifications.successfulPayment',
+                [ 'transaction' => $this->transaction,
+                    'shoppingCart' => $this->shoppingCart,
+                    'totalPrice' => $this->totalPrice
+                ]
+            );
     }
 
     /**

@@ -52,7 +52,6 @@ class AccountRegistration extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            //->replyTo('cristianjojoa01@gmail.com')
             ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
             ->cc('cristianjojoa01@gmail.com')
             ->subject('Notificatión Registro Feria')

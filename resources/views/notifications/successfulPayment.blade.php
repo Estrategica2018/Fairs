@@ -95,7 +95,7 @@
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 20px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                         <p>Hola!</p>
-                        <p>El pago por tu compra en e-logic feria virtual,con número de pedido #, realizado por {{$transaction['payment_method']}}}, se encuentra <span style="color: #4CAF50">Aprobado</span></p>
+                        <p>El pago por tu compra en e-logic feria virtual,con número de pedido #{{$transaction['reference']}}, realizado por {{$transaction['payment_method']['type']}}, se encuentra <span style="color: #4CAF50">Aprobado</span></p>
                     </td>
                 </tr>
             </table>
