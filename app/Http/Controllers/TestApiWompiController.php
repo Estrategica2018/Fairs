@@ -55,7 +55,7 @@ class TestApiWompiController extends Controller
                 if(isset($response) && $response) {
                     //dd($response);
                   if($response['data']['status'] == 'APPROVED') {
-                    $payment = Payment::where('reference',$response['data']['reference'])->first();
+                    $payment = Payment::whereHas('user')->with('user')->where('reference',$response['data']['reference'])->first();
                     $payment->payment_status = 3;
                     $payment->save();
                     $validateShopping = ShoppingCart::where([['references_id',$response['data']['reference']],['state','N']])->first();
@@ -75,9 +75,12 @@ class TestApiWompiController extends Controller
                                 foreach ($shoppingCart as $data){
                                     $totalPrice += intval($data->price);
                                 }
-                                Notification::route('mail', 'cristianjojoa01@gmail.com')
-                                    ->notify(new SuccessfulPayment($response['data'],$shoppingCart ,$totalPrice));
-
+                                try{
+                                    Notification::route('mail', $payment->user->email)
+                                        ->notify(new SuccessfulPayment($response['data'],$shoppingCart ,$totalPrice));
+                                }catch (\Exception $e){
+                                    return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
+                                }
                                 $shoppingCart = ShoppingCart::with('product.stand.merchant')->where('references_id',$response['data']['reference'])->get()->unique('product_id');
                                 $array_merchant = [];
                                 foreach ($shoppingCart as $merchant){
@@ -107,16 +110,12 @@ class TestApiWompiController extends Controller
                                     Notification::route('mail', $merchant_user->email_contact)
                                         ->notify(new SuccessfulPaymentMechant( $response['data'] , $temp_array ) );
                                 }
-                                //dd($merchant_data);
-
-
 
                                 $payment->flag_notify = true;
                                 $payment->save();
-                                //dd('bien');
 
                             }catch (\Exception $e){
-                                //dd('mal',$e);
+
                                 return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
                             }
                         /*}else{
@@ -125,10 +124,8 @@ class TestApiWompiController extends Controller
 
 //                      }
                   }else if($response['data']['status'] == 'DECLINED') {
-                     // dd($response['data']['status'] == 'DECLINED',$response['data']);
-                        //$user = auth()->guard('api')->user();
                         //if($user){
-                            $payment = Payment::where('reference',$response['data']['reference'])->first();
+                            $payment = Payment::whereHas('user')->with('user')->where('reference',$response['data']['reference'])->first();
                             $payment->payment_status = 2;
                             $payment->save();
                             /*$validateShopping = ShoppingCart::where([['references_id',$response['data']['reference']],['state','N']])->first();
@@ -141,14 +138,12 @@ class TestApiWompiController extends Controller
                             //if(!$payment->flag_notify){
                             //enviar notificación rechazo
                             try{
-                                Notification::route('mail','davithc@gmail.com' )
+                                Notification::route('mail',$payment->user->email)
                                     ->notify(new UnsuccessfulPayment($response['data'] ));
                                 $payment->flag_notify = true;
                                 $payment->save();
-                                dd('bien');
 
                             }catch (\Exception $e){
-                                dd('mal',$e);
                                 return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
                             }
                             //}
