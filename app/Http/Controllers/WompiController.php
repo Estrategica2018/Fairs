@@ -43,6 +43,7 @@ class WompiController extends Controller
             $href = 'http://localhost:8100/payment/' . $references_id;
         }
         else {
+			dd($href);
             $href = 'https://' . $validateShopping->fair->name . '.e-logic.com.co/Fair-website/#/payment/' . $reference;
         }
 
