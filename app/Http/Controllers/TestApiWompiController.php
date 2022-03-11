@@ -8,7 +8,7 @@ use App\Models\Product;
 use App\Models\ShoppingCart;
 use App\Notifications\AccountRegistration;
 use App\Notifications\SuccessfulPayment;
-use App\Notifications\SuccessFulPaymentMechant;
+use App\Notifications\SuccessfulPaymentMerchant;
 use App\Notifications\UnsuccessfulPayment;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -108,7 +108,7 @@ class TestApiWompiController extends Controller
                                     $temp_array['total'] = $total;
                                     array_push($merchant_data,$temp_array);
                                     Notification::route('mail', $merchant_user->email_contact)
-                                        ->notify(new SuccessfulPaymentMechant( $response['data'] , $temp_array ) );
+                                        ->notify(new SuccessfulPaymentMerchant( $response['data'] , $temp_array ) );
                                 }
 
                                 $payment->flag_notify = true;
