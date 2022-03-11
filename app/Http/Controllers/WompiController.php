@@ -28,7 +28,12 @@ class WompiController extends Controller
         $test = new TestApiWompiController();
         $request->id = $input['id'];
         $response = $test->auth($request, 'php');
-        $reference = $response['sucess']['data']['reference'];
+		if(isset($response['sucess']) {
+          $reference = $response['sucess']['data']['reference'];
+		}
+		else {
+			dd($response);
+		}
         
         $validateShopping = ShoppingCart::with('fair')->where('references_id',$reference)->first();
         $references_id = $validateShopping->references_id;
