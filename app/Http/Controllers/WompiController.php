@@ -28,7 +28,7 @@ class WompiController extends Controller
         $test = new TestApiWompiController();
         $request->id = $input['id'];
         $response = $test->auth($request, 'php');
-		if(isset($response['sucess']) {
+		if(isset($response['sucess'])) {
           $reference = $response['sucess']['data']['reference'];
 		}
 		else {
