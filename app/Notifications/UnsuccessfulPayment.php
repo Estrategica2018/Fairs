@@ -45,6 +45,7 @@ class UnsuccessfulPayment extends Notification
     {
         return (new MailMessage)
             ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
+            ->subject('Notificatión Pago fallido')
             ->view('notifications.unsuccessfulPayment',['transaction' => $this->transaction]);
 
     }

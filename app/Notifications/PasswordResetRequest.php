@@ -45,6 +45,8 @@ class PasswordResetRequest extends Notification
     {
         $url = $this->origin.'/#/recoverPassword/'.$this->token;
         return (new MailMessage)
+            ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
+            ->subject('Notificatión solicitud recuperación contraseña')
             ->line('Estas recibiendo este correo porque nosotros hemos recibido una solicitud para restablecer la contraseña de tu cuenta.')
             ->action('Restablecer Contraseña', url($url))
             ->line('Si no solicitaste un restablecimiento de contraseña, no es necesario realizar ninguna otra acción.');
