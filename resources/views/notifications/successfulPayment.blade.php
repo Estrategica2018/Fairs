@@ -109,7 +109,7 @@
                 @foreach($shoppingCart as $data)
                     <tbody bgcolor="#ffffff">
                     <tr bgcolor="#ffffff" style="height: 29px; min-width: 12em;">
-                        <td bgcolor="#ffffff" style="width: 33.3333%; min-width: 12em; height: 77px;" rowspan="100"><img style="display: block; margin-left: auto; margin-right: auto;" src="{{ json_decode($shoppingCart[0]->productPrice->resources)->images[0]->url_image }}resources->images[0]->url_image" width="99" height="98" /></td>
+                        <td bgcolor="#ffffff" style="width: 33.3333%; min-width: 12em; height: 77px;" rowspan="100"><img style="display: block; margin-left: auto; margin-right: auto;" src="{{ json_decode($shoppingCart[0]->productPrice->resources)->images[0]->url_image }}" width="99" height="98" /></td>
                         <td bgcolor="#ffffff" style="font-family: 'Lato', Helvetica, Arial, sans-serif;width: 90.5011%; min-width: 12em; height: 33px; font-size: 20.3333px; font-family: YoutubeSansMedium; color: #004782; font-weight: 600; top: 8.84056px; left: 60.9998px;" colspan="3">&nbsp; &nbsp; {{$data->product->name}}</td>
                     </tr>
                     <tr bgcolor="#ffffff" style="height: 10px;">
