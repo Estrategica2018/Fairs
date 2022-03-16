@@ -70,11 +70,12 @@ class TestApiWompiController extends Controller
                         //$user = auth()->guard('api')->user();
                         //if($user){
                             try{
-                                $shoppingCart = ShoppingCart::with('product.stand.merchant')->where('references_id',$response['data']['reference'])->get();
+                                $shoppingCart = ShoppingCart::with('product.stand.merchant','productPrice')->where('references_id',$response['data']['reference'])->get();
                                 $totalPrice = 0;
                                 foreach ($shoppingCart as $data){
                                     $totalPrice += intval($data->price);
                                 }
+                                //dd(( json_decode($shoppingCart[0]->productPrice->resources))->images[0]->url_image );
                                 try{
                                     Notification::route('mail', $payment->user->email)
                                         ->notify(new SuccessfulPayment($response['data'],$shoppingCart ,$totalPrice));

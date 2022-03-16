@@ -109,23 +109,29 @@
                 @foreach($shoppingCart as $data)
                     <tbody bgcolor="#ffffff">
                     <tr bgcolor="#ffffff" style="height: 29px; min-width: 12em;">
-                        <td bgcolor="#ffffff" style="width: 33.3333%; min-width: 12em; height: 77px;" rowspan="100"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://res.cloudinary.com/deueufyac/image/upload/v1631835506/sublimacion/productos/cachuchas/productos-07_hunktp.png" width="99" height="98" /></td>
-                        <td bgcolor="#ffffff" style="font-family: 'Lato', Helvetica, Arial, sans-serif;width: 90.5011%; min-width: 12em; height: 33px; font-size: 20.3333px; font-family: YoutubeSansMedium; color: #004782; font-weight: 600; top: 8.84056px; left: 60.9998px;" colspan="3">&nbsp; &nbsp; Prodasdfasdfucto #1</td>
+                        <td bgcolor="#ffffff" style="width: 33.3333%; min-width: 12em; height: 77px;" rowspan="100"><img style="display: block; margin-left: auto; margin-right: auto;" src="{{ json_decode($shoppingCart[0]->productPrice->resources)->images[0]->url_image }}resources->images[0]->url_image" width="99" height="98" /></td>
+                        <td bgcolor="#ffffff" style="font-family: 'Lato', Helvetica, Arial, sans-serif;width: 90.5011%; min-width: 12em; height: 33px; font-size: 20.3333px; font-family: YoutubeSansMedium; color: #004782; font-weight: 600; top: 8.84056px; left: 60.9998px;" colspan="3">&nbsp; &nbsp; {{$data->product->name}}</td>
                     </tr>
                     <tr bgcolor="#ffffff" style="height: 10px;">
                         <td bgcolor="#ffffff" style="font-family: 'Lato', Helvetica, Arial, sans-serif; width: 35.0759%; min-width: 12em; height: 10px;">
-                            <div>      <div>marca : &nbsp; Ford</div> <div>modelo : &nbsp; 2016      </div>      <div>kilometraje : &nbsp; 42000      </div></div>
+                            <div>
+                                <div>
+                                    Descripción :{{$data->product->description}} &nbsp;
+                                </div>
+                                {!! html_entity_decode($data->detail) !!}
+                            </div>
                         </td>
                         <td bgcolor="#ffffff" style="font-family: 'Lato', Helvetica, Arial, sans-serif; display: block; width: 53.8252%; min-width: 12em; height: 10px;">&nbsp;
-                            <span style="font-weight: bold;">Cantidad:</span> 1 <br /><br />
+                            <span style="font-weight: bold;">Cantidad:</span> {{$data->amount}} <br /><br />
                             <div style="background-color:#ffffff;" bgcolor="#ffffff">
-                                <span style="font-weight: bold; font-family: 'Lato', Helvetica, Arial, sans-serif;">&nbsp; Precio:</span> $1250
+                                <span style="font-weight: bold; font-family: 'Lato', Helvetica, Arial, sans-serif;">&nbsp; Precio:</span> ${{$data->amount * $data->price}}
                             </div>
                         </td>
                     </tr>
                     </tbody>
                 @endforeach
                 <tfoot class="card-footer">
+                <!--
                 <tr bgcolor="#ffffff">
                     <td colspan="2" align="right" style="font-family: 'Lato', Helvetica, Arial, sans-serif;"><strong>Sub Total:</strong></td>
                     <td align="right" style="font-family: 'Lato', Helvetica, Arial, sans-serif;">$2150.00</td>
@@ -134,10 +140,11 @@
                     <td colspan="2" align="right" style="font-family: 'Lato', Helvetica, Arial, sans-serif;"><strong>Impuestos:</strong></td>
                     <td align="right" style="font-family: 'Lato', Helvetica, Arial, sans-serif;">$2150.00</td>
                 </tr>
-                <tr bgcolor="#ffffff">
-                    <td colspan="2" align="right" style="font-family: 'Lato', Helvetica, Arial, sans-serif;"><strong>Total:</strong></td>
-                    <td align="right" style="font-family: 'Lato', Helvetica, Arial, sans-serif;">{{$totalPrice}}</td>
-                </tr>
+                -->
+                    <tr bgcolor="#ffffff">
+                        <td colspan="2" align="right" style="font-family: 'Lato', Helvetica, Arial, sans-serif;"><strong>Total:</strong></td>
+                        <td colspan="2" align="center" style="font-family: 'Lato', Helvetica, Arial, sans-serif;">{{$totalPrice}}</td>
+                    </tr>
                 </tfoot>
             </table>
         </td>
