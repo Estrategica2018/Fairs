@@ -65,9 +65,11 @@ class FairController extends Controller
         $fair->halls_number = $data['halls_number'];
         $fair->init_date = $data['init_date'];
         $fair->end_date = $data['end_date'];
-        $fair->resources = $data['resources'];
         $fair->location = $data['location'];
-        $fair->social_media = $data['social_media'];
+        $fair->resources = $data['resources'];
+		$fair->social_media = $data['social_media'];
+			
+		
         $fair->save();
 
         $data_pavilions = array();
@@ -100,6 +102,13 @@ class FairController extends Controller
             'success' => 201,
             'data' => Fair::with('pavilions.stands.merchant')
             ->where('end_date','>=',date('Y-m-d'))->get(),
+        ];
+    }
+	
+    public function list_all(){
+        return [
+            'success' => 201,
+            'data' => Fair::get()
         ];
     }
 

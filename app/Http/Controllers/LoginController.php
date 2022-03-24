@@ -57,27 +57,34 @@ class LoginController extends Controller
             'fair_id' => ['required'],
         ]);
 
-        $fair = Fair::find($request->fair_id);
-        if($fair == null){
-            throw ValidationException::withMessages([
-                'fair'=>['No se encontro la feria']
-            ]);
-        }
 
-        $user = User::with('user_roles_fair')->whereHas('user_roles_fair',function($query)use($fair){
-            $query->where('fair_id',$fair->id);
-        })->where('email',$request->email)->first();
+        if($request->fair_id == "admin") {
+			$user = User::with('user_roles_fair')->whereHas('user_roles_fair',function($query){
+				$query->where('role_id', 1); //superAdmin
+			})->where('email',$request->email)->first();
+		}
+		else {
+			$fair = Fair::find($request->fair_id);
+			if($fair == null){
+				throw ValidationException::withMessages([
+					'fair'=>['No se encontro la feria']
+				]);
+			}
+			$user = User::with('user_roles_fair')->whereHas('user_roles_fair',function($query)use($fair){
+				$query->where('fair_id',$fair->id);
+			})->where('email',$request->email)->first();
+		}
 
-        if( !$user || !\Illuminate\Support\Facades\Hash::check($request->password, $user->password) ){
+		if( !$user || !\Illuminate\Support\Facades\Hash::check($request->password, $user->password) ){
 
-            throw ValidationException::withMessages([
-                'email'=>['Credenciales incorrectas']
-            ]);
-        }
+			throw ValidationException::withMessages([
+				'email'=>['Credenciales incorrectas']
+			]);
+		}
 
-        return response()->json(['data' => $user->createToken('Auth Token')->accessToken, 'message' => 'Token generado satisfactoriamente', 'user' => $user], 200);
-        //user_roles_fair
-        //agregar los roles y ferias a los que pertence
+		return response()->json(['data' => $user->createToken('Auth Token')->accessToken, 'message' => 'Token generado satisfactoriamente', 'user' => $user], 200);			
+	
+
     }
 
     public function logout(Request $request){
