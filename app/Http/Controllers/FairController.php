@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fair;
+use App\Models\User;
 use App\Models\Pavilion;
 use App\Notifications\ContactSupportRequest;
 use Illuminate\Http\Request;
@@ -67,6 +68,7 @@ class FairController extends Controller
         $fair->end_date = $data['end_date'];
         $fair->location = $data['location'];
         $fair->resources = $data['resources'];
+		$fair->resources = '{"scenes":[]}';
 		$fair->social_media = $data['social_media'];
 			
 		
@@ -106,9 +108,18 @@ class FairController extends Controller
     }
 	
     public function list_all(){
-        return [
+		
+		/*$user = User::with('user_roles_fair')->whereHas('user_roles_fair',function($query)use($userId){
+				$query->where('userId',$userId);
+			})->where('email',$request->email)->first();*/
+		
+		$user = auth()->guard('api')->user();
+		
+		return [
             'success' => 201,
-            'data' => Fair::get()
+            'data' => Fair::with('role_user_fairs')->whereHas('role_user_fairs',function($query)use($user){
+				$query->where('user_id',$user->id);
+			})->get()
         ];
     }
 
