@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Fair;
 use App\Models\User;
 use App\Models\Pavilion;
+use App\Models\RoleUserFair;
 use App\Notifications\ContactSupportRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
@@ -68,11 +69,19 @@ class FairController extends Controller
         $fair->end_date = $data['end_date'];
         $fair->location = $data['location'];
         $fair->resources = $data['resources'];
-		$fair->resources = '{"scenes":[]}';
 		$fair->social_media = $data['social_media'];
 			
 		
         $fair->save();
+		
+		$user = auth()->guard('api')->user();
+		$roleUserFair = new RoleUserFair();
+		$roleUserFair->user_id = $user->id;
+		$roleUserFair->fair_id = $fair->id;
+		$roleUserFair->role_id = '1';
+		$roleUserFair->save();
+		
+		
 
         $data_pavilions = array();
 
@@ -161,6 +170,25 @@ class FairController extends Controller
         return [
             'success' => 201,
             'data_fair' => $fair
+        ];
+
+    }
+	
+    public function delete(Request $request, $fair_id) {
+        
+        $fair = Fair::find($fair_id);
+		
+		$user = auth()->guard('api')->user();
+
+        $fair = Fair::with('role_user_fairs')->whereHas('role_user_fairs',function($query)use($user,$fair_id){
+            $query->where([['user_id',$user->id],['fair_id',$fair_id]]);
+        });
+        
+        $count = $fair->delete();
+		
+		return [
+            'success' => 201,
+            'data' => $count >= 0 ? 'deleted' : 'no deleted'
         ];
 
     }
