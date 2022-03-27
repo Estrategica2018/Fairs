@@ -1,3 +1,3 @@
 <script>
-   window.location = '<?= "/Fair-website/index.php"; ?>';
+   window.location = '<?= "/Fair-website/index.html"; ?>';
 </script>

@@ -188,7 +188,7 @@ class FairController extends Controller
 		
 		return [
             'success' => 201,
-            'data' => $count >= 0 ? 'deleted' : 'no deleted'
+            'data' => $count > 0 ? 'deleted '.$count  : 'no deleted'
         ];
 
     }
