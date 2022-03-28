@@ -183,10 +183,9 @@ class MeetingController extends Controller
             ], 201);
         }
         else {
-            dd($response->status() ,$response->body()->code );
             return response()->json([
                     'data' => json_decode($response->body(), true),
-                    'agenda' => $agenda,
+                    'agenda' => '',
                     'message', 'Error creando la reunion',
                     'success' => false,
             ], 201);

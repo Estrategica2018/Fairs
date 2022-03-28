@@ -1,35 +1,29 @@
 <?php
 
-namespace App\Notifications;
+
+namespace App\Notifications\Conference;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AccountRegistration extends Notification
+class SuccessfulRegistration extends Notification
 {
+
     use Queueable;
 
+
+    protected $request;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    private $user;
-    private $fair;
-    private $origin;
-    private $email;
-    private $code;
-    public $array_code = [];
-    public function __construct($email, $code)
+    public function __construct($request)
     {
-        while($code != 0){
-            $this->array_code[] = $code % 10;
-            $code = intval($code/10);
-        }
-        $this->email = $email;
-        $this->code = $code;
+        //
+        $this->request = $request;
     }
 
     /**
@@ -53,8 +47,8 @@ class AccountRegistration extends Notification
     {
         return (new MailMessage)
             ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
-            ->subject('Notificatión Registro Feria')
-            ->view('notifications.accountRegistration',['array_code'=>$this->array_code]);
+            ->subject('Notificatión Registro Agenda')
+            ->view('notifications.conference.successfulRegistration',['shopping_cart'=>$this->request]);
     }
 
     /**
@@ -69,4 +63,6 @@ class AccountRegistration extends Notification
             //
         ];
     }
+
+
 }
