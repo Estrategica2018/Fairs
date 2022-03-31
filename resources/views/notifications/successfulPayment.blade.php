@@ -146,7 +146,7 @@
                                         Descripción :{{$data->agenda->description}} &nbsp;
                                     </div>
                                     <div>
-                                        Fecha : &nbsp;
+                                        Fecha : {{date("d/m/Y H:i:s", ($data->agenda->start_at/ 1000))}} &nbsp;
                                     </div>
                                     <div>
                                         Duración :{{$data->agenda->duration_time}} &nbsp;
