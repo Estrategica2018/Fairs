@@ -149,3 +149,8 @@ Route::get('/find/shopping-cart/{fair_id}/{reference_id}', 'ShoppingCartControll
 Route::post('/update/shopping-cart/', 'ShoppingCartController@update');
 
 Route::post('/wompi/auth/{id}', 'TestApiWompiController@auth');
+
+//audience
+
+Route::get('/audience/audience_user/{agenda_id}', 'AudienceController@audience_user');
+Route::get('/audience/audience_users/{agenda_id}', 'AudienceController@audience_users');
