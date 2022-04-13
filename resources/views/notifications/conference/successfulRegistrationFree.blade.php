@@ -134,7 +134,7 @@
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 20px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p>Te has registrado satisfactoriamente en una o más conferencias virtuales.</p>
+                        <p>Te has registrado satisfactoriamente en una conferencias virtual.</p>
                         <p>A continuación encontraras los datos de acceso para el ingreso:</p>
                     </td>
                 </tr>
@@ -144,36 +144,33 @@
                     </td>
 
                 </tr>
-                @foreach($shopping_cart as $data)
-                    @if($data->agenda)
-                        <tr>
-                            <td bgcolor="#ffffff" align="left" style="padding: 20px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                                <p>Te has registrado satisfactoriamente en una o más conferencias virtuales.</p>
-                                <p>A continuación encontraras los datos de acceso para el ingreso:</p>
-                                <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Conferecnia virtual(pago por evento):</span> </p>
-                                <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Fecha:</span> {{date("d/m/Y H:i:s", ($data->agenda->start_at/ 1000))}} </p>
-                                <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Duración:</span> {{$data->agenda->duration_time}}</p>
-                                <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">ID Reunión:</span> {{$data->agenda->zoom_code}}</p>
-                                <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Código de acceso:</span> {{$data->agenda->zoom_password}}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td bgcolor="#ffffff" align="left" style="padding: 1px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;text-align: center; vertical-align: middle;">
-                                <button type="button" class="btn btn-primary">Unirse a la conferencia</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td bgcolor="#ffffff" align="left" style="padding: 1px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;text-align: center; vertical-align: middle;">
-                                <hr style="color:#3d98d1; background-color: #3d98d1;border: solid;">
-                            </td>
-                        </tr>
-                    @endif
-                @endforeach
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 20px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                            <p>Te has registrado satisfactoriamente en una o más conferencias virtuales.</p>
+                            <p>A continuación encontraras los datos de acceso para el ingreso:</p>
+                            <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Conferecnia virtual(pago por evento):</span> </p>
+                            <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Fecha:</span> {{date("d/m/Y H:i:s", ($data->agenda->start_at/ 1000))}} </p>
+                            <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Duración:</span> {{$data->agenda->duration_time}}</p>
+                            <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">ID Reunión:</span> {{$data->agenda->zoom_code}}</p>
+                            <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Código de acceso:</span> {{$data->agenda->zoom_password}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 1px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;text-align: center; vertical-align: middle;">
+                            <button type="button" class="btn btn-primary">Unirse a la conferencia</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#ffffff" align="left" style="padding: 1px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;text-align: center; vertical-align: middle;">
+                            <hr style="color:#3d98d1; background-color: #3d98d1;border: solid;">
+                        </td>
+                    </tr>
             </table>
         </td>
     </tr>
 </table>
 </body>
 </html>
+
 
 

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Agendas;
 use App\Models\InvitedSpeaker;
 use App\Models\Audience;
+use App\Notifications\Conference\SuccessFulRegistrationFree;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
 class AgendaController extends Controller
@@ -177,6 +179,14 @@ class AgendaController extends Controller
 				$audience->check = 1;
 				$audience->token = $token;
 				$audience->save();
+
+				try{
+                    Notification::route('mail', $user->email)
+                        ->notify(new SuccessFulRegistrationFree($agenda,$user));
+                }catch (\Exception $e){
+                    return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
+                }
+
 				return [
 				  'success' => 201,
 				  'data' => $audience->token,
