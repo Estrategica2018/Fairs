@@ -43,7 +43,7 @@ class PasswordResetRequest extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = $this->origin.'/#/recoverPassword/'.$this->token;
+        $url = $this->origin.'/recoverPassword/'.$this->token;
         return (new MailMessage)
             ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
             ->subject('Notificatión solicitud recuperación contraseña')
