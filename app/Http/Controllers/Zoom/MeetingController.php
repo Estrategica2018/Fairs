@@ -17,8 +17,7 @@ class MeetingController extends Controller
     use ZoomJWT;
 
     const MEETING_TYPE_INSTANT = 1;
-    //const MEETING_TYPE_SCHEDULE = 2;
-    const MEETING_TYPE_SCHEDULE = 1;
+    const MEETING_TYPE_SCHEDULE = 2;
     const MEETING_TYPE_RECURRING = 3;
     const MEETING_TYPE_FIXED_RECURRING_FIXED = 8;
 
@@ -142,17 +141,18 @@ class MeetingController extends Controller
             'timezone' => $data['timezone'],
             'duration' =>  $data['duration_time'],
             'agenda' => $data['agenda'],
+            'default_password' => true,
             'settings' => [
                 'host_video' => false,
                 'participant_video' => false,
                 'waiting_room' => true,
+                'meeting_authentication' => false
             ]
         ]);
         
         if($response->status() === 201) {
-            
+
             $meeting = json_decode($response->body(), true);
-            
             $agenda = new Agendas();
             $agenda->title = $meeting['topic'];
             $agenda->description = $meeting['agenda'];
@@ -198,6 +198,7 @@ class MeetingController extends Controller
         $response = $this->zoomGet($path);
 
         $data = json_decode($response->body(), true);
+
         if ($response->ok()) {
             $data['start_at'] = $this->toUnixTimeStamp($data['start_time'], $data['timezone']);
         }
