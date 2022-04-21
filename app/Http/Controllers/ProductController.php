@@ -16,7 +16,7 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             'fair_id'=>'required',
             'pavilion_id'=>'required',
-            'category_id'=>'',
+            'category_id'=>'required',
             'stand_id'=>'required',
             'name'=>'required',
             'description'=>'required',
@@ -35,7 +35,7 @@ class ProductController extends Controller
         $product = new Product();
         $product->name = $data['name'];
         $product->description = $data['description'];
-        $product->category_id = $data['category_id'] ? $data['category_id'] : $product->category_id = 1;
+        $product->category_id = $data['category_id'];
         $product->stand_id = $data['stand_id'];
         $product->price = $data['price'];
         $product->save();
