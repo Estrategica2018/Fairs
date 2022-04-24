@@ -107,6 +107,7 @@ class UserController extends Controller
             'email'=>'email|unique:users,email',
             'password'=>'',
             'image'=>'',
+            'url_image'=>'',
         ]);
 
         if ($validator->fails()) {
@@ -144,16 +145,25 @@ class UserController extends Controller
                     $speaker->profile_picture = $app_url .'/'. $fileName;
                     $speaker->save();
                 }
+				$user->url_image = $app_url .'/'. $fileName;
                 
             }
+			
+			if(isset($data['url_image'])){
+
+                $speaker = Speaker::where('user_id', $user->id)->first();
+                if($speaker) {
+                    $speaker->profile_picture = $data['url_image'];
+                    $speaker->save();
+                }
+				$user->url_image = $data['url_image'];
+			}
             
             if(isset($data['user_name']))  $user->user_name = $data['user_name'];
             if(isset($data['name'])) $user->name = $data['name'];
             if(isset($data['last_name'])) $user->last_name = $data['last_name'];
             if(isset($data['email'])) $user->email = $data['email'];
-            if($fileName) { 
-              $user->url_image = $app_url .'/'. $fileName;
-            }
+            
             if(isset($data['contact'])){ 
                 $user->contact = $data['contact'];
             }
