@@ -20,6 +20,7 @@ class ProductController extends Controller
             'stand_id'=>'required',
             'name'=>'required',
             'description'=>'required',
+            'resources'=>'required',
             'price'=>'',
         ]);
 
@@ -38,6 +39,7 @@ class ProductController extends Controller
         $product->category_id = $data['category_id'];
         $product->stand_id = $data['stand_id'];
         $product->price = $data['price'];
+        $product->resources = $data['resources'];
         $product->save();
         
         $productPrice = new ProductPrice();
