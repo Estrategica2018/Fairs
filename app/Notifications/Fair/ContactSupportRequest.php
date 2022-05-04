@@ -45,7 +45,7 @@ class ContactSupportRequest extends Notification
     {
         return (new MailMessage)
             ->from('admin@e-logic.com.co', 'admin')
-            ->cc('jesaleja07@hotmail.com')
+            //->cc('jesaleja07@hotmail.com')
             ->view('notifications.fair.contactSupportRequest',['data'=>$this->request]);
             //->with('data',$this->request);
 

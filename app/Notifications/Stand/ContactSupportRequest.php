@@ -41,13 +41,7 @@ class ContactSupportRequest extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)->view('notifications.stand.contactSupportRequest',['data'=>$this->request]);
-            //->with('data',$this->request);
 
-        return (new MailMessage)
-            ->line('Notificación Contacto Soporte')
-            ->line(''.$this->request->name.' ha registrado una solicitud de soporte con el siguiente mensaje:')
-            ->line(''.$this->request->message)
-            ->line('Correo registrado : '.$this->request->email);
     }
 
     /**
