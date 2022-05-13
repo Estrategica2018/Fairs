@@ -265,7 +265,16 @@ class UserController extends Controller
                 $totalSecondsDiff = abs($d1 - $d2);
                 $totalMinutesDiff = $totalSecondsDiff / 60;
                 if( $totalMinutesDiff > 15 ){
-                    return response()->json(['message' => 'Error el código expiró, solicite otro código'], 403);
+                    return response()->json(['message' => 'Error el código expiró, solicite otro código.
+					[$d1:'.$d1.']
+					[$d2:'.$d2.']
+					[$totalSecondsDiff:'.$totalSecondsDiff.']
+					[$totalMinutesDiff:'.$totalMinutesDiff.']
+					[$confirmAccountCoode:'.$confirm_account->code.']
+					[$code:'.$code.']
+					[$d1:'.$d1.']
+					
+					'], 403);
                 }else{
                     return response()->json([
                         'success' => 201,
