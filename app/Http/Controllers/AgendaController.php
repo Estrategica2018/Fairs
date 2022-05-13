@@ -62,7 +62,7 @@ class AgendaController extends Controller
               $queryRoom->where('stand_id','=',$data['stand_id']);
            });
         }
-        $meetings = $query->get();
+        $meetings = $query->orderBy('start_at')->get();
         
         return [
             'success' => 201,
