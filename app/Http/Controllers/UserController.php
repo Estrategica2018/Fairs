@@ -188,6 +188,7 @@ class UserController extends Controller
         $user = User::where('email', $email)->first();
 		
         if($user) {
+		    $role_user_fairs = RoleUserFair::where('user_id',$user->id)->delete();
             $user->delete();
 
             return [
