@@ -280,7 +280,7 @@ class UserController extends Controller
         if($confirm_account){
             if($confirm_account->code == $code){
                 $d1 = strtotime('now');
-                $d2 = strtotime($confirm_account->created_at);
+                $d2 = strtotime($confirm_account->updated_at);
                 $totalSecondsDiff = abs($d1 - $d2);
                 $totalMinutesDiff = $totalSecondsDiff / 60;
                 //if( $totalMinutesDiff > 15 ){
