@@ -182,6 +182,24 @@ class UserController extends Controller
 
     }
 
+    public function delete(Request $request, $email){
+
+		$confirm_account = ConfirmAccount::where('email',$email)->delete();
+        $user = User::where('email', $email)->first();
+		
+        if($user) {
+            $user->delete();
+
+            return [
+                'success' => 201,
+                'data' => 'email-borrado' . $email
+            ];
+        }
+        else {
+            return response()->json(['message' => 'La sesión ha cadudcado.'. $email], 403);
+        }
+    }
+
     public function activate_account (Request $request, $user_id){
 
         $user = User::where('id', $user_id)
@@ -264,7 +282,8 @@ class UserController extends Controller
                 $d2 = strtotime($confirm_account->created_at);
                 $totalSecondsDiff = abs($d1 - $d2);
                 $totalMinutesDiff = $totalSecondsDiff / 60;
-                if( $totalMinutesDiff > 15 ){
+                //if( $totalMinutesDiff > 15 ){
+                if( true ){
                     return response()->json(['message' => 'Error el código expiró, solicite otro código.
 					[$d1:'.$d1.']
 					[$d2:'.$d2.']
