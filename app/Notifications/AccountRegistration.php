@@ -22,14 +22,14 @@ class AccountRegistration extends Notification
     private $email;
     private $code;
     public $array_code = [];
-    public function __construct($email, $code, $origin)
+    public function __construct($email, $code, $fairName)
     {
         while($code != 0){
             $this->array_code[] = $code % 10;
             $code = intval($code/10);
         }
         $this->email = $email;
-        $this->origin = $origin;
+        $this->origin = "https://$fairName.e-logic.com.co/$email";
         $this->code = $code;
     }
 
