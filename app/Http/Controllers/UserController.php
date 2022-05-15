@@ -248,7 +248,7 @@ class UserController extends Controller
         }
     }
 
-    public function notifyConfirmEmail (Request $request, $email, $fairName) {
+    public function notifyConfirmEmail (Request $request, $fairName, $email ) {
         
         $code = '123456789';
         $code = substr(str_shuffle($code), 0, 6);

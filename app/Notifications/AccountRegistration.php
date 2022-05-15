@@ -29,8 +29,8 @@ class AccountRegistration extends Notification
             $code = intval($code/10);
         }
         $this->email = $email;
-        $this->origin = "https://$fairName.e-logic.com.co/$email";
-        $this->code = $code;
+		$this->origin = 'https://'.$fairName.'.e-logic.com.co/app-dialog/confirmAccount/'.$email;
+		$this->code = $code;
     }
 
     /**
@@ -56,8 +56,8 @@ class AccountRegistration extends Notification
             ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
             ->subject('Notificación Registro Feria')
             ->view('notifications.accountRegistration',[
-					['array_code'=>$this->array_code],
-					['origin'=>$this->origin]]);
+					'array_code'=>$this->array_code,
+					'origin'=>$this->origin]);
     }
 
     /**

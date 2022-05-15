@@ -79,7 +79,7 @@
         div[style*="margin: 16px 0;"] {
             margin: 0 !important;
         }
-		btn {
+		.btn {
               display: inline-block;
               font-weight: 400;
               text-align: center;
@@ -90,8 +90,9 @@
               font-size: 1rem;
               line-height: 1.5;
               border-radius: 0.25rem;
+              cursor: pointer;
          }
-         btn-primary {
+         .btn-primary {
         	color: #fff;
 			background-color: #3d98d1;
         	border-color: #3d98d1;
@@ -174,7 +175,9 @@
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding:20px 20px 20px 20px;border-radius:4px 4px 4px 4px;color:#666666;font-family:'Lato',Helvetica,Arial,sans-serif;font-size:18px;font-weight:400;line-height:25px;text-align:center;vertical-align:middle">
-                        <button type="button" class="btn btn-primary" href="{{$origin}}">Confirmar registro</button>
+                      <a href="{{$origin}}" target="_blank">
+						<button type="button" class="btn btn-primary">Confirmar registro</button>
+					   </a>
                     </td>
                 </tr>
                 <tr>
