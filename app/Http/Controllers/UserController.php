@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ConfirmAccount;
 use App\Models\Fair;
 use App\Models\Audience;
+use App\Models\ShoppingCart;
 use App\Models\RoleUserFair;
 use App\Models\Speaker;
 use App\Models\User;
@@ -191,6 +192,7 @@ class UserController extends Controller
         if($user) {
 		    $role_user_fairs = RoleUserFair::where('user_id',$user->id)->delete();
 		    $audiences = Audience::where('user_id',$user->id)->delete();
+		    $audiences = ShoppingCart::where('user_id',$user->id)->delete();
             $user->delete();
 
             return [
