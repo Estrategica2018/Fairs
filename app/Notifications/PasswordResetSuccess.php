@@ -42,7 +42,7 @@ class PasswordResetSuccess extends Notification
     {
         return (new MailMessage)
             ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
-            ->subject('Notificatión recuperación contraseña exitoso')
+            ->subject('Notificación recuperación contraseña exitoso')
             ->line('Has cambiado tu contraseña con éxito.')
             ->line('Si cambió la contraseña, no es necesario realizar ninguna otra acción.')
             ->line('Si no cambió la contraseña, proteja su cuenta.');

@@ -42,7 +42,7 @@ class SuccessfulRegistration extends Notification
     {
         return (new MailMessage)
             ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
-            ->subject('Notificatión Registro Exitoso')
+            ->subject('Notificación Registro Exitoso')
             ->view('notifications.successfulRegistration');
     }
 

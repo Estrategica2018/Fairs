@@ -22,13 +22,14 @@ class AccountRegistration extends Notification
     private $email;
     private $code;
     public $array_code = [];
-    public function __construct($email, $code)
+    public function __construct($email, $code, $origin)
     {
         while($code != 0){
             $this->array_code[] = $code % 10;
             $code = intval($code/10);
         }
         $this->email = $email;
+        $this->origin = $origin;
         $this->code = $code;
     }
 
@@ -53,8 +54,10 @@ class AccountRegistration extends Notification
     {
         return (new MailMessage)
             ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
-            ->subject('Notificatión Registro Feria')
-            ->view('notifications.accountRegistration',['array_code'=>$this->array_code]);
+            ->subject('Notificación Registro Feria')
+            ->view('notifications.accountRegistration',[
+					['array_code'=>$this->array_code],
+					['origin'=>$this->origin]]);
     }
 
     /**

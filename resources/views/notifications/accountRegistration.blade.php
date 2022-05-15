@@ -79,7 +79,25 @@
         div[style*="margin: 16px 0;"] {
             margin: 0 !important;
         }
-    </style>
+		btn {
+              display: inline-block;
+              font-weight: 400;
+              text-align: center;
+              white-space: nowrap;
+              vertical-align: middle;
+              border: 1px solid transparent;
+              padding: 0.375rem 0.75rem;
+              font-size: 1rem;
+              line-height: 1.5;
+              border-radius: 0.25rem;
+         }
+         btn-primary {
+        	color: #fff;
+			background-color: #3d98d1;
+        	border-color: #3d98d1;
+         }
+  
+      </style>
 </head>
 <body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
 <!-- HIDDEN PREHEADER TEXT -->
@@ -107,7 +125,7 @@
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 0px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p>Hola, ¡bienvenido a e-logic feria virtual! </p>
+                        <p>Hola, ¡Bienvenido a e-logic feria virtual! </p>
                         <p>Para continuar con el proceso de registro por favor ingresa el siguiente código de validación:</p>
                     </td>
                 </tr>
@@ -151,12 +169,17 @@
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 0px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p>Recuerde ingresar este código lo más pronto posible, a fin que pueda acceder fácilmente a toda la información de nuestra plataforma</p>
+                        <p>Recuerda ingresar este código lo más pronto posible, para acceder fácilmente a toda la información de nuestra plataforma</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#ffffff" align="left" style="padding:20px 20px 20px 20px;border-radius:4px 4px 4px 4px;color:#666666;font-family:'Lato',Helvetica,Arial,sans-serif;font-size:18px;font-weight:400;line-height:25px;text-align:center;vertical-align:middle">
+                        <button type="button" class="btn btn-primary" href="{{$origin}}">Confirmar registro</button>
                     </td>
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 0px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p>Si tiene problemas para realizar el proceso comuníquese al correo e.logic.ferias@gmail.com</p>
+                        <p>Si tiene problemas para realizar el proceso comunícate al correo e.logic.ferias@gmail.com</p>
                     </td>
                 </tr>
             </table>

@@ -87,7 +87,7 @@ Route::get('/user/delete/{email}', 'UserController@delete');//->middleware('role
 Route::get('/user/to_list', 'UserController@to_list')->middleware('role:super_administrador');
 Route::get('/user/activate/account/{user_id}', 'UserController@activate_account');
 Route::get('/user/find/{email}', 'UserController@find');
-Route::get('/user/sendSignConfirm/{email}', 'UserController@notifyConfirmEmail');
+Route::get('/user/sendSignConfirm/notify/{origin}/{email}', 'UserController@notifyConfirmEmail');
 Route::get('/user/sendSignConfirm/validate/{email}/{code}', 'UserController@validateConfirmEmail');
 Route::get('/user/sendSignConfirm/reset/{email}', 'UserController@resetNotifyConfirmEmail');
 //*

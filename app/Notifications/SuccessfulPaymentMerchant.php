@@ -46,7 +46,7 @@ class SuccessfulPaymentMerchant extends Notification
     {
         return (new MailMessage)
             ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
-            ->subject('Notificatión registro de pago')
+            ->subject('Notificación registro de pago')
             ->line('Se ha registrado un pago para su comercio '. $this->merchant['name'] .'  con estado Exitoso.')
             ->line('A continuación pude ver el detalle de la compra.')
             ->line('Metodo :'.$this->data['payment_method_type'])

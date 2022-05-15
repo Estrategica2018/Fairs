@@ -244,7 +244,7 @@ class UserController extends Controller
         }
     }
 
-    public function notifyConfirmEmail (Request $request, $email) {
+    public function notifyConfirmEmail (Request $request, $email, $origin) {
         
         $code = '123456789';
         $code = substr(str_shuffle($code), 0, 6);
@@ -258,7 +258,7 @@ class UserController extends Controller
 
         try{
             Notification::route('mail', $email)
-                ->notify(new AccountRegistration($email, $code));
+                ->notify(new AccountRegistration($email, $code, $origin));
 
         }catch (\Exception $e){
             return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
