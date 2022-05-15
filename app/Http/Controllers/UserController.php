@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ConfirmAccount;
 use App\Models\Fair;
+use App\Models\Audience;
 use App\Models\RoleUserFair;
 use App\Models\Speaker;
 use App\Models\User;
