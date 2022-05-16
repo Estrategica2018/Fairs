@@ -259,10 +259,21 @@ class UserController extends Controller
         }
         $confirm_account->code = $code;
         $confirm_account->save();
-
-        try{
+		
+		$fair = Fair::where('name',$fairName)->first();
+		if(!$fair ){
+		  return [
+			'success' => 400,
+			'data' => $fair,
+		  ];
+		}
+		
+		try{
+			$fair->social_media = json_decode($fair->social_media);
+		
+        		
             Notification::route('mail', $email)
-                ->notify(new AccountRegistration($email, $code, $fairName));
+                ->notify(new AccountRegistration($email, $code, $fair));
 
         }catch (\Exception $e){
             return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);

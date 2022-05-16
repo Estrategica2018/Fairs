@@ -100,20 +100,13 @@
   
       </style>
 </head>
-<body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
+<body style="background-color: {{$cardColor}}; margin: 0 !important; padding: 0 !important;">
 <!-- HIDDEN PREHEADER TEXT -->
 <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">Confirmación de cuenta Ferias Virtuales</div>
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr>
-        <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                <tr>
-                    <td bgcolor="#3d98d1" align="center" valign="top" style="border-radius: 4px 4px 0px 0px; color: #00338d; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-                        <!--<h1 style="font-size: 48px; font-weight: 400; margin: 2;">¡Notificación!</h1>-->
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/WOM_logo.png" width="15%" height="15%" style="display: block; border: 0px;" />
-                    </td>
-                </tr>
-            </table>
+        <td bgcolor="#f4f4f4" align="center" style="background-color: {{$cardColor}} ,padding: 0px 10px 0px 10px;">
+          <img src="{{$iconUrl}}" width="22%" height="22%" style="margin-top: 11px;" />
         </td>
     </tr>
     <tr>
@@ -175,14 +168,14 @@
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding:20px 20px 20px 20px;border-radius:4px 4px 4px 4px;color:#666666;font-family:'Lato',Helvetica,Arial,sans-serif;font-size:18px;font-weight:400;line-height:25px;text-align:center;vertical-align:middle">
-                      <a href="{{$origin}}" target="_blank">
+                      <a href="{{$btnLink}}" target="_blank">
 						<button type="button" class="btn btn-primary">Confirmar registro</button>
 					   </a>
                     </td>
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 0px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p>Si tiene problemas para realizar el proceso comunícate al correo e.logic.ferias@gmail.com</p>
+                        <p>Si tienes problemas para realizar el proceso comunícate al correo admin@e-logic.com.co</p>
                     </td>
                 </tr>
             </table>

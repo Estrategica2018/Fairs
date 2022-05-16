@@ -18,19 +18,26 @@ class AccountRegistration extends Notification
      */
     private $user;
     private $fair;
-    private $origin;
+    private $btnLink;
     private $email;
     private $code;
+    private $iconUrl;
+    public $backgroundColor;
+    public $cardColor;
     public $array_code = [];
-    public function __construct($email, $code, $fairName)
+    public function __construct($email, $code, $fair)
     {
         while($code != 0){
             $this->array_code[] = $code % 10;
             $code = intval($code/10);
         }
         $this->email = $email;
-		$this->origin = 'https://'.$fairName.'.e-logic.com.co/app-dialog/confirmAccount/'.$email;
+        $this->btnLink = 'https://'.$fair->name.'.e-logic.com.co/app-dialog/confirmAccount/'.$email;
 		$this->code = $code;
+		
+		$this->cardColor = isset($fair->social_media->cardColor) ? $fair->social_media->cardColor : '#f4f4f4';
+		$this->backgroundColor = isset($fair->social_media->backgroundColor) ? $fair->social_media->backgroundColor : '#f4f4f4';
+		$this->iconUrl = $fair->social_media->icon;
     }
 
     /**
@@ -57,7 +64,10 @@ class AccountRegistration extends Notification
             ->subject('Notificación Registro Feria')
             ->view('notifications.accountRegistration',[
 					'array_code'=>$this->array_code,
-					'origin'=>$this->origin]);
+					'iconUrl'=>$this->iconUrl,
+					'backgroundColor'=> $this->backgroundColor,
+					'cardColor'=> $this->cardColor,
+					'btnLink'=>$this->btnLink]);
     }
 
     /**
