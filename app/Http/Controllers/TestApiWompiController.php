@@ -78,21 +78,21 @@ class TestApiWompiController extends Controller
                             }
                         }
 
-                        try{
-                            Notification::route('mail', $payment->user->email)
-                                ->notify(new SuccessfulRegistration($shoppingCart));
-                        }catch (\Exception $e){
-                            return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
-                        }
-
-                        if($payment_agenda){
-                            try{
-                                Notification::route('mail', $payment->user->email)
-                                    ->notify(new SuccessfulPayment($response['data'],$shoppingCart ,$totalPrice));
-                            }catch (\Exception $e){
-                                return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
-                            }
-                        }
+                        ///try{
+                        ///    Notification::route('mail', $payment->user->email)
+                        ///        ->notify(new SuccessfulRegistration($shoppingCart));
+                        ///}catch (\Exception $e){
+                        ///    return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
+                        ///}
+						///
+                        ///if($payment_agenda){
+                        ///    try{
+                        ///        Notification::route('mail', $payment->user->email)
+                        ///            ->notify(new SuccessfulPayment($response['data'],$shoppingCart ,$totalPrice));
+                        ///    }catch (\Exception $e){
+                        ///        return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
+                        ///    }
+                        ///}
 
                         $shoppingCart = ShoppingCart::with('product.stand.merchant')->where('references_id',$response['data']['reference'])->get()->unique('product_id');
                         $array_merchant = [];
