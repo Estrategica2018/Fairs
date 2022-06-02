@@ -57,7 +57,7 @@ class TestApiWompiController extends Controller
                     //dd($response);
                   if($response['data']['status'] == 'APPROVED') {
                     $payment = Payment::whereHas('user')->with('user')->where('reference',$response['data']['reference'])->first();
-                    dd($payment);
+                    
 					$payment->payment_status = 3;
                     $payment->save();
                     $validateShopping = ShoppingCart::where([['references_id',$response['data']['reference']],['state','N']])->first();
