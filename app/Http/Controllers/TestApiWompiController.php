@@ -77,8 +77,7 @@ class TestApiWompiController extends Controller
                 {
                     if (isset($response) && $response)
                     {
-						dd($response['data']);
-                        if ($response['data']['status'] == 'APPROVED')
+						if ($response['data']['status'] == 'APPROVED')
                         {
                             $payment = Payment::whereHas('user')->with('user')
                                 ->where('reference', $response['data']['reference'])->first();
@@ -90,8 +89,7 @@ class TestApiWompiController extends Controller
                             $payment->save();
 
                             $validateShopping = ShoppingCart::where([['references_id', $response['data']['reference']]])->first();
-                            if ($validateShopping && $validateShopping->state == 'N')
-                            {
+                            if ($validateShopping && $validateShopping->state == 'N') {
                                 $update = ShoppingCart::where([['references_id', $response['data']['reference']], ['state', 'N']])->update(['state' => 'P']);
                             }
                             $payment_agenda = false;
@@ -123,6 +121,7 @@ class TestApiWompiController extends Controller
 								else { 
                                     try{
 										$fairIcon = json_decode($shoppingCart[0]->fair->social_media)->icon;
+										dd($fairIcon);
 										Notification::route('mail', $payment->user->email)
                                             ->notify(new SuccessfullPayment($fairIcon, $response['data'],$shoppingCart ,$totalPrice));
                                     }catch (\Exception $e){
