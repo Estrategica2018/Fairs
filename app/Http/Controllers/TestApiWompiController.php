@@ -121,12 +121,14 @@ class TestApiWompiController extends Controller
 								else { 
                                     try{
 										$fairIcon = json_decode($shoppingCart[0]->fair->social_media)->icon;
-										dd($fairIcon);
 										Notification::route('mail', $payment->user->email)
                                             ->notify(new SuccessfullPayment($fairIcon, $response['data'],$shoppingCart ,$totalPrice));
                                     }catch (\Exception $e){
+										dd($e);
                                         return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
                                     }
+									
+									dd('continue');
                                 }
 								
                                $array_merchant = [];
