@@ -77,6 +77,7 @@ class TestApiWompiController extends Controller
                 {
                     if (isset($response) && $response)
                     {
+						dd($response['data']);
                         if ($response['data']['status'] == 'APPROVED')
                         {
                             $payment = Payment::whereHas('user')->with('user')
