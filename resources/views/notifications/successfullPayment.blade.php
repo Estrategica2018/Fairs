@@ -77,8 +77,7 @@
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
                     <td bgcolor="#3d98d1" align="center" valign="top" style="border-radius: 4px 4px 0px 0px; color: #00338d; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-                        <!--<h1 style="font-size: 48px; font-weight: 400; margin: 2;">¡Notificación!</h1>-->
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/WOM_logo.png" width="15%" height="15%" style="display: block; border: 0px;" />
+                        <h1 style="font-size: 21px; font-weight: 400; margin: 20px; color: white;">¡Confirmación de pago!</h1> 
                     </td>
                 </tr>
             </table>
@@ -88,14 +87,16 @@
         <td bgcolor="#f4f4f4" align="center" style="padding: 10px 10px 0px 10px;">
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
-                    <td bgcolor="#ffffff" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <h2  style="font-size: 25px; font-weight: 400; color: #005EB8; margin: 0;">Tu pago fue confirmado</h2>
+                    <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 0px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                        
+						<img src="{{ $fairIcon }}" width="auto" height="64" style="display: block; border: 0px; height: 64px; width:auto" />
+                        <h2  style="font-size: 21px; font-weight: 400; color: #005EB8; margin: 20px;">Tu pago fué confirmado</h2>
                     </td>
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 20px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                         <p>Hola!</p>
-                        <p>El pago por tu compra en e-logic feria virtual,con número de pedido #{{$transaction['reference']}}, realizado por {{$transaction['payment_method']['type']}}, se encuentra <span style="color: #4CAF50">Aprobado</span></p>
+                        <p>El pago por tu compra en <strong>e-logic feria virtual</strong> con número de pedido <strong>#{{$transaction['reference']}}</strong>, realizado por {{$transaction['payment_method']['type']}}, se encuentra <span style="color: #4CAF50">Aprobado</span></p>
                     </td>
                 </tr>
             </table>
@@ -110,7 +111,8 @@
                     @if($data->product != null)
                     <tbody bgcolor="#ffffff">
                         <tr bgcolor="#ffffff" style="height: 29px; min-width: 12em;">
-                            <td bgcolor="#ffffff" style="width: 33.3333%; min-width: 12em; height: 77px;" rowspan="100"><img style="display: block; margin-left: auto; margin-right: auto;" src="{{ json_decode($data->productPrice->resources)->images[0]->url_image }}" width="99" height="98" /></td>
+                            <td bgcolor="#ffffff" style="width: 33.3333%; min-width: 12em; height: 77px;" rowspan="100">
+							<img style="display: block; margin-left: auto; margin-right: auto;" src="{{ json_decode($data->productPrice->resources)->images[0]->url_image }}" width="99" height="98" /></td>
                             <td bgcolor="#ffffff" style="font-family: 'Lato', Helvetica, Arial, sans-serif;width: 90.5011%; min-width: 12em; height: 33px; font-size: 20.3333px; font-family: YoutubeSansMedium; color: #004782; font-weight: 600; top: 8.84056px; left: 60.9998px;" colspan="3">&nbsp; &nbsp; {{$data->product->name}}</td>
                         </tr>
                         <tr bgcolor="#ffffff" style="height: 10px;">
