@@ -27,9 +27,12 @@ class WompiController extends Controller
         
         $test = new TestApiWompiController();
         $request->id = $input['id'];
+		
         $response = $test->auth($request, 'php');
-		if(isset($response['sucess'])) {
-          $reference = $response['sucess']['data']['reference'];
+		
+		if($response && $response['success']) {
+		
+          $reference = $response['success']['data']['reference'];
 		}
 		else {
 		   dd($response);
@@ -39,11 +42,11 @@ class WompiController extends Controller
         $references_id = $validateShopping->references_id;
         
         $environment = App::environment();
-        if (App::environment('local')) {
-            $href = 'http://localhost:8100/payment/' . $references_id;
+        if (App::environment('produccion')) {
+            $href = 'https://' . $validateShopping->fair->name . '.e-logic.com.co/Fair-website/payment/' . $reference;
         }
         else {
-            $href = 'https://' . $validateShopping->fair->name . '.e-logic.com.co/Fair-website/payment/' . $reference;
+            $href = 'http://localhost:8100/payment/' . $references_id;
         }
 
        return view('wompi.paymentViewer',['location'=>$href]);
