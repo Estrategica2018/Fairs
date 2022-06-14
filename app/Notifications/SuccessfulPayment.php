@@ -51,8 +51,8 @@ class SuccessfulPayment extends Notification
         return (new MailMessage)
             ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
             ->subject('Notificación Pago Exitoso')
-            ->view('notifications.successfulPayment',
-                [   'transaction' => $this->transaction,
+            ->view('notifications.successfullPayment',
+                [ 'transaction' => $this->transaction,
                     'shoppingCart' => $this->shoppingCart,
                     'fairIcon' => $this->fairIcon,
                     'totalPrice' => $this->totalPrice
