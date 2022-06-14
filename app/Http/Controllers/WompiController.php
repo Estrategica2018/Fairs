@@ -35,7 +35,7 @@ class WompiController extends Controller
           $reference = $response['success']['data']['reference'];
 		}
 		else {
-		   dd($response);
+		   dd('error2',$response);
 		}
         
         $validateShopping = ShoppingCart::with('fair')->where('references_id',$reference)->first();
