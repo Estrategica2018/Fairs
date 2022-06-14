@@ -128,7 +128,6 @@ class TestApiWompiController extends Controller
                                         return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
                                     }
 									
-									dd('continue');
                                 }
 								
                                $array_merchant = [];
