@@ -42,7 +42,7 @@ class WompiController extends Controller
         $references_id = $validateShopping->references_id;
         
         $environment = App::environment();
-        if (App::environment('produccion')) {
+        if (App::environment('production')) {
             $href = 'https://' . $validateShopping->fair->name . '.e-logic.com.co/Fair-website/payment/' . $reference;
         }
         else {
