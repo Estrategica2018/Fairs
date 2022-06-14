@@ -53,7 +53,7 @@ class PaymentController extends Controller
                     $payment->reference = time(). '-' . $user->id  .'-'. Str::random(2);
                     $payment->save();
                 } else {
-                    dd($response);
+                    dd('error',$response);
                 }
             }
             

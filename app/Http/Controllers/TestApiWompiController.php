@@ -124,8 +124,7 @@ class TestApiWompiController extends Controller
 										Notification::route('mail', $payment->user->email)
                                             ->notify(new SuccessfulPayment($fairIcon, $response['data'],$shoppingCart ,$totalPrice));
                                     }catch (\Exception $e){
-										dd($e);
-                                        return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
+										return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
                                     }
 									
                                 }
