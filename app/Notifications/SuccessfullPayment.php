@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SuccessfullPayment extends Notification
+class SuccessfulPayment extends Notification
 {
     use Queueable;
     private $transaction;
@@ -51,7 +51,7 @@ class SuccessfullPayment extends Notification
         return (new MailMessage)
             ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
             ->subject('Notificación Pago Exitoso')
-            ->view('notifications.successfullPayment',
+            ->view('notifications.successfulPayment',
                 [   'transaction' => $this->transaction,
                     'shoppingCart' => $this->shoppingCart,
                     'fairIcon' => $this->fairIcon,

@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\ShoppingCart;
 use App\Notifications\AccountRegistration;
 use App\Notifications\Conference\SuccessfulRegistration;
-use App\Notifications\SuccessfullPayment;
+use App\Notifications\SuccessfulPayment;
 use App\Notifications\SuccessfulPaymentMerchant;
 use App\Notifications\UnsuccessfulPayment;
 use Illuminate\Http\Request;
@@ -122,7 +122,7 @@ class TestApiWompiController extends Controller
                                     try{
 										$fairIcon = json_decode($shoppingCart[0]->fair->social_media)->icon;
 										Notification::route('mail', $payment->user->email)
-                                            ->notify(new SuccessfullPayment($fairIcon, $response['data'],$shoppingCart ,$totalPrice));
+                                            ->notify(new SuccessfulPayment($fairIcon, $response['data'],$shoppingCart ,$totalPrice));
                                     }catch (\Exception $e){
 										dd($e);
                                         return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
