@@ -135,7 +135,7 @@
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 20px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                         <p>Te has registrado satisfactoriamente en una o más conferencias virtuales.</p>
-                        <p>A continuación encontraras los datos de acceso para el ingreso:</p>
+                        <p>A continuación encontrarás los datos de acceso para el ingreso:</p>
                     </td>
                 </tr>
                 <tr>
@@ -149,8 +149,8 @@
                         <tr>
                             <td bgcolor="#ffffff" align="left" style="padding: 20px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                                 <p>Te has registrado satisfactoriamente en una o más conferencias virtuales.</p>
-                                <p>A continuación encontraras los datos de acceso para el ingreso:</p>
-                                <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Conferecnia virtual(pago por evento):</span> </p>
+                                <p>A continuación encontrarás los datos de acceso para el ingreso:</p>
+                                <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Conferencia virtual(pago por evento):</span> </p>
                                 <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Fecha:</span> {{date("d/m/Y H:i:s", ($data->agenda->start_at/ 1000))}} </p>
                                 <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Duración:</span> {{$data->agenda->duration_time}}</p>
                                 <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">ID Reunión:</span> {{$data->agenda->zoom_code}}</p>
