@@ -119,7 +119,7 @@
                             <td bgcolor="#ffffff" style="font-family: 'Lato', Helvetica, Arial, sans-serif; width: 35.0759%; min-width: 12em; height: 10px;">
                                 <div>
                                     <div>
-                                        Descripción :{{$data->product->description}} &nbsp;
+                                        Descripción :{{$data->product->name}} &nbsp;
                                     </div>
                                     {!! html_entity_decode($data->detail) !!}
                                 </div>
