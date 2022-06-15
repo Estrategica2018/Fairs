@@ -79,9 +79,9 @@ class TestApiWompiController extends Controller
                     {
 						if ($response['data']['status'] == 'APPROVED')
 						{
+							$payment = Payment::whereHas('user')->with('user')->where('reference', $response['data']['reference'])->first();
+							
 							if ( $payment->payment_status !== 100) {
-								$payment = Payment::whereHas('user')->with('user')
-									->where('reference', $response['data']['reference'])->first();
 
 								$payment->payment_status = 3;
 								$updateTime = new \DateTime();
