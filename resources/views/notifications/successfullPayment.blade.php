@@ -66,6 +66,10 @@
         div[style*="margin: 16px 0;"] {
             margin: 0 !important;
         }
+		
+		.card-footer {
+		    height: 79px;
+		}
     </style>
 </head>
 <body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
