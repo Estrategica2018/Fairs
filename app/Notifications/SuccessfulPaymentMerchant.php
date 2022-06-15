@@ -13,16 +13,18 @@ class SuccessfulPaymentMerchant extends Notification
 
     private $data;
     private $merchant;
+    private $fairIcon;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct( $data , $merchant)
+    public function __construct( $data , $merchant, $fairIcon)
     {
         //
         $this->data = $data;
         $this->merchant = $merchant;
+        $this->fairIcon = $fairIcon;
     }
 
     /**
@@ -46,6 +48,16 @@ class SuccessfulPaymentMerchant extends Notification
     {
         return (new MailMessage)
             ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
+            ->subject('Notificación Pago Exitoso')
+            ->view('notifications.successfullPaymentMerchant',
+                [
+                    'merchant' => $this->merchant,
+                    'data' => $this->data,
+                    'fairIcon' => $this->fairIcon,
+                ]
+            );
+        /*
+            ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
             ->subject('Notificación registro de pago')
             ->line('Se ha registrado un pago para su comercio '. $this->merchant['name'] .'  con estado Exitoso.')
             ->line('A continuación pude ver el detalle de la compra.')
@@ -54,6 +66,7 @@ class SuccessfulPaymentMerchant extends Notification
             ->line('Descripción :'.$this->data['payment_method']['payment_description'])
             ->line('Estado :'.$this->data['status'])
             ->line('Gracias por usar nuestra aplicación');
+        */
     }
 
     /**

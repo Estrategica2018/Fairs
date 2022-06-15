@@ -166,6 +166,7 @@ class TestApiWompiController extends Controller
 										   ->toArray();
 								   
 									   $shoppingCart = ShoppingCart::where('references_id', $response['data']['reference'])->get();
+                                       $fairIcon = json_decode($shoppingCart[0]->fair->social_media)->icon;
 									   $total = 0;
 									   foreach ($shoppingCart as $product)
 									   {
@@ -180,7 +181,7 @@ class TestApiWompiController extends Controller
 									   array_push($merchant_data, $temp_array);
 									   //dd($merchant_user->email_contact);
 									   Notification::route('mail', $merchant_user->email_contact)
-										   ->notify(new SuccessfulPaymentMerchant($response['data'], $temp_array));
+										   ->notify(new SuccessfulPaymentMerchant($response['data'], $temp_array,$fairIcon));
 								   }
 								   
 								   $payment->flag_notify = true;
