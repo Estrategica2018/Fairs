@@ -112,7 +112,7 @@
                     <tbody bgcolor="#ffffff">
                         <tr bgcolor="#ffffff" style="height: 29px; min-width: 12em;">
                             <td bgcolor="#ffffff" style="width: 33.3333%; min-width: 12em; height: 77px;" rowspan="100">
-							<img style="display: block; margin-left: auto; margin-right: auto;" src="{{ json_decode($data->productPrice->resources)->images[0]->url_image }}" width="99" height="98" /></td>
+							<img style="display: block; margin-left: auto; margin-right: auto; width: auto; height: 93px;" src="{{ json_decode($data->productPrice->resources)->images[0]->url_image }}" width="99" height="98" /></td>
                             <td bgcolor="#ffffff" style="font-family: 'Lato', Helvetica, Arial, sans-serif;width: 90.5011%; min-width: 12em; height: 33px; font-size: 20.3333px; font-family: YoutubeSansMedium; color: #004782; font-weight: 600; top: 8.84056px; left: 60.9998px;" colspan="3">&nbsp; &nbsp; {{$data->product->name}}</td>
                         </tr>
                         <tr bgcolor="#ffffff" style="height: 10px;">
@@ -135,7 +135,10 @@
                     @else
                         <tbody bgcolor="#ffffff">
                         <tr bgcolor="#ffffff" style="height: 29px; min-width: 12em;">
-                            <td bgcolor="#ffffff" style="width: 33.3333%; min-width: 12em; height: 77px;" rowspan="100"><img style="display: block; margin-left: auto; margin-right: auto;" src="https://www.freepik.es/vector-gratis/mano-calendario-marca-pluma_1250622.htm#query=calendario&position=4&from_view=keyword" width="99" height="98" /></td>
+                            <td bgcolor="#ffffff" style="width: 33.3333%; min-width: 12em; height: 77px;" rowspan="100">
+							<img style="display: block; margin-left: auto; margin-right: auto; width: auto; height: 93px;" 
+							src="https://www.freepik.es/vector-gratis/mano-calendario-marca-pluma_1250622.htm#query=calendario&position=4&from_view=keyword" 
+							width="99" height="98" /></td>
                             <td bgcolor="#ffffff" style="font-family: 'Lato', Helvetica, Arial, sans-serif;width: 90.5011%; min-width: 12em; height: 33px; font-size: 20.3333px; font-family: YoutubeSansMedium; color: #004782; font-weight: 600; top: 8.84056px; left: 60.9998px;" colspan="3">&nbsp; &nbsp; {{$data->agenda->title}}</td>
                         </tr>
                         <tr bgcolor="#ffffff" style="height: 10px;">
