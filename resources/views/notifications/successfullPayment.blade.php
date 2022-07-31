@@ -94,7 +94,7 @@
                     <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 0px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                         
 						<img src="{{ $fairIcon }}" width="auto" height="64" style="display: block; border: 0px; height: 64px; width:auto" />
-                        <h2  style="font-size: 21px; font-weight: 400; color: #005EB8; margin: 20px;">Tu pago fué confirmado</h2>
+                        <h2  style="font-size: 21px; font-weight: 400; color: #005EB8; margin: 20px;">Tu pago fue confirmado</h2>
                     </td>
                 </tr>
                 <tr>
