@@ -77,7 +77,7 @@ class ViewerZoomController extends Controller
 			
             session_start();
 			$fair = Fair::find($agenda->fair_id);
-			$_SESSION["newFair"]='https://'.$fair->name.'.e-logic.com.co/Fair-website/#/schedule';
+			$_SESSION["newFair"]='https://'.$fair->name.'.e-logic.com.co/website/#/schedule';
             return view('zoom.zoomViewer',$opt);
         }
         else {
