@@ -19,4 +19,10 @@ class Fair extends Model
         return $this->belongsToMany(Role::class,'role_user_fairs','fair_id','role_id');
 
     }
+
+    public function user_fairs (){
+
+        return $this->belongsToMany(User::class,'role_user_fairs','fair_id','user_id');
+
+    }
 }

@@ -59,6 +59,7 @@ Route::get('/fair/to_list', 'FairController@to_list');
 Route::get('/fair/find/{id?}', 'FairController@find');
 Route::post('/fair/update/{fair_id}', 'FairController@update')->middleware('role:super_administrador');
 Route::post('/fair/delete/{fair_id}', 'FairController@delete')->middleware('role:super_administrador');
+Route::post('/fair/add-admin/{fair_id}', 'FairController@addAdmin')->middleware('role:super_administrador');
 //*
 //
 Route::post('/pavilion/create', 'PavilionController@create')->middleware('role:super_administrador');
@@ -121,7 +122,7 @@ Route::get('/subcategory/get/{category_id}', 'CategoryController@get_sub_categor
 
 
 Route::post('/audience/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_audience');
-Route::get('/meeting/generate-video-token/{fair_id?}/{meeting_id?}', 'AgendaController@generateVideoToken');
+Route::get('/meeting/generate-meeting-token/{fair_id?}/{meeting_id?}', 'AgendaController@generateMeetingToken');
 
 Route::post('/payment/generate', 'PaymentController@createNewReference');
 Route::post('/payment/user/fair', 'PaymentController@getPaymentUser');

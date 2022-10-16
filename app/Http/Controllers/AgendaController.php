@@ -136,7 +136,7 @@ class AgendaController extends Controller
         ];
     }
     
-    public function generateVideoToken(Request $request, $fair_id, $meeting_id ) {
+    public function generateMeetingToken(Request $request, $fair_id, $meeting_id ) {
         
         $agenda = Agendas::with('audience')->find($meeting_id);
 		$user = auth()->guard('api')->user();
@@ -147,7 +147,7 @@ class AgendaController extends Controller
 			  return ((float)$usec + (float)$sec);
 			}
 			$time = microtime_float();
-			$token = uniqid('user_').$user->id.$time;
+			$token = uniqid('user_').$user->id.'.'.$meeting_id.'.'.$fair_id;
 			
 			if($agenda->audience_config == 2) {
                $email = $user->email;
@@ -180,22 +180,20 @@ class AgendaController extends Controller
 				$audience->token = $token;
 				$audience->save();
 
-				try{
+				/*
+                 Borrar solo para debug
+                try{
                     Notification::route('mail', $user->email)
                         ->notify(new SuccessFulRegistrationFree($agenda,$user));
                 }catch (\Exception $e){
                     return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
-                }
+                }*/
 
 				return [
 				  'success' => 201,
 				  'data' => $audience->token,
 				];
 				$audience->save();
-
-				
-				
-				
 			}
 		}
 		else {

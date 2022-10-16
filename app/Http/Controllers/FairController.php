@@ -125,7 +125,7 @@ class FairController extends Controller
 		
 		return [
             'success' => 201,
-            'data' => Fair::with('role_user_fairs')->whereHas('role_user_fairs',function($query)use($user){
+            'data' => Fair::with('user_fairs','role_user_fairs')->whereHas('role_user_fairs',function($query)use($user){
 				$query->where('user_id',$user->id);
 			})->get()
         ];
@@ -190,6 +190,58 @@ class FairController extends Controller
             'data' => $count > 0 ? 'deleted '.$count  : 'no deleted'
         ];
 
+    }
+
+    public function addAdmin(Request $request, $fair_id) {
+        
+        $fair = Fair::find($fair_id);
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+        
+        
+        $data = $validator->validated();
+        
+        $email = $request['email'];
+        $user = User::where('email', $email)->first();
+
+        if($user == null){
+            return [
+                'success' => 401,
+                'user' => $user,
+                'message' => 'usuario no existe'
+            ]; 
+        }
+        else {
+            $roleUserFair = RoleUserFair::where([ 
+                ['fair_id',$fair->id],
+                ['user_id',$user->id],
+                ['role_id',1] ])->first();
+
+            if($roleUserFair == null )   {
+                $roleUserFair = new RoleUserFair();
+            }
+            
+            $roleUserFair->user_id = $user->id;
+            $roleUserFair->fair_id = $fair->id;
+            $roleUserFair->role_id = '1';
+            $roleUserFair->save();
+            
+            return [
+                'success' => 201,
+                'user' => $user,
+                'faird' => $fair->id,
+                'email' => $email
+            ]; 
+        }
     }
 
 }
