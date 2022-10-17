@@ -223,7 +223,8 @@ class MeetingController extends Controller
             'price' => 'numeric',
             'resources' => 'nullable',
             'token' => 'string|nullable',
-            'audience_config' => 'required|string'
+            'audience_config' => 'required|string',
+            'zoom_code' => 'required|string'
         ]);
 
 
@@ -264,6 +265,7 @@ class MeetingController extends Controller
             $agenda->price = isset($data['price']) ? $data['price'] : 0;
             $agenda->timezone = $data['timezone'];
             $agenda->audience_config = $data['audience_config'];
+            $agenda->zoom_code = $id;
             $agenda->save();
             
             return [
