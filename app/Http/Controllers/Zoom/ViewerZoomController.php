@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\App;
 
 class ViewerZoomController extends Controller
 {
@@ -78,17 +79,36 @@ class ViewerZoomController extends Controller
               'apiKey'=>$API_KEY
             ];
             
-            //session_start();
+            if(!isset($_SESSION)) {
+              session_start();
+            }
+
 			      $fair = Fair::find($agenda->fair_id);
-      			$_SESSION["newFair"]='https://'.$fair->name.'.e-logic.com.co/website/#/agenda/'.$audience->agenda_id;
+
+
+            if (App::environment('production')) {
+              $href = 'https://'.$fair->name.'.e-logic.com.co/website/#/agenda/'.$audience->agenda_id;
+            }
+            else {
+              $href = 'http://localhost:8100/agenda/' . $audience->agenda_id;
+            }
+
+      			$_SESSION["newFair"]=$href;
             $audience->delete();
+
             return view('zoom.zoomViewer',$opt);
         }
         else {
             //$_SESSION["newFair"]='https://'.$fair->name.'.e-logic.com.co/website/#/agenda/';
             //return abort(404);
+            if (App::environment('production')) {
+              $href = 'https://'.$fair->name.'.e-logic.com.co/website/#/agenda/'.$agenda_id;
+            }
+            else {
+              $href = 'http://localhost:8100/agenda/' . $agenda_id;
+            }
+            
             $fair = Fair::find($fair_id);
-            $url = 'https://'.$fair->name.'.e-logic.com.co/website/#/agenda/'.$agenda_id;
             
             $opt = [
               'name' => '',
@@ -100,9 +120,9 @@ class ViewerZoomController extends Controller
               'signature'=> '',
               'china'=>'0',
               'apiKey'=> '',
-              'url_redirect'=> $url
+              'url_redirect'=> $href
             ];
-
+            
             return view('zoom.zoomViewer',$opt);
         }
     }
