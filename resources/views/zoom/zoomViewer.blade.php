@@ -27,6 +27,11 @@
           console.log("simd check", res);
         });
     </script>
+ @if(isset($url_redirect))
+  <script>
+        window.location.href = $url_redirect;
+  </script>
+  @endif
 	
 	<script>
 	    var data = {
