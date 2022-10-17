@@ -87,7 +87,7 @@ class ViewerZoomController extends Controller
 
 
             if (App::environment('production')) {
-              $href = 'https://'.$fair->name.'.e-logic.com.co/website/#/agenda/'.$audience->agenda_id;
+              $href = 'https://'.$fair->name.'.e-logic.com.co/website/agenda/'.$audience->agenda_id;
             }
             else {
               $href = 'http://localhost:8100/agenda/' . $audience->agenda_id;
@@ -105,7 +105,7 @@ class ViewerZoomController extends Controller
             $fair = Fair::find($fair_id);
 
             if (App::environment('production')) {
-              $href = 'https://'.$fair->name.'.e-logic.com.co/website/#/agenda/'.$agenda_id;
+              $href = 'https://'.$fair->name.'.e-logic.com.co/website/agenda/'.$agenda_id;
             }
             else {
               $href = 'http://localhost:8100/agenda/' . $agenda_id;
