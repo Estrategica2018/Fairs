@@ -201,7 +201,7 @@ class UserController extends Controller
             ];
         }
         else {
-            return response()->json(['message' => 'La sesión ha cadudcado.'. $email], 403);
+            return response()->json(['message' => 'No existe el usuario.'. $email], 403);
         }
     }
 
