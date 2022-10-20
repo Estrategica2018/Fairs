@@ -18,7 +18,7 @@ class SuccessfulRegistration extends Notification
      *
      * @return void
      */
-    public function __construct($fair)
+    public function __construct($fair, $email)
     {
         //
         $this->btnLink = 'https://'.$fair->name.'.e-logic.com.co/app-dialog/confirmAccount/'.$email;
