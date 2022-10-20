@@ -79,7 +79,7 @@ class UserController extends Controller
 
         try{
             Notification::route('mail', $data['email'])
-                ->notify(new SuccessfulRegistration());
+                ->notify(new SuccessfulRegistration($fair));
 
         }catch (\Exception $e){
             return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
@@ -281,7 +281,8 @@ class UserController extends Controller
         
         return response()->json([
             'success' => 201,
-            'message' => 'Hemos enviado un correo electrónico'
+            'message' => 'Hemos enviado un correo electrónico',
+            'code' => $code
         ]);
     }
 

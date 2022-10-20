@@ -10,15 +10,18 @@ use Illuminate\Notifications\Notification;
 class SuccessfulRegistration extends Notification
 {
     use Queueable;
+    private $fair;
+    private $btnLink;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($fair)
     {
         //
+        $this->btnLink = 'https://'.$fair->name.'.e-logic.com.co/app-dialog/confirmAccount/'.$email;
     }
 
     /**
@@ -43,7 +46,7 @@ class SuccessfulRegistration extends Notification
         return (new MailMessage)
             ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
             ->subject('Notificación Registro Exitoso')
-            ->view('notifications.successfulRegistration');
+            ->view('notifications.successfulRegistration',['btnLink'=>$this->btnLink]);
     }
 
     /**
