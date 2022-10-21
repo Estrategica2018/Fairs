@@ -11,6 +11,7 @@ class SuccessfulRegistration extends Notification
 {
     use Queueable;
     private $fair;
+    private $email;
     private $btnLink;
 
     /**
@@ -18,10 +19,10 @@ class SuccessfulRegistration extends Notification
      *
      * @return void
      */
-    public function __construct($fair, $email)
+    public function __construct($fair,$email)
     {
         //
-        $this->btnLink = 'https://'.$fair->name.'.e-logic.com.co/app-dialog/confirmAccount/'.$email;
+        $this->btnLink = 'https://'.$fair->name.'.e-logic.com.co';
     }
 
     /**
