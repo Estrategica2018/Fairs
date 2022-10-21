@@ -311,7 +311,7 @@ class UserController extends Controller
             }
             return response()->json([
                 'error' => 200,
-                'message' => 'Código incorrecto. '.$confirm_account->code
+                'message' => 'Código incorrecto. '
             ]);
         }else{
             return response()->json(['message' => 'Error no se encontró el correo'], 403);
