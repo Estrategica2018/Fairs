@@ -36,6 +36,7 @@ class AgendaController extends Controller
             'fair_id' => '',
             'pavilion_id' => '',
             'stand_id' => '',
+            'zoom_auth' => '',
         ]);
 
         if ($validator->fails()) {
@@ -46,8 +47,15 @@ class AgendaController extends Controller
         }
         $data = $validator->validated();
     
-        $query = Agendas::select('id','title','description','duration_time','start_at','timezone','audience_config','resources','category_id','zoom_code','price')
-        ->with('invited_speakers.speaker.user', 'category')->where('fair_id',$data['fair_id']);
+        
+        if(isset($data['zoom_auth']) ) {
+            $querySelect = Agendas::select('id','title','description','duration_time','start_at','timezone','audience_config','resources','category_id','zoom_code','zoom_password','price');
+        }
+        else {
+            $querySelect= Agendas::select('id','title','description','duration_time','start_at','timezone','audience_config','resources','category_id','price');
+        }
+
+        $query = $querySelect->with('invited_speakers.speaker.user', 'category')->where('fair_id',$data['fair_id']);
         
         if(isset($data['fair_id'])) {
           $query = $query->where('fair_id',$data['fair_id']);

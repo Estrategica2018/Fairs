@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use phpseclib\Crypt\Hash;
+use App\Models\OauthAccessTokens;
 
 class LoginController extends Controller
 {
@@ -82,10 +83,12 @@ class LoginController extends Controller
 			]);
 		}
 
-		return response()->json(['data' => $user->createToken('Auth Token')->accessToken, 'message' => 'Token generado satisfactoriamente', 'user' => $user], 200);			
-	
-
-    }
+		$auth = OauthAccessTokens::where('user_id',$user->id)->orderBy('created_at', 'desc')->first();
+		$token = $user->createToken('Auth Token');
+		$accessToken = $token->accessToken;
+		$token_id = $token->token->id;
+		return response()->json(['data' => $accessToken, 'message' => 'Token generado satisfactoriamente', 'user' => $user, 'auth' => $token_id], 200);
+	}
 
     public function logout(Request $request){
         if($request->user()) {

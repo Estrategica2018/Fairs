@@ -20,6 +20,28 @@
     <script src="/zoom-client-js/tool.js"></script>
     <script src="/zoom-client-js/vconsole.min.js"></script>
     <script src="/zoom-client-js/meeting.js"></script>
+    <script>
+
+       @if(isset($url_redirect) && $url_redirect) {
+         window.location.href = '{!!$url_redirect!!}';
+       }
+       @endif;
+
+       var i = 0;
+       setInterval(()=>{
+          console.log('....'+ i);
+          i++;
+       },60000);
+
+       const Http = new XMLHttpRequest();
+       const url='https://jsonplaceholder.typicode.com/posts';
+       Http.open("GET", url);
+       Http.send();
+
+       Http.onreadystatechange = (e) => {
+        console.log(Http.responseText);
+      }
+    </script>
 
     <script>
         const simd = async () => WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3, 2, 1, 0, 10, 9, 1, 7, 0, 65, 0, 253, 15, 26, 11]))
