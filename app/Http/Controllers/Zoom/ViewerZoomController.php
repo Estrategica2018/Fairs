@@ -7,15 +7,17 @@ use App\Models\InvitedSpeaker;
 use App\Models\RoleUserFair;
 use App\Models\Audience;
 use App\Models\Fair;
+use App\Models\OauthAccessTokens;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\App;
+use File;
 
 class ViewerZoomController extends Controller
 {
-    public function index (Request $request, $token = '') {        
+   public function index (Request $request, $token = '', $token_id) {        
 		
         $audience = Audience::with('user')->where('token',$token)->first();
         $agenda_id = explode(".",$token)[1];
@@ -23,6 +25,7 @@ class ViewerZoomController extends Controller
         
         if($audience) {
 
+            $user = OauthAccessTokens::where('id',$token_id)->first();
             $agenda = Agendas::with('invited_speakers.speaker.user','audience')->find($audience->agenda_id);
             
             $user = $audience->user;
@@ -79,9 +82,7 @@ class ViewerZoomController extends Controller
               'apiKey'=>$API_KEY
             ];
             
-            if(!isset($_SESSION)) {
-              session_start();
-            }
+            if(session_status() !== PHP_SESSION_ACTIVE) session_start();
 
 			      $fair = Fair::find($agenda->fair_id);
 
@@ -94,6 +95,7 @@ class ViewerZoomController extends Controller
             }
 
       			$_SESSION["newFair"]=$href;
+            
             $audience->delete();
 
             return view('zoom.zoomViewer',$opt);
@@ -111,24 +113,11 @@ class ViewerZoomController extends Controller
               $href = 'http://localhost:8100/agenda/' . $agenda_id;
             }
             
-            $opt = [
-              'name' => '',
-              'mn'=> '',
-              'email'=>'',
-              'pwd'=> '',
-              'role'=> '',
-              'lang'=>'es-ES',
-              'signature'=> '',
-              'china'=>'0',
-              'apiKey'=> '',
-              'url_redirect'=> $href
-            ];
-            
-            return view('zoom.zoomViewer',$opt);
+            return view('redirect',['location' => $href]);
         }
-    }
+   }
     
-    function generate_signature ( $api_key, $api_secret, $meeting_number, $role){
+   public function generate_signature ( $api_key, $api_secret, $meeting_number, $role){
 
         date_default_timezone_set("UTC");
         $time = time() * 1000 - 30000;//time in milliseconds (or close enough)
@@ -138,4 +127,68 @@ class ViewerZoomController extends Controller
         //return signature, url safe base64 encoded
         return rtrim(strtr(base64_encode($_sig), '+/', '-_'), '=');
    }
+
+   public function callback(Request $request){
+
+     try {
+
+        $client = new \GuzzleHttp\Client(['base_uri' => 'https://zoom.us']);
+    
+        $log_path = public_path(). '/payments-logs/';
+        File::isDirectory($log_path) or File::makeDirectory($log_path, 0777, true, true);
+        $file = 'zoom-'.date('YmdHis').'.txt';
+        $this->writeLog($log_path.'/'.$file, $request);
+        $code = '';
+        if(isset($_GET['code'])) {
+           $this->writeLog($log_path.'/'.$file, $_GET['code']);
+           $code = $_GET['code'];
+        }
+
+        $response = $client->request('POST', '/oauth/token', [
+          "headers" => [
+              "Authorization" => "Basic ". base64_encode(env('CLIENT_ID', '').':'.env('CLIENT_SECRET', ''))
+          ],
+          'form_params' => [
+              "grant_type" => "authorization_code",
+              "code" => $code,
+              "redirect_uri" => env('REDIRECT_URI', '')
+          ],
+        ]);
+    
+        $token = json_decode($response->getBody()->getContents(), true);
+    
+        echo "Access token inserted successfully " . $token;
+
+      } catch(Exception $e) {
+        echo $e->getMessage();
+      }
+   }
+
+   public function writeLog($filename, $string) {
+
+      if (!file_exists($filename)) {
+          touch($filename, strtotime('-1 days'));
+      }
+      if(gettype($string) == "object") {
+          $string = json_encode ($string,true);
+      }
+      if(gettype($string) == "array") {
+          $string = json_encode($string);
+      }
+      file_put_contents($filename, $string . PHP_EOL, FILE_APPEND);
+  }
+
+  public function saveResgister(Request $request, $email) {
+
+        $audience = Audience::with('user')->where('token',$token)->first();
+        $agenda_id = explode(".",$token)[1];
+        $fair_id = explode(".",$token)[2];
+       
+        return [
+          'success' => true,
+          'data' => $audience
+        ];
+    
+  }
+
 }

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use File;
+use Illuminate\Support\Facades\App;
 
 class UserController extends Controller
 {
@@ -78,8 +79,11 @@ class UserController extends Controller
         }
 
         try{
-            Notification::route('mail', $data['email'])
+
+            if (App::environment('production') || App::environment('sendEmail') ) {
+              Notification::route('mail', $data['email'])
                 ->notify(new SuccessfulRegistration($fair, $data['email']));
+            }
 
         }catch (\Exception $e){
             return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
@@ -271,9 +275,10 @@ class UserController extends Controller
 		try{
 			$fair->social_media = json_decode($fair->social_media);
 		
-        		
-            Notification::route('mail', $email)
+        	if (App::environment('production') || App::environment('sendEmail') ) {
+              Notification::route('mail', $email)
                 ->notify(new AccountRegistration($email, $code, $fair));
+            }
 
         }catch (\Exception $e){
             return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
