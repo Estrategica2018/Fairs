@@ -54,7 +54,7 @@ Route::delete('/meetings/{id}', 'Zoom\MeetingController@delete')->where('id', '[
 
 //
 Route::post('/fair/create', 'FairController@create')->middleware('role:super_administrador');
-Route::get('/fair/changeName/{$fair_ori}/{$fair_new}', 'FairController@changeName')->middleware('role:super_administrador');
+Route::get('/fair/changeName/{fair_ori}/{fair_new}', 'FairController@changeName')->middleware('role:super_administrador');
 Route::get('/fair/list_all', 'FairController@list_all')->middleware('role:super_administrador');
 Route::get('/fair/to_list', 'FairController@to_list');
 Route::get('/fair/find/{id?}', 'FairController@find');
