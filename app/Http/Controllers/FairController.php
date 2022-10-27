@@ -244,8 +244,8 @@ class FairController extends Controller
         }
     }
 
-    public function changeName(Request $request, $fair_ori, $fair_new) {
-        $fair = Fair::where('name',$fair_ori);
+    public function changeName(Request $request, $fair_id, $fair_new_name) {
+        $fair = Fair::find('name',$fair_ori);
         $fair->name = $fair_new;
         $fair->save();
 
