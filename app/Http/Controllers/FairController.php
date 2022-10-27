@@ -246,7 +246,7 @@ class FairController extends Controller
 
     public function changeName(Request $request, $fair_id, $fair_new_name) {
         $fair = Fair::find($fair_id);
-        $fair->name = $fair_new;
+        $fair->name = $fair_new_name;
         $fair->save();
 
         return [
