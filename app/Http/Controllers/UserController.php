@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ConfirmAccount;
 use App\Models\Fair;
 use App\Models\Audience;
+use App\Models\MinculturaUser;
 use App\Models\ShoppingCart;
 use App\Models\RoleUserFair;
 use App\Models\Speaker;
@@ -77,6 +78,8 @@ class UserController extends Controller
             $speaker->resources = $request->speaker["resources"];
             $speaker->save();
         }
+
+        $this->mincultura_user($user,$data);
 
         try{
 
@@ -323,6 +326,46 @@ class UserController extends Controller
         }
 
 
+    }
+
+    public function minculturaUser($user,$data){
+
+        $minculturaUser = new MinculturaUser();
+        $minculturaUser->user_id = $user->id;
+        $minculturaUser->documento_tipo = $data['documento_tipo'];
+        $minculturaUser->documento_numero = $data['documento_numero'];
+        $minculturaUser->correo_electronico_adicional = $data['correo_electronico_adicional'];
+        $minculturaUser->numero_celular = $data['numero_celular'];
+        $minculturaUser->pais_inscripcion = $data['pais_inscripcion'];
+        $minculturaUser->zona_se_encuentra_en = $data['zona_se_encuentra_en'];
+        if($data['zona_se_encuentra_en'] == 'Otra'){
+            $minculturaUser->zona_se_encuentra_en_otra = $data['zona_se_encuentra_en_otra'];
+        }
+        $minculturaUser->sexo_se_reconoce_como = $data['sexo_se_reconoce_como'];
+        if($data['sexo_se_reconoce_como'] == 'Otro'){
+            $minculturaUser->sexo_se_reconoce_como_otro = $data['sexo_se_reconoce_como_otro'];
+        }
+        $minculturaUser->sexo_registro_civil = $data['sexo_registro_civil'];
+        if($data['sexo_registro_civil'] == 'Otro'){
+            $minculturaUser->sexo_registro_civil_otro = $data['sexo_registro_civil_otro'];
+        }
+        $minculturaUser->cultura_se_reconoce_como = $data['cultura_se_reconoce_como'];
+        if($data['cultura_se_reconoce_como'] == 'Otro'){
+            $minculturaUser->cultura_se_reconoce_como_otro = $data['cultura_se_reconoce_como_otro'];
+        }
+        $minculturaUser->discapacidad = $data['discapacidad'];
+        if($data['discapacidad'] == 'si'){
+            $minculturaUser->discapacidad_cual = $data['discapacidad_cual'];
+        }
+        $minculturaUser->relacion_sector_rol = $data['relacion_sector_rol'];
+        if($data['relacion_sector_rol'] == 'Otro'){
+            $minculturaUser->relacion_sector_rol_otro = $data['relacion_sector_rol_otro'];
+        }
+        $minculturaUser->institucion_vinculo = $data['institucion_vinculo'];
+        $minculturaUser->codigo_cbu = $data['codigo_cbu'];
+        $minculturaUser->institucion_ubicacion = $data['institucion_ubicacion'];
+        $minculturaUser->escolaridad_nivel = $data['escolaridad_nivel'];
+        $minculturaUser->save();
     }
 
 }
