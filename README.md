@@ -53,3 +53,13 @@ Cd /etc/nginx/conf.d/ -> ir al .conf
 Crear un copia del .conf , agregar el nombre del subdominio y cambio de nombre de docker
 certbot --nginx
 Ejecutar la renovación para todos los dominos agregados
+
+
+
+
+** Instalacion de gulp
+npm i --save-dev gulp-minify
+npm i gulp --save-dev
+npm install --global gulp-cli
+npm install --save-dev gulp-sourcemap gulp-concat gulp-terser
+

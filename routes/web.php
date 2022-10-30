@@ -18,16 +18,16 @@ Route::get('/', function () {
 });
 
 Route::get('/index.html', function () {
-	session_start();
+	if(session_status() !== PHP_SESSION_ACTIVE) session_start();
 	return view('redirect',['location' => $_SESSION["newFair"]]);
 });
 
 
 //zoom viewer client
-Route::get('viewerZoom/meetings/{token}/{token_id}', 'Zoom\ViewerZoomController@index');
-Route::get('viewerZoom/saveResgister/{token}', 'Zoom\ViewerZoomController@saveResgister');
-//Route::get('viewerZoom/callback/callback.php', 'Zoom\ViewerZoomController@callback');
-//Route::get('zoomverify/verifyzoom.html', function () { return 'bb48983b33b04b52b459a74ad4570e69'; } );
+Route::get('viewerZoom/meetings/{token}', 'Zoom\ViewerZoomController@index');
+Route::get('viewerZoom/saveResgister/{fair_id}/{agenda_id}', 'Zoom\ViewerZoomController@saveResgister');
+Route::get('viewerZoom/callback/callback.php', 'Zoom\ViewerZoomController@callback');
+Route::get('zoomverify/verifyzoom.html', function () { return 'bb48983b33b04b52b459a74ad4570e69'; } );
 
 //WOMPI
 Route::get('wompi/pagos/eventos/{id}', 'WompiController@index');

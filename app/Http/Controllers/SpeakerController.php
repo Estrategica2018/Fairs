@@ -217,4 +217,86 @@ class SpeakerController extends Controller
         }
     }
 
+    public function uploadFile(Request $request){
+
+        $target_file = $_FILES["fileToUpload"]["tmp_name"];
+        
+
+        $handle = fopen($target_file, "r");
+        $numberLine = 0;
+        if ($handle) {
+            while (($line = fgets($handle)) !== false) {
+                $numberLine ++;
+                if($numberLine > 1) {
+                    // process the line read.
+                    $data = explode(';',$line);
+                    $fair_name = $data[0];
+                    
+                    $fair_id = Fair::where('name',$fair_name)->first()->id;
+
+                    $position = $data[1];
+                    $name = $data[2];
+                    $last_name = $data[3];
+                    $email = $data[4];
+                    $urlProfile = $data[5];
+                    $urlLogo = $data[6];
+                    $description = $data[7];
+                    $description_one = $data[8];
+                    $profession = $data[9];
+
+                    $user = User::where('email',$email)->first();
+
+                    if(!$user) {
+                        $user = new User();
+                    }
+
+                    $user->user_name = 'user_'.$fair_id.'_'.rand(0, 99999);
+                    $user->name = $name;
+                    $user->last_name = $last_name;
+                    $user->email = $email;
+                    $user->url_image = $urlProfile;
+                    $user->password = Hash::make(12345678);
+                    
+                    $user->save();
+                    
+                    $user_rol_fair = RoleUserFair::where([['fair_id',$fair_id],['user_id',$user->id]])->first();
+                    
+                    if(!$user_rol_fair) {
+                        $user_rol_fair = new RoleUserFair();
+                    }
+                    
+                    $user_rol_fair->user_id = $user->id;
+                    $user_rol_fair->role_id = 6;
+                    $user_rol_fair->fair_id = $fair_id;
+                    $user_rol_fair->save();
+
+                    $speaker = Speaker::where('user_id',$user->id)->first();
+                    if(!$speaker) {
+                        $speaker = new Speaker();
+                    }
+                    $speaker->user_id = $user->id;
+                    $speaker->description = $description;
+                    $speaker->resources = '{}';
+                    $speaker->profile_picture = $urlProfile;
+                    $speaker->company_logo = $urlLogo;
+                    $speaker->description = $description;
+                    $speaker->description_one = $description_one;
+                    
+                    $speaker->position = $position;
+                    $speaker->profession = $profession;
+                    $speaker->save();
+                }
+            }
+         }
+        
+         fclose($handle);
+
+         return [
+             'success' => 201,
+             'data' => "usuarios adicionados",
+         ];
+        
+        
+    }
+
 }

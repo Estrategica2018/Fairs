@@ -35,7 +35,7 @@ class CreateMinculturaUsersTable extends Migration
             $table->string('relacion_sector_rol');
             $table->string('relacion_sector_rol_otro')->default('');
             $table->string('institucion_vinculo');
-            $table->longText('codigo_cbu')->default('');
+            $table->longText('codigo_cbu')->nullable();
             $table->string('institucion_ubicacion');
             $table->string('escolaridad_nivel');
             $table->timestamps();

@@ -6,6 +6,7 @@ use App\Models\Fair;
 use App\Models\User;
 use App\Models\Pavilion;
 use App\Models\RoleUserFair;
+use App\Models\Category;
 use App\Notifications\ContactSupportRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
@@ -61,6 +62,8 @@ class FairController extends Controller
         }
         $data = $validator->validated();
 
+        $user = auth()->guard('api')->user();
+
         $fair = new Fair();
         $fair->name = $data['name'];
         $fair->description = $data['description'];
@@ -70,18 +73,14 @@ class FairController extends Controller
         $fair->location = $data['location'];
         $fair->resources = $data['resources'];
 		$fair->social_media = $data['social_media'];
-			
-		
         $fair->save();
 		
-		$user = auth()->guard('api')->user();
 		$roleUserFair = new RoleUserFair();
 		$roleUserFair->user_id = $user->id;
 		$roleUserFair->fair_id = $fair->id;
-		$roleUserFair->role_id = '1';
+		$roleUserFair->role_id = 1;
 		$roleUserFair->save();
-		
-		
+        
 
         $data_pavilions = array();
 
@@ -99,11 +98,55 @@ class FairController extends Controller
 
             array_push($data_pavilions,$data_pavilion);
         }
-        
+
+        //creación de parametros de configuración
+        $catAgend = new Category();
+        $catAgend->type = 'AgendaType';
+        $catAgend->name = "Categoría productos Tipo 1";
+        $catAgend->fair_id = $fair->id;
+        $catAgend->resources = '{"color":"green","url_image":"https://res.cloudinary.com/deueufyac/image/upload/v1667011566/FERIAS/article-project-management-meeting-agenda-2x_yhbahs.jpg"}';
+        $catAgend->save();
+
+        $catAgend = new Category();
+        $catAgend->type = 'AgendaType';
+        $catAgend->name = "Categoría productos Tipo 2";
+        $catAgend->fair_id = $fair->id;
+        $catAgend->resources = '{"color":"green","url_image":"https://res.cloudinary.com/deueufyac/image/upload/v1667011531/FERIAS/article-project-planning-begin-with-an-end-in-mind-2x_hqvvbh.webp"}';
+        $catAgend->save();
+
+        $catAgend = new Category();
+        $catAgend->type = 'SpeakerCategory';
+        $catAgend->name = "Categoría conferencistas Tipo 1";
+        $catAgend->fair_id = $fair->id;
+        $catAgend->resources = '{"color":"green"}';
+        $catAgend->save();
+
+        $catAgend = new Category();
+        $catAgend->type = 'SpeakerCategory';
+        $catAgend->name = "Categoría conferencistas Tipo 2";
+        $catAgend->fair_id = $fair->id;
+        $catAgend->resources = '{"color":"orange"}';
+        $catAgend->save();
+
+        $catAgend = new Category();
+        $catAgend->type = 'ProductCategory';
+        $catAgend->name = "Categoría productos Tipo 1";
+        $catAgend->fair_id = $fair->id;
+        $catAgend->resources = '{"color":"blue"}';
+        $catAgend->save();
+
+        $catAgend = new Category();
+        $catAgend->type = 'ProductCategory';
+        $catAgend->name = "Categoría productos Tipo 2";
+        $catAgend->fair_id = $fair->id;
+        $catAgend->resources = '{"color":"green"}';
+        $catAgend->save();
+
         return [
             'success' => 201,
             'data_fair' => $fair,
             'data_fair_pavilions' => $data_pavilions,
+            'roleUserFair' => $roleUserFair
         ];
 
     }
@@ -242,17 +285,6 @@ class FairController extends Controller
                 'email' => $email
             ]; 
         }
-    }
-
-    public function changeName(Request $request, $fair_id, $fair_new_name) {
-        $fair = Fair::find($fair_id);
-        $fair->name = $fair_new_name;
-        $fair->save();
-
-        return [
-            'success' => 201,
-            'faird' => $fair
-        ];
     }
 
 }

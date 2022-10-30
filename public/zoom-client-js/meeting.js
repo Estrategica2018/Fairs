@@ -1,14 +1,14 @@
+function websdkready(tmpArgs, saveResgisterUrl) {
 
-function websdkready(tmpArgs) {
   var testTool = window.testTool;
   // get meeting args from url
   //var tmpArgs = testTool.parseQuery();
   console.log(testTool.parseQuery());
   console.log(tmpArgs);
-  
-  tmpArgs = Object.assign( testTool.parseQuery() , tmpArgs);
+
+  tmpArgs = Object.assign(testTool.parseQuery(), tmpArgs);
   console.log(tmpArgs);
-  
+
   var meetingConfig = {
     apiKey: tmpArgs.apiKey,
     meetingNumber: tmpArgs.mn,
@@ -48,7 +48,7 @@ function websdkready(tmpArgs) {
   if (testTool.isMobileDevice()) {
     vConsole = new VConsole();
   }
-  console.log(JSON.stringify(ZoomMtg.checkSystemRequirements()));
+  //console.log(JSON.stringify(ZoomMtg.checkSystemRequirements()));
 
   // it's option if you want to change the WebSDK dependency link resources. setZoomJSLib must be run at first
   // ZoomMtg.setZoomJSLib("https://source.zoom.us/1.9.0/lib", "/av"); // CDN version defaul
@@ -56,6 +56,7 @@ function websdkready(tmpArgs) {
     ZoomMtg.setZoomJSLib("https://jssdk.zoomus.cn/1.9.0/lib", "/av"); // china cdn option
   ZoomMtg.preLoadWasm();
   ZoomMtg.prepareJssdk();
+
   function beginJoin(signature) {
     ZoomMtg.init({
       leaveUrl: meetingConfig.leaveUrl,
@@ -79,6 +80,12 @@ function websdkready(tmpArgs) {
             ZoomMtg.getCurrentUser({
               success: function (res) {
                 console.log("success getCurrentUser", res.result.currentUser);
+
+                if (saveResgisterUrl) {
+                  setInterval(() => {
+                    saveResgister(saveResgisterUrl);
+                  }, 60000);
+                }
               },
             });
           },
@@ -95,15 +102,15 @@ function websdkready(tmpArgs) {
     ZoomMtg.inMeetingServiceListener('onUserJoin', function (data) {
       console.log('inMeetingServiceListener onUserJoin', data);
     });
-  
+
     ZoomMtg.inMeetingServiceListener('onUserLeave', function (data) {
       console.log('inMeetingServiceListener onUserLeave', data);
     });
-  
+
     ZoomMtg.inMeetingServiceListener('onUserIsInWaitingRoom', function (data) {
       console.log('inMeetingServiceListener onUserIsInWaitingRoom', data);
     });
-  
+
     ZoomMtg.inMeetingServiceListener('onMeetingStatus', function (data) {
       console.log('inMeetingServiceListener onMeetingStatus', data);
     });
@@ -111,3 +118,12 @@ function websdkready(tmpArgs) {
 
   beginJoin(meetingConfig.signature);
 };
+
+function saveResgister(url) {
+  const Http = new XMLHttpRequest();
+  Http.open("GET", url);
+  Http.send();
+  Http.onreadystatechange = (e) => {
+    console.log(Http.responseText);
+  }
+}

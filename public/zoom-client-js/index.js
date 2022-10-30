@@ -1,3 +1,5 @@
+//Fase de pruebas meeting zoom
+
 window.addEventListener('DOMContentLoaded', function(event) {
   console.log('DOM fully loaded and parsed');
   websdkready();

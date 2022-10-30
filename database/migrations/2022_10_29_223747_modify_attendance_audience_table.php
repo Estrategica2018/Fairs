@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TableConfirmAccountsTable extends Migration
+class ModifyAttendanceAudienceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class TableConfirmAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('confirm_accounts', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('audiences', function (Blueprint $table) {
+            $table->dropColumn('attendance_days');
+            $table->string('attendance')->after('token')->nullable()->comment('Asistencia en minutos durante el evento');
         });
     }
 
@@ -26,6 +26,6 @@ class TableConfirmAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('confirm_accounts');
+        //
     }
 }

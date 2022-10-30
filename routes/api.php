@@ -54,7 +54,6 @@ Route::delete('/meetings/{id}', 'Zoom\MeetingController@delete')->where('id', '[
 
 //
 Route::post('/fair/create', 'FairController@create')->middleware('role:super_administrador');
-Route::get('/fair/changeName/{fair_id}/{fair_new_name}', 'FairController@changeName');
 Route::get('/fair/list_all', 'FairController@list_all')->middleware('role:super_administrador');
 Route::get('/fair/to_list', 'FairController@to_list');
 Route::get('/fair/find/{id?}', 'FairController@find');
@@ -98,11 +97,15 @@ Route::post('/operator_user/create', 'OperatorUserController@create')->middlewar
 
 //*
 //
-Route::post('/speakers/create/', 'SpeakerController@create');
+Route::post('/speakers/create/', 'SpeakerController@create')->middleware('role:super_administrador');
 Route::get('/speakers/meetings/{fair_id?}', 'SpeakerController@list');
-Route::post('/speakers/update/', 'SpeakerController@update');
-Route::post('/speakers/delete/', 'SpeakerController@delete');
+Route::post('/speakers/update/', 'SpeakerController@update')->middleware('role:super_administrador');
+Route::post('/speakers/delete/', 'SpeakerController@delete')->middleware('role:super_administrador');
 Route::post('/speakers/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_speakers')->middleware('role:super_administrador');
+
+//create masive speakers
+Route::post('speakers/upload', 'SpeakerController@uploadFile');
+
 
 Route::get('/agenda/list/{fair_id?}/{pavilion_id?}/{stand_id?}', 'AgendaController@list');
 

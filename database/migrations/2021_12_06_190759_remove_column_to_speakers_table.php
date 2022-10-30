@@ -14,7 +14,7 @@ class RemoveColumnToSpeakersTable extends Migration
     public function up()
     {
         Schema::table('speakers', function (Blueprint $table) {
-            //
+            $table->dropColumn('description_two');
         });
     }
 
@@ -27,7 +27,7 @@ class RemoveColumnToSpeakersTable extends Migration
     {
         Schema::table('speakers', function (Blueprint $table) {
             //
-            $table->dropColumn('description_two');
+            
         });
     }
 }

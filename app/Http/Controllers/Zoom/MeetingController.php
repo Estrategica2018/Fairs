@@ -155,7 +155,7 @@ class MeetingController extends Controller
             
             $agenda->save();
 
-            $dataResponse = $data;
+            $dataResponse = $agenda;
         }
         else {
 
@@ -196,6 +196,7 @@ class MeetingController extends Controller
                 $agenda->zoom_password = $meeting['encrypted_password'];
                 
                 $agenda->save();
+                $dataResponse = $agenda;
                 
             } else {
                 return response()->json([

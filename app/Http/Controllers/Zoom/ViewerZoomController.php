@@ -17,7 +17,7 @@ use File;
 
 class ViewerZoomController extends Controller
 {
-   public function index (Request $request, $token = '', $token_id) {        
+   public function index (Request $request, $token = '') {  
 		
         $audience = Audience::with('user')->where('token',$token)->first();
         $agenda_id = explode(".",$token)[1];
@@ -25,11 +25,8 @@ class ViewerZoomController extends Controller
         
         if($audience) {
 
-            $user = OauthAccessTokens::where('id',$token_id)->first();
             $agenda = Agendas::with('invited_speakers.speaker.user','audience')->find($audience->agenda_id);
-            
             $user = $audience->user;
-            
             $email = $user->email;
             $name = $user->name .' '.$user->last_name;
             
@@ -40,6 +37,8 @@ class ViewerZoomController extends Controller
             if($roleUser) {
               $role = '1';
             }
+
+            //dd([['role_id',$rol_admin],['user_id',$user->id],['fair_id',$agenda->fair_id]]);
             
             if($role == '0'){
               
@@ -70,6 +69,16 @@ class ViewerZoomController extends Controller
             
             $signature = $this->generate_signature( $API_KEY, $API_SECRET, $agenda->zoom_code, $role);
 
+            $fair = Fair::find($agenda->fair_id);
+            if (App::environment('production')) {
+              $href = 'https://'.$fair->name.'.e-logic.com.co/website/agenda/'.$audience->agenda_id;
+              $saveResgisterUrl = 'https://'.$fair->name.'.e-logic.com.co/viewerZoom/saveResgister/'.$fair->id.'/'.$audience->agenda_id;
+            }
+            else {
+              $href = 'http://localhost:8100/agenda/' . $audience->agenda_id;
+              $saveResgisterUrl = 'http://localhost:8000/viewerZoom/saveResgister/'.$fair->id.'/'.$audience->agenda_id;
+            }
+
             $opt = [
               'name' => $name,
               'mn'=> $agenda->zoom_code,
@@ -82,21 +91,18 @@ class ViewerZoomController extends Controller
               'apiKey'=>$API_KEY
             ];
             
-            if(session_status() !== PHP_SESSION_ACTIVE) session_start();
-
-			      $fair = Fair::find($agenda->fair_id);
-
-
-            if (App::environment('production')) {
-              $href = 'https://'.$fair->name.'.e-logic.com.co/website/agenda/'.$audience->agenda_id;
-            }
-            else {
-              $href = 'http://localhost:8100/agenda/' . $audience->agenda_id;
+            if($role == 1) {
+              $opt['saveResgisterUrl'] = $saveResgisterUrl;
             }
 
-      			$_SESSION["newFair"]=$href;
+            $opt['saveResgisterUrl'] = $saveResgisterUrl;
             
-            $audience->delete();
+            $audience->token = '';
+            $audience->save();
+
+            if(session_status() !== PHP_SESSION_ACTIVE) session_start();
+            $_SESSION["newFair"]=$href;
+            $_SESSION["user"]=$user;
 
             return view('zoom.zoomViewer',$opt);
         }
@@ -178,17 +184,46 @@ class ViewerZoomController extends Controller
       file_put_contents($filename, $string . PHP_EOL, FILE_APPEND);
   }
 
-  public function saveResgister(Request $request, $email) {
+  public function saveResgister(Request $request, $fair_id, $agenda_id) {
 
-        $audience = Audience::with('user')->where('token',$token)->first();
-        $agenda_id = explode(".",$token)[1];
-        $fair_id = explode(".",$token)[2];
-       
+      $agenda = Agendas::where([['agenda_id',$agenda_id],['fair_id',$fair_id]]);
+      if(!$agenda) {
+        return [
+          'error' => true,
+          'message' => 'agenda no válida'
+        ];
+      }
+      
+      if(session_status() !== PHP_SESSION_ACTIVE) session_start();
+      
+      $user = null;
+      $audience = null;
+      if(isset($_SESSION["user"])) {
+        $user = $_SESSION['user'];
+
+        $audience = Audience::where([['user_id',$user->id], ['agenda_id',$agenda_id]])->first();
+        
+        $lastDate = substr($audience->updated_at,0,16);
+        $newDate = date("Y-m-d").' '.date("H:i");;
+        if($lastDate != $newDate) {
+          $audience->attendance = $audience->attendance ?  $audience->attendance + 1 : 1;
+          $audience->save();
+        }
+      
         return [
           'success' => true,
+          'lastDate' => $lastDate,
+          'newDate' => $newDate,
           'data' => $audience
         ];
-    
+      }
+      else {
+        return [
+          'success' => false,
+          'message' => 'session not found'
+        ];
+      }
+      
   }
 
 }
