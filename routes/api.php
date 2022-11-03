@@ -91,6 +91,7 @@ Route::get('/user/find/{email}', 'UserController@find');
 Route::get('/user/sendSignConfirm/notify/{fairName}/{email}', 'UserController@notifyConfirmEmail');
 Route::get('/user/sendSignConfirm/validate/{email}/{code}', 'UserController@validateConfirmEmail');
 Route::get('/user/sendSignConfirm/reset/{email}', 'UserController@resetNotifyConfirmEmail');
+Route::get('/user/mincultura/{fair_id}', 'MinculturaUserController@index');
 //*
 //
 Route::post('/operator_user/create', 'OperatorUserController@create')->middleware('role:super_administrador');
