@@ -100,13 +100,20 @@
   
       </style>
 </head>
-<body style="background-color: {{$cardColor}}; margin: 0 !important; padding: 0 !important;">
+<body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
 <!-- HIDDEN PREHEADER TEXT -->
 <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">Confirmación de cuenta Ferias Virtuales</div>
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr>
-        <td bgcolor="#f4f4f4" align="center" style="background-color: {{$cardColor}} ,padding: 0px 10px 0px 10px;">
-          <img src="{{$iconUrl}}" width="22%" height="22%" style="margin-top: 11px;" />
+        <td bgcolor="#f4f4f4" align="center" style="background-color: #f4f4f4 ;padding: 0px 10px 0px 10px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                <tr>
+                    <td bgcolor="#3d98d1" align="center" valign="top" style="border-radius: 4px 4px 0px 0px; color: #00338d; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
+                        <!--<h1 style="font-size: 48px; font-weight: 400; margin: 2;">¡Notificación!</h1>-->
+                        <img src="{{asset('notifications/banner-notificaciones.png')}}" width="100%" height="60%" style="display: block; border: 0px;" />
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
     <tr>
@@ -114,12 +121,12 @@
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
                     <td bgcolor="#ffffff" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <h2  style="font-size: 25px; font-weight: 400; color: #005EB8; margin: 0;">Confirmación de registro</h2>
+                        <h2  style="font-size: 25px; font-weight: 400; color: #F15A24; margin: 0;">Confirmación de registro</h2>
                     </td>
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 0px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p>Hola, ¡Bienvenido a e-logic feria virtual! </p>
+                        <p>Hola, ¡bienvenido(a) al VIII Congreso Nacional de Bibliotecas Públicas! </p>
                         <p>Para continuar con el proceso de registro por favor ingresa el siguiente código de validación:</p>
                     </td>
                 </tr>
@@ -158,8 +165,9 @@
                                     </div>
                                 </td>
                             </tr>
-                        </table> 
+                        </table>
                     </td>
+
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 0px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
@@ -168,8 +176,8 @@
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding:20px 20px 20px 20px;border-radius:4px 4px 4px 4px;color:#666666;font-family:'Lato',Helvetica,Arial,sans-serif;font-size:18px;font-weight:400;line-height:25px;text-align:center;vertical-align:middle">
-                      <a href="{{$btnLink}}" target="_blank">
-						<button type="button" class="btn btn-primary" style="cursor: pointer;">Confirmar registro</button>
+                      <a href="$btnLink" target="_blank">
+						<button type="button" class="btn btn-primary" style="cursor: pointer; background-color: #F15A24;border-color: #F15A24" >Confirmar registro</button>
 					   </a>
                     </td>
                 </tr>

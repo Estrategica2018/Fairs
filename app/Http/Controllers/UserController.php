@@ -79,7 +79,7 @@ class UserController extends Controller
             $speaker->save();
         }
 
-        $this->mincultura_user($user,$data);
+        //$this->mincultura_user($user,$data);
 
         try{
 
@@ -328,7 +328,7 @@ class UserController extends Controller
 
     }
 
-    public function minculturaUser($user,$data){
+    public function mincultura_user($user,$data){
 
         $minculturaUser = new MinculturaUser();
         $minculturaUser->user_id = $user->id;
