@@ -62,7 +62,7 @@ class FairSeeder extends Seeder
 
         //*** Fair 1 **//
         $fair = new Fair();
-        $fair->name = 'sublimacion';
+        $fair->name = 'sublimaciones';
         $fair->description = 'Sublimación';
         $fair->halls_number = 2;
         $fair->init_date = '2021-12-24';
@@ -94,6 +94,22 @@ class FairSeeder extends Seeder
         $user->name = 'David';
         $user->last_name = 'Camacho';
         $user->email = 'davithc01@gmail.com';
+        $user->url_image = '';
+        $user->contact = '{}';
+        $user->password = Hash::make('12345678');
+        $user->save();
+		
+		$user_rol_fair = new RoleUserFair();
+        $user_rol_fair->user_id = $user->id;
+        $user_rol_fair->role_id = 1;
+        $user_rol_fair->fair_id = $fair->id;
+        $user_rol_fair->save();
+
+        $user = new User();
+        $user->user_name = 'Jessy';
+        $user->name = 'Jessy';
+        $user->last_name = 'Pinzon';
+        $user->email = 'jesspinzong@gmail.com';
         $user->url_image = '';
         $user->contact = '{}';
         $user->password = Hash::make('12345678');
