@@ -229,51 +229,45 @@ class SpeakerController extends Controller
                 $numberLine ++;
                 if($numberLine > 1) {
                     // process the line read.
-                    $data = explode(';',$line);
-                    $fair_name = $data[0];
-                    
-                    $fair_id = Fair::where('name',$fair_name)->first()->id;
-
-                    $position = $data[1];
-                    $name = $data[2];
-                    $last_name = $data[3];
-                    $email = $data[4];
-                    $urlProfile = $data[5];
-                    $urlLogo = $data[6];
-                    $description = $data[7];
-                    $description_one = $data[8];
-                    $profession = $data[9];
-
-                    $user = User::where('email',$email)->first();
-
+                    $data = explode('|',$line);
+                
+                    $user_id = $data[0];
+                    $user = User::where('id',$user_id)->first();
                     if(!$user) {
                         $user = new User();
                     }
+
+                    $fair_name = $data[1];
+                    $fair_id = Fair::where('name',$fair_name)->first()->id;
+
+                    $position = $data[2];
+                    $name = $data[3];
+                    $last_name = $data[4];
+                    $email = $data[5];
+                    $urlProfile = $data[6];
+                    $urlLogo = $data[7];
+                    $description = $data[8];
+                    $description_one = isset($data[9]) ? $data[9] : '';
+                    $profession =  isset($data[10]) ? $data[10] : '';
+
 
                     $user->user_name = 'user_'.$fair_id.'_'.rand(0, 99999);
                     $user->name = $name;
                     $user->last_name = $last_name;
                     $user->email = $email;
                     $user->url_image = $urlProfile;
-                    $user->password = Hash::make(12345678);
-                    
+                    $user->password = Hash::make('congreso_2022');
                     $user->save();
-                    
-                    $user_rol_fair = RoleUserFair::where([['fair_id',$fair_id],['user_id',$user->id]])->first();
-                    
-                    if(!$user_rol_fair) {
-                        $user_rol_fair = new RoleUserFair();
-                    }
-                    
+
+                    $user_rol_fair = RoleUserFair::where('user_id',$user->id)->delete();
+                    $user_rol_fair = new RoleUserFair();
                     $user_rol_fair->user_id = $user->id;
                     $user_rol_fair->role_id = 6;
                     $user_rol_fair->fair_id = $fair_id;
                     $user_rol_fair->save();
 
-                    $speaker = Speaker::where('user_id',$user->id)->first();
-                    if(!$speaker) {
-                        $speaker = new Speaker();
-                    }
+                    $speaker = Speaker::where('user_id',$user->id)->delete();
+                    $speaker = new Speaker();
                     $speaker->user_id = $user->id;
                     $speaker->description = $description;
                     $speaker->resources = '{}';
