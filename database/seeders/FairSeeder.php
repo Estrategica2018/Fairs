@@ -62,8 +62,8 @@ class FairSeeder extends Seeder
 
         //*** Fair 1 **//
         $fair = new Fair();
-        $fair->name = 'sublimaciones';
-        $fair->description = 'Sublimación';
+        $fair->name = 'cnbp2022';
+        $fair->description = 'cnbp2022';
         $fair->halls_number = 2;
         $fair->init_date = '2021-12-24';
         $fair->end_date = '2021-12-31';
