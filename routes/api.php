@@ -107,8 +107,11 @@ Route::post('/speakers/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@upd
 //create masive speakers
 Route::post('speakers/upload', 'SpeakerController@uploadFile');
 
-
+//return all agenda list
 Route::get('/agenda/list/{fair_id?}/{pavilion_id?}/{stand_id?}', 'AgendaController@list');
+
+//returns agenda list with quota enabled
+Route::get('/agenda/available/list/{fair_id}', 'AgendaController@availableList');
 
 // super admin or admin role rules
 Route::get('/agenda/getEmails/{fair_id}/{agenda_id}', 'AgendaController@getEmails')->middleware('role:super_administrador');

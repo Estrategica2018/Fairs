@@ -13,6 +13,11 @@ class Audience extends Model
 
         return $this->belongsTo(User::class,'user_id','id');
     }
+
+    public function agenda() {
+
+        return $this->belongsTo(Agendas::class,'agenda_id','id');
+    }
 	
 }
 

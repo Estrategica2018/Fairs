@@ -238,4 +238,35 @@ class AgendaController extends Controller
         ];
 
     }
+
+    public function availableList (Request $request) {
+        $validator = Validator::make($request->all(), [
+            'fair_id' => ''
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+        $data = $validator->validated();    
+        
+        $querySelect = Agendas::select('id','title','description', 'description_large','duration_time','start_at','timezone','audience_config','category_id','price');
+        $query = $querySelect->with('audience.user.user_roles_fair', 'invited_speakers.speaker.user', 'category', )->where('fair_id',$request['fair_id']);
+        
+        
+        if(isset($data['fair_id'])) {
+          $query = $query->where('fair_id',$data['fair_id']);
+        }
+        
+        $meetings = $query->orderBy('id')->get();
+        
+        return [
+            'success' => 201,
+            'data' => $meetings,
+        ];
+
+    }
+
 }
