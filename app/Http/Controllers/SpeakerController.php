@@ -259,15 +259,20 @@ class SpeakerController extends Controller
                     $user->password = Hash::make('congreso_2022');
                     $user->save();
 
-                    $user_rol_fair = RoleUserFair::where('user_id',$user->id)->delete();
-                    $user_rol_fair = new RoleUserFair();
+                    $user_rol_fair = RoleUserFair::where('user_id',$user->id)->first();
+                    if(!$user_rol_fair) {
+                        $user_rol_fair = new RoleUserFair();
+                    }
                     $user_rol_fair->user_id = $user->id;
                     $user_rol_fair->role_id = 6;
                     $user_rol_fair->fair_id = $fair_id;
                     $user_rol_fair->save();
 
-                    $speaker = Speaker::where('user_id',$user->id)->delete();
-                    $speaker = new Speaker();
+                    $speaker = Speaker::where('user_id',$user->id)->first();
+                    if(!$speaker) {
+                        $speaker = new Speaker();
+                    }
+                    
                     $speaker->user_id = $user->id;
                     $speaker->description = $description;
                     $speaker->resources = '{}';

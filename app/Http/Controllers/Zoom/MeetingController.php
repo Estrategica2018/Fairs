@@ -125,6 +125,7 @@ class MeetingController extends Controller
             'audience_config' => 'required|string',
             'zoom_code' => 'string|nullable',
             'zoom_password' => 'string|nullable',
+            'description_large' => 'string|nullable'
         ]);
 
         if ($validator->fails()) {
@@ -152,6 +153,7 @@ class MeetingController extends Controller
             $agenda->zoom_code = $data['zoom_code'];
             $agenda->price = isset($data['price']) ? $data['price'] : 0;
             $agenda->zoom_password = $data['zoom_password'];
+            $agenda->description_large = $data['description_large'];
             
             $agenda->save();
 
@@ -194,6 +196,7 @@ class MeetingController extends Controller
                 $agenda->zoom_code = $meeting['id'];
                 $agenda->price = isset($data['price']) ? $data['price'] : 0;
                 $agenda->zoom_password = $meeting['encrypted_password'];
+                $agenda->description_large = $data['description_large'];
                 
                 $agenda->save();
                 $dataResponse = $agenda;
@@ -250,7 +253,8 @@ class MeetingController extends Controller
             'token' => 'string|nullable',
             'audience_config' => 'required|string',
             'zoom_code' => 'string|nullable',
-            'zoom_password' => 'string|nullable'
+            'zoom_password' => 'string|nullable',
+            'description_large' => 'string|nullable'
         ]);
 
 
@@ -291,6 +295,7 @@ class MeetingController extends Controller
             $agenda->price = isset($data['price']) ? $data['price'] : 0;
             $agenda->timezone = $data['timezone'];
             $agenda->audience_config = $data['audience_config'];
+            $agenda->description_large = $data['description_large'];
             $agenda->zoom_code = $id;
             if(isset($data['zoom_password'])) $agenda->zoom_password = $data['zoom_password'];
             $agenda->save();

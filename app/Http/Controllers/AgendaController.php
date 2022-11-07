@@ -49,10 +49,10 @@ class AgendaController extends Controller
     
         
         if(isset($data['zoom_auth']) ) {
-            $querySelect = Agendas::select('id','title','description','duration_time','start_at','timezone','audience_config','resources','category_id','zoom_code','zoom_password','price');
+            $querySelect = Agendas::select('id','title','description', 'description_large','duration_time','start_at','timezone','audience_config','resources','category_id','zoom_code','zoom_password','price');
         }
         else {
-            $querySelect= Agendas::select('id','title','description','duration_time','start_at','timezone','audience_config','resources','category_id','price');
+            $querySelect= Agendas::select('id','title','description','description_large','duration_time','start_at','timezone','audience_config','resources','category_id','price');
         }
 
         $query = $querySelect->with('invited_speakers.speaker.user', 'category')->where('fair_id',$data['fair_id']);
