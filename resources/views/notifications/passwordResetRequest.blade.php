@@ -119,7 +119,7 @@
                 <tr>
                     <td bgcolor="#3d98d1" align="center" valign="top" style="border-radius: 4px 4px 0px 0px; color: #00338d; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
                         <!--<h1 style="font-size: 48px; font-weight: 400; margin: 2;">¡Notificación!</h1>-->
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/WOM_logo.png" width="15%" height="15%" style="display: block; border: 0px;" />
+                        <img src="{{asset('notifications/banner-notificaciones.png')}}" width="100%" height="60%" style="display: block; border: 0px;" />
                     </td>
                 </tr>
             </table>
@@ -130,7 +130,7 @@
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
                     <td bgcolor="#ffffff" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <h2  style="font-size: 25px; font-weight: 400; color: #3d98d1; margin: 0;">Notificatión solicitud recuperación contraseña</h2>
+                        <h2  style="font-size: 25px; font-weight: 400; color: #F15A24; margin: 0;">Notificatión solicitud recuperación contraseña</h2>
                     </td>
                 </tr>
                 <tr>
@@ -140,7 +140,7 @@
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 20px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;text-align: center; vertical-align: middle;">
-                        <a type="button" class="btn btn-primary" href="{{url($url)}}">Restablecer Contraseña</a>
+                        <a type="button" class="btn btn-primary" href="{{url($url)}}" style="background-color: #F15A24">Restablecer Contraseña</a>
                     </td>
                 </tr>
                 <tr>
