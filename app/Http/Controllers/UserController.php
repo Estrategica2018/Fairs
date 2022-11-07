@@ -35,6 +35,27 @@ class UserController extends Controller
             'role_id'=>'required',
             'fair_id'=>'required',
             'origin'=>'required',
+            'documento_tipo' => '',
+            'documento_numero' => '',
+            'correo_electronico_adicional' => '',
+            'numero_celular' => '',
+            'pais_inscripcion' => '',
+            'zona_se_encuentra_en' => '',
+            'zona_se_encuentra_en_otra' => '',
+            'sexo_se_reconoce_como' => '',
+            'sexo_se_reconoce_como_otro' => '',
+            'sexo_registro_civil' => '',
+            'sexo_registro_civil_otro' => '',
+            'cultura_se_reconoce_como' => '',
+            'cultura_se_reconoce_como_otro' => '',
+            'discapacidad' => '',
+            'discapacidad_cual' => '',
+            'relacion_sector_rol' => '',
+            'relacion_sector_rol_otro' => '',
+            'institucion_vinculo' => '',
+            'codigo_cbu' => '',
+            'institucion_ubicacion' => '',
+            'escolaridad_nivel' => '',
         ]);
 
         if ($validator->fails()) {
@@ -45,7 +66,6 @@ class UserController extends Controller
         }
 
         $data = $validator->validated();
-         
         $fair = Fair::find($request->fair_id);
         if(!$fair)
             return [
@@ -79,7 +99,7 @@ class UserController extends Controller
             $speaker->save();
         }
 
-        //$this->mincultura_user($user,$data);
+        $this->mincultura_user($user,$data);
 
         try{
 
@@ -117,6 +137,7 @@ class UserController extends Controller
             'password'=>'',
             'image'=>'',
             'url_image'=>'',
+
         ]);
 
         if ($validator->fails()) {
@@ -353,9 +374,13 @@ class UserController extends Controller
         if($data['cultura_se_reconoce_como'] == 'Otro'){
             $minculturaUser->cultura_se_reconoce_como_otro = $data['cultura_se_reconoce_como_otro'];
         }
-        $minculturaUser->discapacidad = $data['discapacidad'];
-        if($data['discapacidad'] == 'si'){
+
+        if($data['discapacidad_cual'] != null){
             $minculturaUser->discapacidad_cual = $data['discapacidad_cual'];
+            $minculturaUser->discapacidad = 'si';
+        }else{
+            $minculturaUser->discapacidad_cual = '';
+            $minculturaUser->discapacidad = 'no';
         }
         $minculturaUser->relacion_sector_rol = $data['relacion_sector_rol'];
         if($data['relacion_sector_rol'] == 'Otro'){
