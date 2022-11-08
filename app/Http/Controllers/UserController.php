@@ -355,7 +355,13 @@ class UserController extends Controller
         $minculturaUser->user_id = $user->id;
         $minculturaUser->documento_tipo = $data['documento_tipo'];
         $minculturaUser->documento_numero = $data['documento_numero'];
-        $minculturaUser->correo_electronico_adicional = $data['correo_electronico_adicional'];
+        if($data['correo_electronico_adicional'] != null )
+        {
+            $minculturaUser->correo_electronico_adicional = $data['correo_electronico_adicional'];
+        }  
+        else{
+            $minculturaUser->correo_electronico_adicional = '';
+        }
         $minculturaUser->numero_celular = $data['numero_celular'];
         $minculturaUser->pais_inscripcion = $data['pais_inscripcion'];
         $minculturaUser->zona_se_encuentra_en = $data['zona_se_encuentra_en'];
