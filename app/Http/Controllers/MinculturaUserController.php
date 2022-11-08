@@ -15,12 +15,7 @@ class MinculturaUserController extends Controller
 
         //query mincultura user data
         $mincultura = MinculturaUser::where('user_id',$user->id)->first();
-        $minculturaUser->documento_tipo = $request['documento_tipo'];
-        $minculturaUser->documento_numero = $request['documento_numero'];
-        $minculturaUser->correo_electronico_adicional = $request['correo_electronico_adicional'];
-        $minculturaUser->save();
         
-
         $audience_user = Audience::with('agenda.category')
         ->with('user.user_roles_fair')
         ->where('user_id',$user->id)->get();
