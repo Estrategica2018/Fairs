@@ -15,9 +15,9 @@ class MinculturaUserController extends Controller
 
         //query mincultura user data
         $mincultura = MinculturaUser::where('user_id',$user->id)->first();
-        $minculturaUser->documento_tipo = $data['documento_tipo'];
-        $minculturaUser->documento_numero = $data['documento_numero'];
-        $minculturaUser->correo_electronico_adicional = $data['correo_electronico_adicional'];
+        $minculturaUser->documento_tipo = $request['documento_tipo'];
+        $minculturaUser->documento_numero = $request['documento_numero'];
+        $minculturaUser->correo_electronico_adicional = $request['correo_electronico_adicional'];
         $minculturaUser->save();
         
 
@@ -71,9 +71,9 @@ class MinculturaUserController extends Controller
         $minculturaUpdate = false;
         $mincultura = MinculturaUser::where('user_id',$user->id)->first();
         if($mincultura) {
-            $minculturaUser->documento_tipo = $data['documento_tipo'];
-            $minculturaUser->documento_numero = $data['documento_numero'];
-            $minculturaUser->correo_electronico_adicional = $data['correo_electronico_adicional'];
+            $minculturaUser->documento_tipo = $request['documento_tipo'];
+            $minculturaUser->documento_numero = $request['documento_numero'];
+            $minculturaUser->correo_electronico_adicional = $request['correo_electronico_adicional'];
             $minculturaUser->save();
             $minculturaUpdate = true;
         }
