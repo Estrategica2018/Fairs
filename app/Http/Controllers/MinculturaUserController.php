@@ -78,7 +78,7 @@ class MinculturaUserController extends Controller
         $meetings = [];
         $newAudience = false;
         $audience = null;
-        $agenda_id = $request['agenda_id'];        
+        $agenda_id = $request['agendaId'];        
         if($agenda_id) {
             $audience_user = Audience::where('user_id',$user->id)->get();
             if(!$audience_user) {
@@ -98,8 +98,8 @@ class MinculturaUserController extends Controller
                 Audience::where('user_id',$user->id)->delete();
                 $audience = new Audience();
                 $audience->agenda_id = $agenda_id;
-                $audience->email = $audi['email'];
-                $audience->user_id = $audi['email'];
+                $audience->email = $user->email;
+                $audience->user_id = $user->id;
                 $audience->check = 1;
                 $newAudience = true;                
                 $audience->save();
