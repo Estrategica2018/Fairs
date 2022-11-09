@@ -47,6 +47,7 @@ class SuccessFulRegistrationFree extends Notification
     {
         return (new MailMessage)
             ->from('admin@e-logic.com.co', 'Feria virtual e-logic')
+            ->cc('admin@e-logic.com.co')
             ->subject('Notificación Registro Agenda - Gratuita')
             ->view('notifications.conference.successfulRegistrationFree',
                 [

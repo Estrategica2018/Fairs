@@ -145,7 +145,8 @@
                     </td>
 
                 </tr>
-                    <tr>
+                <!--
+                <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 20px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                             <p>A continuación encontrarás los datos de acceso para el ingreso:</p>
                             <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Conferecia virtual:</span> </p>
@@ -155,6 +156,7 @@
                             <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Código de acceso:</span> {{$agenda->zoom_password}}</p>
                         </td>
                     </tr>
+                    -->
                     <!--
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 1px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;text-align: center; vertical-align: middle;">
@@ -164,7 +166,7 @@
                     -->
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 1px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;text-align: center; vertical-align: middle;">
-                            <hr style="color:#3d98d1; background-color: #3d98d1;border: solid;">
+                            <hr style="color:#F15A24; background-color: #F15A24;border: solid;">
                         </td>
                     </tr>
             </table>
