@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Fair;
 use App\Models\RoleUserFair;
 use App\Models\User;
+use App\Models\Speaker;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use phpseclib\Crypt\Hash;
@@ -87,6 +88,9 @@ class LoginController extends Controller
 		$token = $user->createToken('Auth Token');
 		$accessToken = $token->accessToken;
 		$token_id = $token->token->id;
+
+		$user->speaker = Speaker::where('user_id',$user->id)->first();
+
 		return response()->json(['data' => $accessToken, 'message' => 'Token generado satisfactoriamente', 'user' => $user, 'auth' => $token_id], 200);
 	}
 
