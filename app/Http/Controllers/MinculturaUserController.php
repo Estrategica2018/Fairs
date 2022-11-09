@@ -28,7 +28,7 @@ class MinculturaUserController extends Controller
         $meetings = [];
 
         forEach($queryMeeting as $agenda) {
-            if($agenda->audience_config == "5"|| substr($agenda->category->name, 0, 6) == 'Taller') {
+            if($agenda->audience_config == "5" || $agenda->category->name == 'Taller' || $agenda->category->name == 'Taller_M'||$agenda->category->name == 'Taller_T') {
                 $count = 0;
                 $guest = 25;
                 forEach($agenda->audience as $audience) {
@@ -44,6 +44,8 @@ class MinculturaUserController extends Controller
                 $agenda->full = $count >= $guest ? '1': '0';
                 array_push($meetings,$agenda);
             }
+
+            
         }
 
         //return data with state available meetings
@@ -51,8 +53,7 @@ class MinculturaUserController extends Controller
             'success' => 201,
             'data' => $mincultura,
             'audience' => $audience_user,
-            'meetings' => $meetings,
-            'tx'=>substr($agenda->category->name, 0, 6)
+            'meetings' => $meetings
         ];
 
     }
