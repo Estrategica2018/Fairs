@@ -393,7 +393,7 @@ class UserController extends Controller
             $minculturaUser->relacion_sector_rol_otro = $data['relacion_sector_rol_otro'];
         }
         $minculturaUser->institucion_vinculo = $data['institucion_vinculo'];
-        $minculturaUser->codigo_cbu = $data['codigo_cbu'];
+        $minculturaUser->codigo_cbu = '';
         $minculturaUser->institucion_ubicacion = $data['institucion_ubicacion'];
         $minculturaUser->escolaridad_nivel = $data['escolaridad_nivel'];
         $minculturaUser->save();

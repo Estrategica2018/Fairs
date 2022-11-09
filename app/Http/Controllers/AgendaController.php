@@ -188,20 +188,19 @@ class AgendaController extends Controller
 				$audience->token = $token;
 				$audience->save();
 
-				/*
-                 Borrar solo para debug
+				
                 try{
                     Notification::route('mail', $user->email)
                         ->notify(new SuccessFulRegistrationFree($agenda,$user));
                 }catch (\Exception $e){
                     return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
-                }*/
+                }
 
 				return [
 				  'success' => 201,
 				  'data' => $audience->token,
 				];
-				$audience->save();
+
 			}
 		}
 		else {
