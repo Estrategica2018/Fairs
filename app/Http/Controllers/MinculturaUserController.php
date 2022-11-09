@@ -51,7 +51,8 @@ class MinculturaUserController extends Controller
             'success' => 201,
             'data' => $mincultura,
             'audience' => $audience_user,
-            'meetings' => $meetings
+            'meetings' => $meetings,
+            'tx'=>substr($agenda->category->name, 0, 6)
         ];
 
     }
