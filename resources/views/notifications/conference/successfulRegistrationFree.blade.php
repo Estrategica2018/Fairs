@@ -135,8 +135,8 @@
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 20px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p>Te has registrado satisfactoriamente en una o más conferencias virtual.</p>
-                        <p>A continuación encontrarás los datos de acceso para el ingreso:</p>
+                        <p>Te has registrado a <span style="color: #F15A24"> {{$agenda->title}} </span>.</p>
+                        <!--<p>A continuación encontrarás los datos de acceso para el ingreso:</p>-->
                     </td>
                 </tr>
                 <tr>
