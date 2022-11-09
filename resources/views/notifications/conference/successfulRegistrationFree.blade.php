@@ -114,11 +114,12 @@
 <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">Notificación Registro conferencia</div>
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr>
-        <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+        <td bgcolor="#f4f4f4" align="center" style="background-color: #f4f4f4 ;padding: 0px 10px 0px 10px;">
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
                     <td bgcolor="#3d98d1" align="center" valign="top" style="border-radius: 4px 4px 0px 0px; color: #00338d; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/WOM_logo.png" width="15%" height="15%" style="display: block; border: 0px;" />
+                        <!--<h1 style="font-size: 48px; font-weight: 400; margin: 2;">¡Notificación!</h1>-->
+                        <img src="{{asset('notifications/banner-notificaciones.png')}}" width="100%" height="60%" style="display: block; border: 0px;" />
                     </td>
                 </tr>
             </table>
@@ -129,7 +130,7 @@
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
                     <td bgcolor="#ffffff" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <h2  style="font-size: 25px; font-weight: 400; color: #3d98d1; margin: 0;">Ingreso a conferencia</h2>
+                        <h2  style="font-size: 25px; font-weight: 400; color: #F15A24; margin: 0;">Ingreso a conferencia</h2>
                     </td>
                 </tr>
                 <tr>
@@ -140,25 +141,27 @@
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 1px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;text-align: center; vertical-align: middle;">
-                        <hr style="color:#3d98d1; background-color: #3d98d1;border: solid;">
+                        <hr style="color:white; background-color: #F15A24;border: solid;">
                     </td>
 
                 </tr>
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 20px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                             <p>A continuación encontrarás los datos de acceso para el ingreso:</p>
-                            <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Conferecia virtual(Gratuita):</span> </p>
+                            <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Conferecia virtual:</span> </p>
                             <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Fecha:</span> {{date("d/m/Y H:i:s", ($agenda->start_at/ 1000))}} </p>
                             <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Duración:</span> {{$agenda->duration_time}}</p>
                             <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">ID Reunión:</span> {{$agenda->zoom_code}}</p>
                             <p><span style="font-size: 18px; font-weight: 400; color: #3d98d1; margin: 0;">Código de acceso:</span> {{$agenda->zoom_password}}</p>
                         </td>
                     </tr>
+                    <!--
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 1px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;text-align: center; vertical-align: middle;">
                             <button type="button" class="btn btn-primary">Unirse a la conferencia</button>
                         </td>
                     </tr>
+                    -->
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 1px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;text-align: center; vertical-align: middle;">
                             <hr style="color:#3d98d1; background-color: #3d98d1;border: solid;">
