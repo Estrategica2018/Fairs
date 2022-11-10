@@ -63,10 +63,11 @@ class MinculturaUserController extends Controller
 
     }
 
-    public function register(Request $request){
+    public function register(Request $request, $fair_id){
 
         $user = auth()->guard('api')->user();
         $sendMail = false;
+        $fair = Fair::find($fair_id);
 
         //query mincultura user data
         $minculturaUpdate = false;
