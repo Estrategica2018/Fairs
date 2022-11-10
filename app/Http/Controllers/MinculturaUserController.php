@@ -7,6 +7,7 @@ use App\Models\MinculturaUser;
 use App\Models\Audience;
 use App\Models\User;
 use App\Models\Agendas;
+use App\Models\RoleUserFair;
 use Illuminate\Support\Facades\App;
 
 class MinculturaUserController extends Controller
@@ -175,37 +176,57 @@ class MinculturaUserController extends Controller
             $count = Audience::truncate();
             dd('toda la audiencia borrada');
         }
+
         if($fair_id==1) {
-        $array = [];
-        $audiences = Audience::
-        with('user','agenda.category')->get();
-        forEach($audiences as $audience) {
-            array_push($array, [
-                'user'=> $audience->user->name .' '.$audience->user->last_name,
-                'emall'=> $audience->user->email,
-                'taller' => $audience->agenda->title
-            ]);
+
+            $users = User::get();
+            $arrayUser = [];
+            forEach($users as $user) {
+                $us = [];
+                $us['id']= $user['id'];
+                $us['name']= $user['name'];
+                $us['last_name']= $user['last_name'];
+                $us['email']= $user['email'];
+                $audiences = Audience::with('user','agenda.category')->where('user_id',$user->id)->get();
+                $us['audiences'] = $audiences;
+                $min = MinculturaUser::where('user_id',$user->id)->get();
+                $us['mincultura'] = $min;
+                $roles = RoleUserFair::where('user_id',$user->id)->get();
+                $us['roles'] = '';
+                foreach ($roles as $rol) {
+                    $us['roles'] .= ' - ' . $rol->role_id;
+                }
+                
+                array_push($arrayUser, $us);
+            }            
+            dd($arrayUser);
         }
+        if($fair_id==2) {
 
-        dd($array);
-    }
-    else {
-        $array = []; 
-
-        $audiences = MinculturaUser::with('user')->get();
-
-        forEach($audiences as $audience) {
-            if(isset($audience->user))
-            array_push($array, [
-                'user'=> $audience->user->name .' '.$audience->user->last_name,
-                'emall'=> $audience->user->email
-            ]);
+            $mincultura = MinculturaUser::get();
+            $arrayUserMin = [];
+            forEach($mincultura as $min) {
+                
+                $user = User::find($min->user_id);
+                if(!$user) {
+                    array_push($arrayUserMin, $min);
+                }
+                
+            }   
+            
+            $roles = RoleUserFair::get();
+            $arrayUserRol = [];
+            forEach($roles as $rol) {
+                
+                $user = User::find($min->user_id);
+                if(!$user) {
+                    array_push($arrayUserRol, $rol);
+                }
+                
+            }   
+            
+            dd($arrayUserMin, $arrayUserRol);
         }
-
-        $arrayUser = User::with('user_roles_fair')->get();
-
-        dd($array, $arrayUser);
-    }
         return true;
     } 
 
