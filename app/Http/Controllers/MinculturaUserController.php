@@ -7,6 +7,7 @@ use App\Models\MinculturaUser;
 use App\Models\Audience;
 use App\Models\User;
 use App\Models\Agendas;
+use App\Models\Fair;
 use App\Models\RoleUserFair;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Notification;
