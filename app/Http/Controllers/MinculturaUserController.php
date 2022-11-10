@@ -78,10 +78,10 @@ class MinculturaUserController extends Controller
             $mincultura->documento_numero = $request['docNumber'];
             if($request['emailAdditional'] != null )
             {
-                $minculturaUser->correo_electronico_adicional = $request['emailAdditional'];
+                $mincultura->correo_electronico_adicional = $request['emailAdditional'];
             }  
             else{
-                $minculturaUser->correo_electronico_adicional = '';
+                $mincultura->correo_electronico_adicional = '';
             }
 
             $mincultura->save();
