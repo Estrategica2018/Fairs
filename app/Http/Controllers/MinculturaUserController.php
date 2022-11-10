@@ -125,7 +125,7 @@ class MinculturaUserController extends Controller
 
                     if (App::environment('production') || App::environment('sendEmail') ) {
                       Notification::route('mail', $user->email)
-                        ->notify(new SuccessAgendaRegistration($fair, $user->email, $agenda, $dayFormat, $durationStr));
+                        ->notify(new SuccessAgendaRegistration($fair, $user->email, $agenda, $dayFormat, $durationStr, $dateHour));
                       $sendMail = true;
                     }
 

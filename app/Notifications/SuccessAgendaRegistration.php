@@ -16,19 +16,21 @@ class SuccessAgendaRegistration extends Notification
     private $agenda;
     private $dayFormat;
     private $durationStr;
+    private $dateHour;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($fair,$email, $agenda, $dayFormat, $durationStr)
+    public function __construct($fair,$email, $agenda, $dayFormat, $durationStr, $dateHour)
     {
         //
         $this->btnLink = 'https://'.$fair->name.'.e-logic.com.co/website/agenda/' . $agenda->id;
         $this->agenda = $agenda;
         $this->dayFormat = $dayFormat;
         $this->durationStr = $durationStr;
+        $this->dateHour = $dateHour;
     }
 
     /**
@@ -58,7 +60,8 @@ class SuccessAgendaRegistration extends Notification
                 'btnLink'=>$this->btnLink,
                 'agenda'=>$this->agenda,
                 'dayFormat'=>$this->dayFormat,
-                'durationStr'=>$this->durationStr
+                'durationStr'=>$this->durationStr,
+                'dateHour'=>$this->dateHour
             ]);
     }
 
