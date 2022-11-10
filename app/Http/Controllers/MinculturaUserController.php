@@ -223,9 +223,7 @@ class MinculturaUserController extends Controller
             
             return [
                 'success' => 201,
-                'arrayUserMin' => $arrayUser,
-                '$arrayUserRol'=> $arrayUserRol
-                
+                'arrayUser' => $arrayUser                
             ];
         }
         if($fair_id==2) {
