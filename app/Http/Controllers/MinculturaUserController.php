@@ -189,6 +189,7 @@ class MinculturaUserController extends Controller
         $audiences = MinculturaUser::with('user')->get();
 
         forEach($audiences as $audience) {
+            if(isset($audience->user))
             array_push($array, [
                 'user'=> $audience->user->name .' '.$audience->user->last_name,
                 'emall'=> $audience->user->email
