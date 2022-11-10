@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\MinculturaUser;
 use App\Models\Audience;
 use App\Models\Agendas;
+use Illuminate\Support\Facades\App;
 
 class MinculturaUserController extends Controller
 {
@@ -61,6 +62,7 @@ class MinculturaUserController extends Controller
     public function register(Request $request){
 
         $user = auth()->guard('api')->user();
+        $sendMail = false;
 
         //query mincultura user data
         $minculturaUpdate = false;
@@ -101,8 +103,29 @@ class MinculturaUserController extends Controller
                 $audience->email = $user->email;
                 $audience->user_id = $user->id;
                 $audience->check = 1;
-                $newAudience = true;                
+                $newAudience = true;
                 $audience->save();
+
+                try{
+                    $agenda = Agendas::find($agenda_id);
+
+                    $date = date("d/m/Y", $agenda->start_at);
+                    $dateHour = date("H:i", $agenda->start_at);
+                    $day = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+                    $dayFormat = $day[date("w",$agenda->start_at)]. ', '. $date;
+
+                    $duration = ['15'=>'15 min','30'=>'30 min','45'=>'45 min','60'=>'1 hora','90'=>'1 hora y 30 min','120'=>'2 horas','150'=>'2 horas y 30 min','180'=>'3 horas','210'=>'3 horas y 30 min','240'=>'4 horas'];
+                    $durationStr = $duration[$agenda->duration_time]; 
+
+                    if (App::environment('production') || App::environment('sendEmail') ) {
+                      Notification::route('mail', $data['email'])
+                        ->notify(new SuccessAgendaRegistration($fair, $data['email'], $agenda, $dayFormat, $durationStr));
+                      $sendMail = true;
+                    }
+        
+                }catch (\Exception $e){
+                    return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
+                }
             }            
         }
         
@@ -111,7 +134,8 @@ class MinculturaUserController extends Controller
             'success' => 201,
             'minculturaUpdate' => $minculturaUpdate,
             'audience' => $audience,
-            'newAudience' => $newAudience
+            'newAudience' => $newAudience,
+            'sendMail' => $sendMail
         ];
     }
 
