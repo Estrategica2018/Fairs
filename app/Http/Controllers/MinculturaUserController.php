@@ -220,7 +220,13 @@ class MinculturaUserController extends Controller
                 
                 array_push($arrayUser, $us);
             }            
-            dd($arrayUser);
+            
+            return [
+                'success' => 201,
+                'arrayUserMin' => $arrayUser,
+                '$arrayUserRol'=> $arrayUserRol
+                
+            ];
         }
         if($fair_id==2) {
 
