@@ -128,6 +128,16 @@ class MinculturaUserController extends Controller
                         ->notify(new SuccessAgendaRegistration($fair, $user->email, $agenda, $dayFormat, $durationStr));
                       $sendMail = true;
                     }
+
+                    return [
+                        'success' => 201,
+                        'minculturaUpdate' => $minculturaUpdate,
+                        'audience' => $audience,
+                        'newAudience' => $newAudience,
+                        'sendMail' => $sendMail,
+                        'dayFormat' => $dayFormat,
+                        'durationStr' => $durationStr
+                    ];
         
                 }catch (\Exception $e){
                     return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
