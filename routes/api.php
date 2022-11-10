@@ -92,8 +92,8 @@ Route::get('/user/sendSignConfirm/notify/{fairName}/{email}', 'UserController@no
 Route::get('/user/sendSignConfirm/validate/{email}/{code}', 'UserController@validateConfirmEmail');
 Route::get('/user/sendSignConfirm/reset/{email}', 'UserController@resetNotifyConfirmEmail');
 Route::get('/user/mincultura/{fair_id}', 'MinculturaUserController@index');
-
 Route::post('/user/mincultura/register/{fair_id}', 'MinculturaUserController@register');
+Route::get('/user/mincultura/show-register/{fair_id}', 'MinculturaUserController@showRegister');
 //*
 //
 Route::post('/operator_user/create', 'OperatorUserController@create')->middleware('role:super_administrador');

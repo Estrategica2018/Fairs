@@ -166,4 +166,22 @@ class MinculturaUserController extends Controller
         return true;
     } 
 
+    public function showRegister(Request $request){
+
+        $fair_id = $request['fair_id'];
+        $array = [];
+        $audiences = Audience::
+        with('user','agenda.category')->get();
+        forEach($audiences as $audience) {
+            array_push($array, [
+                'user'=> $audience->user->name .' '.$audience->user->last_name,
+                'emall'=> $audience->user->email,
+                'taller' => $audience->agenda->title
+            ]);
+        }
+
+        dd($array);
+        return true;
+    } 
+
 }
