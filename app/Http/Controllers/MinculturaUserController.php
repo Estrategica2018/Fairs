@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MinculturaUser;
 use App\Models\Audience;
+use App\Models\User;
 use App\Models\Agendas;
 use Illuminate\Support\Facades\App;
 
@@ -201,7 +202,9 @@ class MinculturaUserController extends Controller
             ]);
         }
 
-        dd($array);
+        $arrayUser = User::get();
+
+        dd($array, $arrayUser);
     }
         return true;
     } 
