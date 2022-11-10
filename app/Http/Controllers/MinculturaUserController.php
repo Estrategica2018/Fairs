@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Agendas;
 use App\Models\RoleUserFair;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Notification;
 
 class MinculturaUserController extends Controller
 {
@@ -40,7 +41,7 @@ class MinculturaUserController extends Controller
                             if($rol->pivot->role_id == 4) {
                                 $count++;
                             }
-                        }
+                        }   
                     }
                 }
                 unset($agenda->audience);
