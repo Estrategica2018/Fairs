@@ -10,6 +10,7 @@ use App\Models\Agendas;
 use App\Models\RoleUserFair;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Notification;
+use App\Notifications\SuccessAgendaRegistration;
 
 class MinculturaUserController extends Controller
 {
