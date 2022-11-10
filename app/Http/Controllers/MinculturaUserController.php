@@ -68,9 +68,9 @@ class MinculturaUserController extends Controller
         $minculturaUpdate = false;
         $mincultura = MinculturaUser::where('user_id',$user->id)->first();
         if($mincultura) {
-            $minculturaUser->documento_tipo = $request['documento_tipo'];
-            $minculturaUser->documento_numero = $request['documento_numero'];
-            $minculturaUser->correo_electronico_adicional = $request['correo_electronico_adicional'];
+            $minculturaUser->documento_tipo = $request['docType'];
+            $minculturaUser->documento_numero = $request['docNumber'];
+            $minculturaUser->correo_electronico_adicional = $request['emailAdditional'];
             $minculturaUser->save();
             $minculturaUpdate = true;
         }
