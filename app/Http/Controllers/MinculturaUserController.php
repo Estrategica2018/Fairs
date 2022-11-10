@@ -202,7 +202,7 @@ class MinculturaUserController extends Controller
             ]);
         }
 
-        $arrayUser = User::get();
+        $arrayUser = User::with('user_roles_fair')->get();
 
         dd($array, $arrayUser);
     }
