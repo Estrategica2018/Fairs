@@ -142,8 +142,8 @@ Notificación Registro a Evento Virtual</div>
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 0px 20px 0px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                         <p>{{$agenda->category->name}}: {{$agenda->title}}</p>
-                        <p>Fecha: {{$agenda->dayFormat}}</p>
-                        <p>Hora: {{$agenda->durationStr}}</p>
+                        <p>Fecha: {{$dayFormat}}</p>
+                        <p>Hora: {{$durationStr}}</p>
                     </td>
                 </tr>
                 <tr>
