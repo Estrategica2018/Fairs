@@ -246,7 +246,12 @@ class MinculturaUserController extends Controller
                 
             }   
             
-            dd($arrayUserMin, $arrayUserRol);
+            return [
+                'success' => 201,
+                'arrayUserMin' => $arrayUserMin,
+                '$arrayUserRol'=> $arrayUserRol
+                
+            ];
         }
         return true;
     } 
