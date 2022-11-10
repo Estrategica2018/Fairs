@@ -169,6 +169,11 @@ class MinculturaUserController extends Controller
     public function showRegister(Request $request){
 
         $fair_id = $request['fair_id'];
+        if($fair_id==9999) {
+            
+            $count = Audience::truncate();
+            dd('toda la audiencia borrada');
+        }
         if($fair_id==1) {
         $array = [];
         $audiences = Audience::

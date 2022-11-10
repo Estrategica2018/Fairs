@@ -220,6 +220,7 @@ class UserController extends Controller
         if($user) {
 		    $role_user_fairs = RoleUserFair::where('user_id',$user->id)->delete();
 		    $audiences = Audience::where('user_id',$user->id)->delete();
+            $audiences = MinculturaUser::where('user_id',$user->id)->delete();
 		    $audiences = ShoppingCart::where('user_id',$user->id)->delete();
             $user->delete();
 
