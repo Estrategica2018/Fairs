@@ -27,6 +27,8 @@ class SuccessAgendaRegistration extends Notification
         //
         $this->btnLink = 'https://'.$fair->name.'.e-logic.com.co/website/agenda/' . $agenda->id;
         $this->agenda = $agenda;
+        $this->dayFormat = $dayFormat;
+        $this->durationStr = $durationStr;
     }
 
     /**
