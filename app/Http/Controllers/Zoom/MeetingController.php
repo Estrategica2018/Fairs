@@ -266,24 +266,78 @@ class MeetingController extends Controller
         }
         $data = $validator->validated();
 
-        $path = 'meetings/' . $id;
-        $response = $this->zoomPatch($path, [
-            'topic' => $data['topic'], //titulo
-            'type' => self::MEETING_TYPE_SCHEDULE, //tipo agenda 2
-            'start_time' => (new \DateTime($data['start_time']))->format('Y-m-d\TH:i:s'),
-            'timezone' => $data['timezone'],
-            'duration' =>  $data['duration_time'],
-            'agenda' => $data['agenda'],
-            'settings' => [
-                'host_video' => false,
-                'participant_video' => false,
-                'waiting_room' => true,
-            ]
-        ]);
-        
-        if($response->status() === 204) {
+        //salatar modificacion zoom
+        $saltar = true;
+
+        if($saltar == false) {
+
+            $path = 'meetings/' . $id;
+            $response = $this->zoomPatch($path, [
+                'topic' => $data['topic'], //titulo
+                'type' => self::MEETING_TYPE_SCHEDULE, //tipo agenda 2
+                'start_time' => (new \DateTime($data['start_time']))->format('Y-m-d\TH:i:s'),
+                'timezone' => $data['timezone'],
+                'duration' =>  $data['duration_time'],
+                'agenda' => $data['agenda'],
+                'settings' => [
+                    'host_video' => false,
+                    'participant_video' => false,
+                    'waiting_room' => true,
+                ]
+            ]);    
             
-            $meeting = json_decode($response->body(), true);
+            if($response->status() === 204) {
+                
+                $meeting = json_decode($response->body(), true);
+                $agenda = Agendas::find($data['id']);
+                $agenda->title = $data['topic'];
+                $agenda->description = $data['agenda'];
+                $agenda->duration_time = $data['duration_time'];
+                $agenda->start_at = strtotime($data['start_time']);
+                $agenda->fair_id = $data['fair_id'];
+                $agenda->category_id = $data['category_id'];
+                $agenda->resources = $data['resources'];
+                $agenda->price = isset($data['price']) ? $data['price'] : 0;
+                $agenda->timezone = $data['timezone'];
+                $agenda->audience_config = $data['audience_config'];
+                $agenda->description_large = $data['description_large'];
+                $agenda->zoom_code = $id;
+                if(isset($data['zoom_password'])) $agenda->zoom_password = $data['zoom_password'];
+                $agenda->save();
+                
+                return [
+                'success' => $response->status() === 204,
+                'data' => json_decode($agenda, true),
+                ];
+            }
+            else {
+            return [
+                'success' => false,
+                'message' => json_decode($response, true),
+            ];    
+            
+            /* 
+                $agenda = Agendas::find($data['id']);
+                $agenda->title = $data['topic'];
+                $agenda->description = $data['agenda'];
+                $agenda->duration_time = $data['duration_time'];
+                $agenda->start_at = strtotime($data['start_time']);
+                $agenda->fair_id = $data['fair_id'];
+                $agenda->category_id = $data['category_id'];
+                $agenda->resources = $data['resources'];
+                $agenda->price = isset($data['price']) ? $data['price'] : 0;
+                $agenda->timezone = $data['timezone'];
+                $agenda->audience_config = $data['audience_config'];
+                if(isset($data['zoom_password'])) $agenda->zoom_password = $data['zoom_password'];
+                $agenda->save();
+                
+                return [
+                'success' => true,
+                'data' => json_decode($agenda, true),
+                ];*/
+            }
+        }else {
+            //$meeting = json_decode($response->body(), true);
             $agenda = Agendas::find($data['id']);
             $agenda->title = $data['topic'];
             $agenda->description = $data['agenda'];
@@ -296,40 +350,14 @@ class MeetingController extends Controller
             $agenda->timezone = $data['timezone'];
             $agenda->audience_config = $data['audience_config'];
             $agenda->description_large = $data['description_large'];
-            $agenda->zoom_code = $id;
-            if(isset($data['zoom_password'])) $agenda->zoom_password = $data['zoom_password'];
+            //$agenda->zoom_code = $id;
+            //if(isset($data['zoom_password'])) $agenda->zoom_password = $data['zoom_password'];
             $agenda->save();
             
             return [
-              'success' => $response->status() === 204,
-              'data' => json_decode($agenda, true),
+            'success' => $response->status() === 204,
+            'data' => json_decode($agenda, true),
             ];
-        }
-        else {
-           return [
-            'success' => false,
-            'message' => json_decode($response, true),
-           ];    
-		   
-		   /* 
-            $agenda = Agendas::find($data['id']);
-            $agenda->title = $data['topic'];
-            $agenda->description = $data['agenda'];
-            $agenda->duration_time = $data['duration_time'];
-            $agenda->start_at = strtotime($data['start_time']);
-            $agenda->fair_id = $data['fair_id'];
-            $agenda->category_id = $data['category_id'];
-            $agenda->resources = $data['resources'];
-            $agenda->price = isset($data['price']) ? $data['price'] : 0;
-            $agenda->timezone = $data['timezone'];
-            $agenda->audience_config = $data['audience_config'];
-            if(isset($data['zoom_password'])) $agenda->zoom_password = $data['zoom_password'];
-            $agenda->save();
-            
-            return [
-              'success' => true,
-              'data' => json_decode($agenda, true),
-            ];*/
         }
         
         
