@@ -174,6 +174,7 @@
                         <p>Recuerda ingresar este código lo más pronto posible, para acceder fácilmente a toda la información de nuestra plataforma</p>
                     </td>
                 </tr>
+                <!--
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding:20px 20px 20px 20px;border-radius:4px 4px 4px 4px;color:#666666;font-family:'Lato',Helvetica,Arial,sans-serif;font-size:18px;font-weight:400;line-height:25px;text-align:center;vertical-align:middle">
                       <a href="{{$btnLink}}" target="_blank">
@@ -181,6 +182,7 @@
 					   </a>
                     </td>
                 </tr>
+                -->
                 <tr>
                     <td bgcolor="#ffffff" align="left" style="padding: 0px 20px 20px 20px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                         <p>Si tienes problemas para realizar el proceso comunícate al correo admin@e-logic.com.co</p>
