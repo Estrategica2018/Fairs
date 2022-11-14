@@ -151,10 +151,11 @@ class FairController extends Controller
 
     }
 
-    public function to_list(){
+    public function to_list(Request $request){
+        $fair_name = $request['fair_name'];
         return [
             'success' => 201,
-            'data' => Fair::with('pavilions.stands.merchant')->get(),
+            'data' => Fair::where('name',$fair_name)->with('pavilions.stands.merchant')->get()
         ];
     }
 	
