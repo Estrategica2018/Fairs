@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Agendas;
 use App\Models\InvitedSpeaker;
 use App\Models\Audience;
+use App\Models\Fair;
 use App\Notifications\Conference\SuccessFulRegistrationFree;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\App;
+use App\Notifications\SuccessAgendaRegistration;
 
 class AgendaController extends Controller
 {
@@ -189,12 +192,12 @@ class AgendaController extends Controller
 				$audience->save();
 
 				
-                try{
+                /*try{
                     Notification::route('mail', $user->email)
                         ->notify(new SuccessFulRegistrationFree($agenda,$user));
                 }catch (\Exception $e){
                     return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
-                }
+                }*/
 
 				return [
 				  'success' => 201,
@@ -240,8 +243,11 @@ class AgendaController extends Controller
 
     public function availableList (Request $request) {
         $validator = Validator::make($request->all(), [
-            'fair_id' => ''
+            'fair_id' => '',
+            'agenda_id' => ''
         ]);
+
+        $user = auth()->guard('api')->user();
 
         if ($validator->fails()) {
             return [
@@ -249,21 +255,109 @@ class AgendaController extends Controller
                 'data' => $validator->errors(),
             ];
         }
-        $data = $validator->validated();    
+        $data = $validator->validated();
         
-        $querySelect = Agendas::select('id','title','description', 'description_large','duration_time','start_at','timezone','audience_config','category_id','price');
-        $query = $querySelect->with('audience.user.user_roles_fair', 'invited_speakers.speaker.user', 'category', )->where('fair_id',$request['fair_id']);
+        $querySelect = Agendas::select('id','title','description', 'description_large','duration_time','start_at','timezone','audience_config','category_id','price','resources');
+        $query = $querySelect->with('audience.user.user_roles_fair', 'invited_speakers.speaker.user', 'category')
+        ->where('fair_id',$request['fair_id']);
         
         
-        if(isset($data['fair_id'])) {
-          $query = $query->where('fair_id',$data['fair_id']);
+        if(isset($request['agenda_id'])) {
+          $query = $query->where('id',$request['agenda_id']);
         }
-        
+
         $meetings = $query->orderBy('id')->get();
+
+        forEach($meetings as $agenda) {
+            if($agenda->audience_config == 5) {
+                $agenda->disableSelection = false;
+                $agenda->resources = json_decode($agenda->resources, true);
+                $guests = $agenda->resources['guests'];
+                $count = 0;
+                $agenda->count = 0;
+
+                forEach($agenda->audience as $audience) {
+                    
+                    if($audience->user->id == $user->id ){
+                        $agenda->disableSelection = true;
+                    }
+
+                    if($agenda->disableSelection == false) {
+                        forEach($audience->user->user_roles_fair as $rol) {
+                            if($rol->pivot->role_id == 4){
+                                $count ++;
+                                $agenda->count ++;                                
+                                $agenda->full = $count >= $guests;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            unset($agenda->audience);
+        }
         
         return [
             'success' => 201,
             'data' => $meetings,
+        ];
+
+    }
+
+    public function register (Request $request) {
+        $validator = Validator::make($request->all(), [
+            'fair_id' => '',
+            'agenda_id' => ''
+        ]);
+
+        $user = auth()->guard('api')->user();
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+        $data = $validator->validated();
+        
+        $meetings = $this->availableList($request);
+        $agenda = $meetings['data'][0];
+        $audience = null;
+        if($agenda->full == false && !$agenda->disableSelection){
+            
+            //register user in agenda
+            $audience = new Audience();
+            $audience->agenda_id = $agenda->id;
+            $audience->email = $user->email;
+            $audience->user_id = $user->id;
+            $audience->check = 1;
+            $audience->save();
+
+            $fair_id = $request['fair_id'];
+            $agenda_id = $request['agenda_id'];
+            $fair = Fair::find($fair_id);
+            $agenda = Agendas::find($agenda_id);
+            $date = date("d/m/Y", $agenda->start_at);
+            $dateHour = date("H:i", $agenda->start_at);
+            $day = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+            $dayFormat = $day[date("w",$agenda->start_at)]. ', '. $date;
+
+            $duration = ['15'=>'15 min','30'=>'30 min','45'=>'45 min','60'=>'1 hora','90'=>'1 hora y 30 min','120'=>'2 horas','150'=>'2 horas y 30 min','180'=>'3 horas','210'=>'3 horas y 30 min','240'=>'4 horas'];
+            $durationStr = $duration[$agenda->duration_time]; 
+
+            //if (App::environment('production') || App::environment('sendEmail') ) {
+                Notification::route('mail', $user->email)
+                ->notify(new SuccessAgendaRegistration($fair, $user->email, $agenda, $dayFormat, $durationStr, $dateHour));
+                $sendMail = true;
+            //}
+        }
+        
+        return [
+            'success' => 201,
+            'data' => $agenda,
+            'audience'=> $audience,
+            'sendMail'=> $sendMail
         ];
 
     }

@@ -267,7 +267,7 @@ class MeetingController extends Controller
         $data = $validator->validated();
 
         //salatar modificacion zoom
-        $saltar = false;
+        $saltar = true;
 
         if($saltar == false) {
 
