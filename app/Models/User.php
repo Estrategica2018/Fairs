@@ -96,11 +96,22 @@ class User extends Authenticatable
         }
         return false;
     }
+    
     public function hasRole($role)
     {
         if ($this->user_roles_fair()->where('name', $role)->first()) {
             return true;
         }
         return false;
+    }
+
+    public function audience (){
+
+        return $this->hasMany(Audience::class,'user_id','id');
+    }
+
+    public function mincultura (){
+
+        return $this->hasOne(MinculturaUser::class,'user_id','id');
     }
 }

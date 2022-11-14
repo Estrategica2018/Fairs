@@ -107,16 +107,14 @@ Route::post('/speakers/delete/', 'SpeakerController@delete')->middleware('role:s
 Route::post('/speakers/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_speakers')->middleware('role:super_administrador');
 
 //create masive speakers
-Route::post('speakers/upload', 'SpeakerController@uploadFile');
-
+//Route::post('speakers/upload', 'SpeakerController@uploadFile');
 //return all agenda list
 Route::get('/agenda/list/{fair_id?}/{pavilion_id?}/{stand_id?}', 'AgendaController@list');
-
 //returns agenda list with quota enabled
-Route::get('/agenda/available/list/{fair_id}', 'AgendaController@availableList');
-
+Route::get('/agenda/available/list/{fair_id}/{agenda_id?}', 'AgendaController@availableList');
 // super admin or admin role rules
 Route::get('/agenda/getEmails/{fair_id}/{agenda_id}', 'AgendaController@getEmails')->middleware('role:super_administrador');
+Route::get('/agenda/register/{fair_id}/{agenda_id}', 'AgendaController@register');
 
 // super admin role rules
 Route::post('/category/create', 'CategoryController@create');//->middleware('role:super_administrador');
@@ -132,7 +130,7 @@ Route::get('/subcategory/get/{category_id}', 'CategoryController@get_sub_categor
 
 
 Route::post('/audience/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_audience');
-Route::get('/meeting/generate-meeting-token/{fair_id?}/{meeting_id?}', 'AgendaController@generateMeetingToken');
+Route::get('/meeting/generate-meeting-token/{fair_id}/{meeting_id}', 'AgendaController@generateMeetingToken');
 
 Route::post('/payment/generate', 'PaymentController@createNewReference');
 Route::post('/payment/user/fair', 'PaymentController@getPaymentUser');

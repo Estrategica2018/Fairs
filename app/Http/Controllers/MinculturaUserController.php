@@ -110,7 +110,7 @@ class MinculturaUserController extends Controller
             }
 
             if($newAudience) {
-                Audience::where('user_id',$user->id)->delete();
+                //Audience::where('user_id',$user->id)->delete();
                 $audience = new Audience();
                 $audience->agenda_id = $agenda_id;
                 $audience->email = $user->email;
@@ -204,30 +204,10 @@ class MinculturaUserController extends Controller
 
         if($fair_id==1) {
 
-            $users = User::get();
-            $arrayUser = [];
-            forEach($users as $user) {
-                $us = [];
-                $us['id']= $user['id'];
-                $us['name']= $user['name'];
-                $us['last_name']= $user['last_name'];
-                $us['email']= $user['email'];
-                $audiences = Audience::with('user','agenda.category')->where('user_id',$user->id)->get();
-                $us['audiences'] = $audiences;
-                $min = MinculturaUser::where('user_id',$user->id)->get();
-                $us['mincultura'] = $min;
-                $roles = RoleUserFair::where('user_id',$user->id)->get();
-                $us['roles'] = '';
-                foreach ($roles as $rol) {
-                    $us['roles'] .= ' - ' . $rol->role_id;
-                }
-                
-                array_push($arrayUser, $us);
-            }            
-            
+            $users = User::with('audience.agenda.category','mincultura','roles_fair')->get();
             return [
                 'success' => 201,
-                'arrayUser' => $arrayUser                
+                'arrayUser' => $users                
             ];
         }
         if($fair_id==2) {
