@@ -34,7 +34,7 @@ class MinculturaUserController extends Controller
         $meetings = [];
 
         forEach($queryMeeting as $agenda) {
-            if($agenda->audience_config == "5" || $agenda->category->name == 'Taller' || $agenda->category->name == 'Taller_M'||$agenda->category->name == 'Taller_T') {
+            if($agenda->category->name == 'Taller' || $agenda->category->name == 'Taller_M'||$agenda->category->name == 'Taller_T') {
                 $count = 0;
                 $guest = 25;
                 forEach($agenda->audience as $audience) {
