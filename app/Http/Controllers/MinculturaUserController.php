@@ -29,7 +29,7 @@ class MinculturaUserController extends Controller
         //query available list 
         $queryMeeting = Agendas::select('id','title','description', 'description_large','duration_time','start_at','timezone','audience_config','resources','category_id','price');
         $queryMeeting = $queryMeeting->with('audience.user.user_roles_fair', 'invited_speakers.speaker.user', 'category' );
-        $queryMeeting = $queryMeeting->where('fair_id',$request['fair_id'])->get();
+        $queryMeeting = $queryMeeting->where('fair_id',$request['fair_id'])->orderBy('start_at')->get();
 
         $meetings = [];
 
