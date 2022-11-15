@@ -84,7 +84,7 @@ Route::get('/stand/to_list/{pavilion_id?}', 'StandController@to_list');
 //
 Route::post('/user/create', 'UserController@create');
 Route::post('/user/update', 'UserController@update');
-Route::get('/user/delete/{email}', 'UserController@delete');//->middleware('role:super_administrador');
+Route::get('/user/delete/{email}/{type}', 'UserController@delete');//->middleware('role:super_administrador');
 Route::get('/user/to_list', 'UserController@to_list')->middleware('role:super_administrador');
 Route::get('/user/activate/account/{user_id}', 'UserController@activate_account');
 Route::get('/user/find/{email}', 'UserController@find');

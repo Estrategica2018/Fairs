@@ -212,22 +212,39 @@ class UserController extends Controller
 
     }
 
-    public function delete(Request $request, $email){
+    public function delete(Request $request, $email, $type){
 
-		$confirm_account = ConfirmAccount::where('email',$email)->delete();
+		
         $user = User::where('email', $email)->first();
 		
         if($user) {
-		    $role_user_fairs = RoleUserFair::where('user_id',$user->id)->delete();
-		    $audiences = Audience::where('user_id',$user->id)->delete();
-            $audiences = MinculturaUser::where('user_id',$user->id)->delete();
-		    $audiences = ShoppingCart::where('user_id',$user->id)->delete();
-            $user->delete();
+            if($type == 'all') {
+                $confirm_account = ConfirmAccount::where('email',$email)->delete();
+                $role_user_fairs = RoleUserFair::where('user_id',$user->id)->delete();
+                $audiences = Audience::where('user_id',$user->id)->delete();
+                $audiences = MinculturaUser::where('user_id',$user->id)->delete();
+                $audiences = ShoppingCart::where('user_id',$user->id)->delete();
+                $user->delete();
+
+                return [
+                    'success' => 201,
+                    'data' => 'email-borrado ' . $email
+                ];
+            }
+            if($type == 'audience') {
+                $audiences = Audience::where('user_id',$user->id)->delete();            
+                return [
+                    'success' => 201,
+                    'data' => 'audiencia borrada para ' . $email
+                ];
+            }
 
             return [
                 'success' => 201,
-                'data' => 'email-borrado' . $email
+                'data' => 'nothing to do'
             ];
+            
+            
         }
         else {
             return response()->json(['message' => 'No existe el usuario.'. $email], 403);
