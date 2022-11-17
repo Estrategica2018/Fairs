@@ -53,6 +53,10 @@
           websdkready(data, null);
         @endif;
         
+
+        setTimeout(() => {
+          document.querySelector('.meeting-info-icon__icon-wrap').remove();
+        }, 10000);
       });
     </script>
   </body>
