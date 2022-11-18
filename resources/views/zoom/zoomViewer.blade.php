@@ -59,16 +59,6 @@
 
         setTimeout(() => {
           document.querySelector('.meeting-info-icon__icon-wrap').remove();
-          //var elem = document.createElement("img");
-          //elem.setAttribute("src", "https://res.cloudinary.com/deueufyac/image/upload/v1668187745/CONGRESO%20NACIONAL%20DE%20BIBLIOTECAS/FORMULARIOS/banner_ijt47d.png");
-          //document.querySelector("body").appendChild(elem);
-          //elem.classList.add("top");
-
-
-
-          //var div = document.querySelector('#zmmtg-root');
-          //div.classList.add("top");
-
         }, 10000);
       });
     </script>
