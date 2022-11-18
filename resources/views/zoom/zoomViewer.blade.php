@@ -59,8 +59,12 @@
 
         setTimeout(() => {
           document.querySelector('.meeting-info-icon__icon-wrap').remove();
-          document.querySelector(".participants-section-container__participants-footer-bottom .ax-outline-blue-important").remove();
         }, 10000);
+
+        setInterval(() => {
+          var div = document.querySelector(".participants-section-container__participants-footer-bottom .ax-outline-blue-important");
+          if(div) div.remove();
+        }, 20000);
       });
     </script>
 
