@@ -7,6 +7,9 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="origin-trial" content="">
+    <style>
+        .top { top: 25em !important;}
+    </style>
   </head>
   <body>
     <script src="https://source.zoom.us/1.9.0/lib/vendor/react.min.js"></script>
@@ -56,8 +59,19 @@
 
         setTimeout(() => {
           document.querySelector('.meeting-info-icon__icon-wrap').remove();
+          //var elem = document.createElement("img");
+          //elem.setAttribute("src", "https://res.cloudinary.com/deueufyac/image/upload/v1668187745/CONGRESO%20NACIONAL%20DE%20BIBLIOTECAS/FORMULARIOS/banner_ijt47d.png");
+          //document.querySelector("body").appendChild(elem);
+          //elem.classList.add("top");
+
+
+
+          //var div = document.querySelector('#zmmtg-root');
+          //div.classList.add("top");
+
         }, 10000);
       });
     </script>
+
   </body>
 </html>
