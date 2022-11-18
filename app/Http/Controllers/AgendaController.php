@@ -364,6 +364,7 @@ class AgendaController extends Controller
     }
 
     public function live (Request $request) {
+        
         $validator = Validator::make($request->all(), [
             'fair_id' => ''
         ]);
@@ -376,28 +377,31 @@ class AgendaController extends Controller
         }
         $data = $validator->validated();    
         
-        $query = Agendas::select('id','duration_time','start_at','timezone','audience_config','resources')
-        ->with('category')
+        $query = Agendas:://select('id','duration_time','start_at','timezone','audience_config','resources')
+        //->
+        with('category')
         ->where('fair_id',$data['fair_id'])
         ->get();
 
         foreach($query as $meeting) {
-            $start = date('Y-m-d H:i', strtotime('-15 min',$meeting->start_at));
-            $end = date('Y-m-d H:i', strtotime('+'.$meeting->duration_time.' min',$meeting->start_at));
-            $date = date('Y-m-d H:i');
-            if (($date >= $start  && $date <= $end)) {                
-                return [
-                    'success' => 201,
-                    'data' => $meeting,
-                    'start'=> $start,
-                    'end'=> $end
-                ];
+            if($meeting->category->name != 'Taller_M' && $meeting->category->name != 'Taller_T') {
+                $start = date('Y-m-d H:i', strtotime('-15 min',$meeting->start_at));
+                $end = date('Y-m-d H:i', strtotime('+'.$meeting->duration_time.' min',$meeting->start_at));
+                $date = date('Y-m-d H:i');
+                if (($date >= $start  && $date <= $end)) {                
+                    return [
+                        'success' => 201,
+                        'data' => $meeting,
+                        'start'=> $start,
+                        'end'=> $end
+                    ];
+                }
             }
         }  
 
         return [
             'success' => 201,
-            'data' => []
+            'data' => null
         ];
 
     }
