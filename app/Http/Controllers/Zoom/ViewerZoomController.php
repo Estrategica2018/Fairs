@@ -72,11 +72,11 @@ class ViewerZoomController extends Controller
             $fair = Fair::find($agenda->fair_id);
             if (App::environment('production')) {
               $href = 'https://'.$fair->name.'.e-logic.com.co/website/agenda/'.$audience->agenda_id;
-              $saveResgisterUrl = 'viewerZoom/saveResgister/'.$fair->id.'/'.$audience->agenda_id;
+              $saveResgisterUrl = '/viewerZoom/saveResgister/'.$fair->id.'/'.$audience->agenda_id;
             }
             else {
               $href = 'http://localhost:8100/agenda/' . $audience->agenda_id;
-              $saveResgisterUrl = 'viewerZoom/saveResgister/'.$fair->id.'/'.$audience->agenda_id;
+              $saveResgisterUrl = '/viewerZoom/saveResgister/'.$fair->id.'/'.$audience->agenda_id;
             }
 
             $opt = [
