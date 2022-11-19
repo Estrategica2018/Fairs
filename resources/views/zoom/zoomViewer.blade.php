@@ -59,6 +59,11 @@
         @endif;
         
 
+        setTimeout(() => {
+          document.querySelector('.meeting-info-icon__icon-wrap').remove();
+        }, 5000);
+
+
         setInterval(() => {
           var div1 = document.querySelector('.meeting-info-icon__icon-wrap');
           console.log('meeting-info-icon__icon-wrap');
