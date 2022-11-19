@@ -59,15 +59,17 @@
         @endif;
         
 
-        setTimeout(() => {
-          document.querySelector('.meeting-info-icon__icon-wrap').remove();
-        }, 10000);
-
         setInterval(() => {
-          document.querySelector('.meeting-info-icon__icon-wrap').remove();
+          var div1 = document.querySelector('.meeting-info-icon__icon-wrap');
+          console.log('meeting-info-icon__icon-wrap');
+          console.log(div1);
+          if(div1) div1.remove();
+          
           var div = document.querySelector(".participants-section-container__participants-footer-bottom .ax-outline-blue-important");
+          console.log('.participants-section-container__participants-footer-bottom');
+          console.log(div);
           if(div) div.remove();
-        }, 20000);
+        }, 30000);
       });
     </script>
 
