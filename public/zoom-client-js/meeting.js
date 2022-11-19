@@ -3,11 +3,11 @@ function websdkready(tmpArgs, saveResgisterUrl) {
   var testTool = window.testTool;
   // get meeting args from url
   //var tmpArgs = testTool.parseQuery();
-  console.log(testTool.parseQuery());
-  console.log(tmpArgs);
+  //console.log(testTool.parseQuery());
+  //console.log(tmpArgs);
 
   tmpArgs = Object.assign(testTool.parseQuery(), tmpArgs);
-  console.log(tmpArgs);
+  //console.log(tmpArgs);
 
   var meetingConfig = {
     apiKey: tmpArgs.apiKey,
@@ -62,8 +62,8 @@ function websdkready(tmpArgs, saveResgisterUrl) {
       leaveUrl: meetingConfig.leaveUrl,
       webEndpoint: meetingConfig.webEndpoint,
       success: function () {
-        console.log(meetingConfig);
-        console.log("signature", signature);
+        //console.log(meetingConfig);
+        //console.log("signature", signature);
         ZoomMtg.i18n.load(meetingConfig.lang);
         ZoomMtg.i18n.reload(meetingConfig.lang);
         ZoomMtg.join({

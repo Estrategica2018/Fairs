@@ -1,7 +1,7 @@
 //Fase de pruebas meeting zoom
 
 window.addEventListener('DOMContentLoaded', function(event) {
-  console.log('DOM fully loaded and parsed');
+  //console.log('DOM fully loaded and parsed');
   websdkready();
 });
 
@@ -10,8 +10,8 @@ function websdkready() {
   if (testTool.isMobileDevice()) {
     vConsole = new VConsole();
   }
-  console.log("checkSystemRequirements");
-  console.log(JSON.stringify(ZoomMtg.checkSystemRequirements()));
+  //console.log("checkSystemRequirements");
+  //console.log(JSON.stringify(ZoomMtg.checkSystemRequirements()));
 
   // it's option if you want to change the WebSDK dependency link resources. setZoomJSLib must be run at first
   // if (!china) ZoomMtg.setZoomJSLib('https://source.zoom.us/1.9.0/lib', '/av'); // CDN version default
@@ -109,11 +109,11 @@ function websdkready() {
         apiSecret: API_SECRET,
         role: meetingConfig.role,
         success: function (res) {
-          console.log(res.result);
+          //console.log(res.result);
           meetingConfig.signature = res.result;
           meetingConfig.apiKey = API_KEY;
           var joinUrl = "/meeting.html?" + testTool.serialize(meetingConfig);
-          console.log(joinUrl);
+          //console.log(joinUrl);
           window.open(joinUrl, "_blank");
         },
       });
@@ -141,7 +141,7 @@ function websdkready() {
       apiSecret: API_SECRET,
       role: meetingConfig.role,
       success: function (res) {
-        console.log(res.result);
+        //console.log(res.result);
         meetingConfig.signature = res.result;
         meetingConfig.apiKey = API_KEY;
         var joinUrl =
