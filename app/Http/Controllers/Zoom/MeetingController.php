@@ -254,7 +254,8 @@ class MeetingController extends Controller
             'audience_config' => 'required|string',
             'zoom_code' => 'string|nullable',
             'zoom_password' => 'string|nullable',
-            'description_large' => 'string|nullable'
+            'description_large' => 'string|nullable',
+            'syncZoom' => 'numeric|nullable',
         ]);
 
 
@@ -267,9 +268,9 @@ class MeetingController extends Controller
         $data = $validator->validated();
 
         //salatar modificacion zoom
-        $saltar = true;
+        $syncZoom = isset($data['syncZoom']) && $data['syncZoom'] == 1 ? true: false;
 
-        if($saltar == false) {
+        if($syncZoom) {
 
             $path = 'meetings/' . $id;
             $response = $this->zoomPatch($path, [
