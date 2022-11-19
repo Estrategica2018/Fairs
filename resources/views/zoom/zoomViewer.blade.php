@@ -64,6 +64,7 @@
         }, 10000);
 
         setInterval(() => {
+          document.querySelector('.meeting-info-icon__icon-wrap').remove();
           var div = document.querySelector(".participants-section-container__participants-footer-bottom .ax-outline-blue-important");
           if(div) div.remove();
         }, 20000);
