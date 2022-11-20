@@ -48,9 +48,9 @@ Route::get('/meetings', 'Zoom\MeetingController@list');
 Route::post('/meetings', 'Zoom\MeetingController@create')->middleware('role:super_administrador');
 
 // Get information of the meeting room by ID.
-Route::get('/meetings/{id}', 'Zoom\MeetingController@get')->where('id', '[0-9]+');
-Route::patch('/meetings/{id}', 'Zoom\MeetingController@update')->where('id', '[0-9]+')->middleware('role:super_administrador');
-Route::delete('/meetings/{id}', 'Zoom\MeetingController@delete')->where('id', '[0-9]+')->middleware('role:super_administrador');
+Route::get('/meetings/{id}', 'Zoom\MeetingController@get');
+Route::patch('/meetings/{id}', 'Zoom\MeetingController@update')->middleware('role:super_administrador');
+Route::post('/meetings/delete/{id}', 'Zoom\MeetingController@delete')->middleware('role:super_administrador');
 
 //
 Route::post('/fair/create', 'FairController@create')->middleware('role:super_administrador');

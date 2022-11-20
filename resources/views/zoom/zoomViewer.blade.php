@@ -9,6 +9,36 @@
     <meta http-equiv="origin-trial" content="">
     <style>
         .top { top: 25em !important;}
+        .ReactModal__Body--open {
+
+        }
+        .gallery-video-container__wrap,
+        #wc-container-left {
+          background-image: url(https://res.cloudinary.com/deueufyac/image/upload/v1667586586/CONGRESO%20NACIONAL%20DE%20BIBLIOTECAS/DISE%C3%91O%20INTERNAS/pattner_fondo_zi9drp.png);
+        }
+        .ion-back {
+            cursor: pointer !important;
+            position: absolute;
+            right: 62px;
+            top: 8px;
+            z-index: 101;
+            border-bottom: none;
+        }
+        .ion-back-widget {
+            display: inline-block;
+            width: 189px;
+            height: 32px;
+            vertical-align: middle;
+            background-color: orange;
+            border-radius: 18px;
+            cursor: pointer;
+            color: rgb(76, 37, 5);
+            font-weight: bold;
+        }
+        .ion-back-widget:hover {
+            color: rgb(240, 240, 240);
+            background-color: rgb(241, 90, 36);
+        }
     </style>
   </head>
   <body>
@@ -28,11 +58,6 @@
        });
     </script>
     
-    @if(isset($url_redirect)) 
-    <script>
-       window.location.href = $url_redirect;
-    </script> 
-    @endif 
     
     <script>
       var data = {
@@ -58,21 +83,52 @@
           websdkready(data, null);
         @endif;
         
-
-        setTimeout(() => {
-          document.querySelector('.meeting-info-icon__icon-wrap').remove();
-        }, 5000);
-
-
-        setInterval(() => {
+ 
+        var interval =  setInterval(() => {
           var div1 = document.querySelector('.meeting-info-icon__icon-wrap');
-          console.log('meeting-info-icon__icon-wrap');
-          if(div1) div1.remove();
-          
+          console.log('internal');
+          if(div1) { 
+            div1.remove();          
+            clearInterval(interval);
+          }
+
+        }, 1000);
+
+        var interval1 = setInterval(() => {
+          console.log('internal1');
+          var iconFullScreen = document.querySelector(".full-screen-icon");
+          if(iconFullScreen) {
+             var ionBack = document.querySelector(".ion-back");
+             if(!ionBack) {
+              let button = document.createElement('div');
+              button.innerHTML = '<div class="ion-back"><button type="button" class="ion-back-widget">Volver al congreso</button></div>';
+              iconFullScreen.parentElement.appendChild(button);
+              button.onclick = function () {
+                console.log('click' + document.referrer );
+                //if(document.referrer && ( document.referrer.indexOf('e-logic') || document.referrer.indexOf('localhost')) ) {
+                if(true) {
+                  history.back();
+                }
+                else {
+                  window.location.href = '{!!$url_redirect!!}';
+                }
+              }
+
+              clearInterval(interval1);
+             }
+          }
+        }, 1000);
+
+
+        var interval2 = setInterval(() => {  
+          console.log('internal2');        
           var div = document.querySelector(".participants-section-container__participants-footer-bottom .ax-outline-blue-important");
-          console.log('.participants-section-container__participants-footer-bottom');
-          if(div) div.remove();
-        }, 30000);
+          if(div) {
+            div.remove();
+            clearInterval(interval2);
+          }
+        }, 10000);
+
       });
     </script>
 

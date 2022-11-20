@@ -344,7 +344,7 @@ class AgendaController extends Controller
             $day = array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
             $dayFormat = $day[date("w",$agenda->start_at)]. ', '. $date;
 
-            $duration = ['15'=>'15 min','30'=>'30 min','45'=>'45 min','60'=>'1 hora','90'=>'1 hora y 30 min','120'=>'2 horas','150'=>'2 horas y 30 min','180'=>'3 horas','210'=>'3 horas y 30 min','240'=>'4 horas'];
+            $duration = ['15'=>'15 min','30'=>'30 min','45'=>'45 min','60'=>'1 hora','90'=>'1 hora y 30 min','120'=>'2 horas','150'=>'2 horas y 30 min','180'=>'3 horas','210'=>'3 horas y 30 min','240'=>'4 horas', '270'=>'4 horas y 30 min','300'=>'5 horas','330'=>'5 horas y 30 min','360'=>'6 horas','390'=>'6 horas y 30 min'];
             $durationStr = $duration[$agenda->duration_time]; 
 
             //if (App::environment('production') || App::environment('sendEmail') ) {

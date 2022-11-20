@@ -22,11 +22,26 @@ class ViewerZoomController extends Controller
         $audience = Audience::with('user')->where('token',$token)->first();
         $agenda_id = explode(".",$token)[1];
         $fair_id = explode(".",$token)[2];
-        
-        if($audience) {
 
-            $agenda = Agendas::with('invited_speakers.speaker.user','audience')->find($audience->agenda_id);
-            $user = $audience->user;
+        if(session_status() !== PHP_SESSION_ACTIVE) {
+          session_start();
+        }
+
+        $user = null;
+        if($audience) {
+          $user = $audience->user;
+          $agenda_id = $audience->agenda_id;
+          $_SESSION['user'] = $user;
+          $_SESSION['token'] = $token;
+        }
+        else if( isset($_SESSION['token'])  && $_SESSION['token'] == $token ) {
+          $user = $_SESSION['user'];
+        }
+
+        if($user) {
+
+            $agenda = Agendas::with('invited_speakers.speaker.user','audience')->find($agenda_id);
+            
             $email = $user->email;
             $name = $user->name .' '.$user->last_name;
             
@@ -53,8 +68,8 @@ class ViewerZoomController extends Controller
               if($role == '0'){				
                   
                 $valid = false;
-                foreach($agenda->audience as $audience) {
-                  if($audience->email === $email) {
+                foreach($agenda->audience as $aud) {
+                  if($aud->email === $email) {
                   $valid = true;
                   }
                 }
@@ -63,7 +78,8 @@ class ViewerZoomController extends Controller
                 }
               }
             }
-			
+
+            
             $API_SECRET = env('ZOOM_API_SECRET', '');
             $API_KEY = env('ZOOM_API_KEY', '');
             
@@ -71,12 +87,13 @@ class ViewerZoomController extends Controller
 
             $fair = Fair::find($agenda->fair_id);
             if (App::environment('production')) {
-              $href = 'https://'.$fair->name.'.e-logic.com.co/website/agenda/'.$audience->agenda_id;
-              $saveResgisterUrl = '/viewerZoom/saveResgister/'.$fair->id.'/'.$audience->agenda_id;
+              $href = 'https://'.$fair->name.'.e-logic.com.co/website/agenda/'.$agenda_id;
+              $saveResgisterUrl = '/viewerZoom/saveResgister/'.$fair->id.'/'.$agenda_id;
             }
             else {
-              $href = 'http://localhost:8100/agenda/' . $audience->agenda_id;
-              $saveResgisterUrl = '/viewerZoom/saveResgister/'.$fair->id.'/'.$audience->agenda_id;
+              $href = 'http://localhost:8100/agenda/' . $agenda_id;
+              $href = 'https://da7c-190-90-3-22.ngrok.io//agenda/' . $agenda_id;
+              $saveResgisterUrl = '/viewerZoom/saveResgister/'.$fair->id.'/'.$agenda_id;
             }
 
             $opt = [
@@ -88,21 +105,18 @@ class ViewerZoomController extends Controller
               'lang'=>'es-ES',
               'signature'=>$signature,
               'china'=>'0',
-              'apiKey'=>$API_KEY
+              'apiKey'=>$API_KEY,
+              'url_redirect'=>$href
             ];
             
-            if($role == 1) {
-              $opt['saveResgisterUrl'] = $saveResgisterUrl;
-            }
-
             $opt['saveResgisterUrl'] = $saveResgisterUrl;
             
-            $audience->token = '';
-            $audience->save();
+            if($audience) {
+              $audience->token = '';
+              $audience->save();
+            }
 
-            if(session_status() !== PHP_SESSION_ACTIVE) session_start();
             $_SESSION["newFair"]=$href;
-            $_SESSION["user"]=$user;
 
             return view('zoom.zoomViewer',$opt);
         }

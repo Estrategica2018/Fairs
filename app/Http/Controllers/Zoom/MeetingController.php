@@ -367,22 +367,33 @@ class MeetingController extends Controller
     public function delete(Request $request, string $id)
     {
         $path = 'meetings/' . $id;
-        $response = $this->zoomDelete($path);
-        
-        $meeting = json_decode($response->body(), true);
-        if($response->status() === 204 || $meeting['code'] === 3001 || true) {
-			
-			
+        $syncZoom = isset($request['syncZoom']) && $request['syncZoom'] == 1 ? true: false;
+
+
+        if($syncZoom) {
+            $response = $this->zoomDelete($path);            
+            $meeting = json_decode($response->body(), true);        
+            
+            if($response->status() === 204 || $meeting['code'] === 3001 || true) {
+                
+                $agenda = Agendas::where('zoom_code',$id)->first();
+                InvitedSpeaker::where('agenda_id',$agenda->id)->delete();
+                Audience::where('agenda_id',$agenda->id)->delete();
+                
+                $agenda->delete();
+                
+                return [
+                'success' => true,
+                'data' => json_decode($response->body(), true),
+                ];
+            }
+        }
+        else {
             $agenda = Agendas::where('zoom_code',$id)->first();
 			InvitedSpeaker::where('agenda_id',$agenda->id)->delete();
 			Audience::where('agenda_id',$agenda->id)->delete();
 			
             $agenda->delete();
-			
-			return [
-            'success' => true,
-            'data' => json_decode($response->body(), true),
-            ];
         }
 		
         return [
