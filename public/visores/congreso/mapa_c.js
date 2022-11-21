@@ -3,7 +3,7 @@
 var p; // shortcut to reference prototypes
 var lib={};var ss={};var img={};
 lib.ssMetadata = [
-		{name:"mapa_c_atlas_1", frames: [[0,1282,1104,187],[0,1471,1104,187],[925,288,65,93],[925,750,50,71],[992,288,65,93],[993,0,65,93],[993,95,65,93],[993,190,65,93],[1059,285,65,93],[992,573,56,80],[1060,0,65,93],[1105,665,50,71],[1060,95,65,93],[1127,73,48,68],[992,655,56,80],[925,0,66,94],[925,96,66,94],[925,192,66,94],[925,668,56,80],[1050,665,53,75],[1060,190,65,93],[1127,0,50,71],[1059,380,65,93],[925,383,65,93],[992,383,65,93],[1059,475,65,93],[925,478,65,93],[992,478,65,93],[1059,570,65,93],[925,573,65,93],[983,737,52,74],[0,0,923,1280]]}
+		{name:"mapa_c_atlas_1", frames: [[0,1282,1104,187],[925,288,65,93],[925,750,50,71],[992,288,65,93],[993,0,65,93],[993,95,65,93],[993,190,65,93],[1059,285,65,93],[992,573,56,80],[1060,0,65,93],[1105,665,50,71],[1060,95,65,93],[1127,73,48,68],[992,655,56,80],[925,0,66,94],[925,96,66,94],[925,192,66,94],[925,668,56,80],[1050,665,53,75],[1060,190,65,93],[1127,0,50,71],[1059,380,65,93],[925,383,65,93],[992,383,65,93],[1059,475,65,93],[925,478,65,93],[992,478,65,93],[1059,570,65,93],[925,573,65,93],[983,737,52,74],[0,0,923,1280]]}
 ];
 
 
@@ -33,212 +33,205 @@ lib.ssMetadata = [
 
 
 
-(lib.CachedBmp_82 = function() {
+(lib.CachedBmp_1110 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(1);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_1110 = function() {
+(lib.CachedBmp_1109 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(2);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_1109 = function() {
+(lib.CachedBmp_114 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(3);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_114 = function() {
+(lib.CachedBmp_113 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(4);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_113 = function() {
+(lib.CachedBmp_112 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(5);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_112 = function() {
+(lib.CachedBmp_111 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(6);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_111 = function() {
+(lib.CachedBmp_110 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(7);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_110 = function() {
+(lib.CachedBmp_109 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(8);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_109 = function() {
+(lib.CachedBmp_108 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(9);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_108 = function() {
+(lib.CachedBmp_107 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(10);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_107 = function() {
+(lib.CachedBmp_106 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(11);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_106 = function() {
+(lib.CachedBmp_18 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(12);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_18 = function() {
+(lib.CachedBmp_17 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(13);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_17 = function() {
+(lib.CachedBmp_16 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(14);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_16 = function() {
+(lib.CachedBmp_15 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(15);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_15 = function() {
+(lib.CachedBmp_14 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(16);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_14 = function() {
+(lib.CachedBmp_13 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(17);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_13 = function() {
+(lib.CachedBmp_12 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(18);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_12 = function() {
+(lib.CachedBmp_11 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(19);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_11 = function() {
+(lib.CachedBmp_10 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(20);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_10 = function() {
+(lib.CachedBmp_9 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(21);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_9 = function() {
+(lib.CachedBmp_8 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(22);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_8 = function() {
+(lib.CachedBmp_7 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(23);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_7 = function() {
+(lib.CachedBmp_6 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(24);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_6 = function() {
+(lib.CachedBmp_5 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(25);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_5 = function() {
+(lib.CachedBmp_4 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(26);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_4 = function() {
+(lib.CachedBmp_3 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(27);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_3 = function() {
+(lib.CachedBmp_2 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
 	this.gotoAndStop(28);
 }).prototype = p = new cjs.Sprite();
 
 
 
-(lib.CachedBmp_2 = function() {
-	this.initialize(ss["mapa_c_atlas_1"]);
-	this.gotoAndStop(29);
-}).prototype = p = new cjs.Sprite();
-
-
-
 (lib.CachedBmp_1 = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
-	this.gotoAndStop(30);
+	this.gotoAndStop(29);
 }).prototype = p = new cjs.Sprite();
 
 
@@ -431,7 +424,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,1850,2137);
 
 (lib.mp = function() {
 	this.initialize(ss["mapa_c_atlas_1"]);
-	this.gotoAndStop(31);
+	this.gotoAndStop(30);
 }).prototype = p = new cjs.Sprite();
 // helper functions:
 
@@ -1411,8 +1404,11 @@ if (reversed == null) { reversed = false; }
 	cjs.MovieClip.apply(this,[props]);
 
 	// Capa_1
-	this.instance = new lib.CachedBmp_82();
-	this.instance.setTransform(0,0,0.5,0.5);
+	this.text = new cjs.Text("Experiencia 1", "bold 25px 'Montserrat'", "#F6A23E");
+	this.text.lineHeight = 33;
+	this.text.lineWidth = 199;
+	this.text.parent = this;
+	this.text.setTransform(5.45,5.45,2.7149,2.7149);
 
 	this.shape = new cjs.Shape();
 	this.shape.graphics.f().s("#F6A23E").ss(8,1,1).p("Egj3gG7MBHvAAAIAAN3MhHvAAAg");
@@ -1422,12 +1418,12 @@ if (reversed == null) { reversed = false; }
 	this.shape_1.graphics.f("#4A2811").s().p("Egj3AG8IAAt3MBHvAAAIAAN3g");
 	this.shape_1.setTransform(240.05,54.8);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance}]}).to({state:[{t:this.shape_1},{t:this.shape}]},3).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.text}]}).to({state:[{t:this.shape_1},{t:this.shape}]},3).wait(1));
 
 	this._renderFirstFrame();
 
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(0,0,552,103.2);
+p.nominalBounds = new cjs.Rectangle(0,0,552.3,103.2);
 
 
 (lib.coromoro_int = function(mode,startPosition,loop,reversed) {
@@ -1958,7 +1954,7 @@ if (reversed == null) { reversed = false; }
 
 	this.expe3 = new lib.expe3();
 	this.expe3.name = "expe3";
-	this.expe3.setTransform(1278.9,1126.6,1,1,0,0,0,276.1,46.9);
+	this.expe3.setTransform(1278.9,1132.8,1,1,0,0,0,276.1,46.9);
 	new cjs.ButtonHelper(this.expe3, 0, 1, 2, false, new lib.expe3(), 3);
 
 	this.expe2 = new lib.expe2();
@@ -1983,7 +1979,7 @@ if (reversed == null) { reversed = false; }
 	this.instance_5 = new lib._27();
 	this.instance_5.setTransform(-204,-1036);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_3},{t:this.instance_2},{t:this.expe1},{t:this.expe2},{t:this.expe3},{t:this.instance_1,p:{x:161.75,y:1178.75}},{t:this.instance}]}).to({state:[{t:this.instance_3},{t:this.instance_2},{t:this.expe1},{t:this.expe2},{t:this.expe3},{t:this.instance_1,p:{x:710.35,y:1178}},{t:this.instance_4}]},1).to({state:[{t:this.instance_3},{t:this.instance_2},{t:this.expe1},{t:this.expe2},{t:this.expe3},{t:this.instance_1,p:{x:1246.9,y:1173.4}},{t:this.instance_5}]},1).wait(1));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_3},{t:this.instance_2},{t:this.expe1},{t:this.expe2},{t:this.expe3},{t:this.instance_1,p:{x:161.75,y:1178.75}},{t:this.instance}]}).to({state:[{t:this.instance_3},{t:this.instance_2},{t:this.expe1},{t:this.expe2},{t:this.expe3},{t:this.instance_1,p:{x:710.35,y:1178}},{t:this.instance_4}]},1).to({state:[{t:this.instance_3},{t:this.instance_2},{t:this.expe1},{t:this.expe2},{t:this.expe3},{t:this.instance_1,p:{x:1246.9,y:1179.6}},{t:this.instance_5}]},1).wait(1));
 
 	this._renderFirstFrame();
 
@@ -2752,53 +2748,53 @@ if (reversed == null) { reversed = false; }
 	this.instance_58 = new lib.mp();
 	this.instance_58.setTransform(14,2,0.9984,0.9984);
 
-	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_58},{t:this.sibate},{t:this.silva_nia},{t:this.tenjo},{t:this.anolaima},{t:this.tauramena},{t:this.cali},{t:this.san_lorenzo},{t:this.medellin},{t:this.almaguer},{t:this.cerete},{t:this.norte_San},{t:this.monteria},{t:this.chucuri},{t:this.pare},{t:this.campo_cruz},{t:this.medioJuan},{t:this.florencia},{t:this.chaparral},{t:this.cartagena},{t:this.iza},{t:this.pasto},{t:this.juardo},{t:this.puerres},{t:this.bolivar_cauca},{t:this.talaigua},{t:this.bogota},{t:this.palestina},{t:this.ta}]}).wait(30));
+	this.timeline.addTween(cjs.Tween.get({}).to({state:[{t:this.instance_58},{t:this.sibate},{t:this.silva_nia},{t:this.tenjo},{t:this.anolaima},{t:this.tauramena},{t:this.cali},{t:this.san_lorenzo},{t:this.medellin},{t:this.almaguer},{t:this.cerete},{t:this.norte_San},{t:this.monteria},{t:this.chucuri},{t:this.pare},{t:this.campo_cruz},{t:this.medioJuan},{t:this.florencia},{t:this.chaparral},{t:this.cartagena},{t:this.iza},{t:this.pasto},{t:this.juardo},{t:this.puerres},{t:this.bolivar_cauca},{t:this.talaigua},{t:this.bogota},{t:this.palestina},{t:this.ta}]}).to({state:[{t:this.instance_58},{t:this.sibate},{t:this.silva_nia},{t:this.tenjo},{t:this.anolaima},{t:this.tauramena},{t:this.cali},{t:this.san_lorenzo},{t:this.medellin},{t:this.almaguer},{t:this.cerete},{t:this.norte_San},{t:this.monteria},{t:this.chucuri},{t:this.pare},{t:this.campo_cruz},{t:this.medioJuan},{t:this.florencia},{t:this.chaparral},{t:this.cartagena},{t:this.iza},{t:this.pasto},{t:this.juardo},{t:this.puerres},{t:this.bolivar_cauca},{t:this.talaigua},{t:this.bogota},{t:this.palestina},{t:this.ta}]},2).wait(28));
 
 	this._renderFirstFrame();
 
 }).prototype = p = new lib.AnMovieClip();
-p.nominalBounds = new cjs.Rectangle(974,582.6,986.8,697.4);
+p.nominalBounds = new cjs.Rectangle(1014,582.6,946.8,697.4);
 // library properties:
 lib.properties = {
 	id: 'B923A4D70BCA4048A526CDCF31D48D32',
-	width: 1920,
+	width: 2000,
 	height: 1280,
 	fps: 24,
 	color: "#FFFFFF",
 	opacity: 0.00,
 	manifest: [
-		{src:"images/_1.png?1668749873491", id:"_1"},
-		{src:"images/_10.png?1668749873491", id:"_10"},
-		{src:"images/_11.png?1668749873491", id:"_11"},
-		{src:"images/_12.png?1668749873491", id:"_12"},
-		{src:"images/_13.png?1668749873491", id:"_13"},
-		{src:"images/_14.png?1668749873491", id:"_14"},
-		{src:"images/_15.png?1668749873491", id:"_15"},
-		{src:"images/_16.png?1668749873491", id:"_16"},
-		{src:"images/_17.png?1668749873491", id:"_17"},
-		{src:"images/_18.png?1668749873491", id:"_18"},
-		{src:"images/_19.png?1668749873491", id:"_19"},
-		{src:"images/_2.png?1668749873491", id:"_2"},
-		{src:"images/_20.png?1668749873491", id:"_20"},
-		{src:"images/_21.png?1668749873491", id:"_21"},
-		{src:"images/_22.png?1668749873491", id:"_22"},
-		{src:"images/_23.png?1668749873491", id:"_23"},
-		{src:"images/_24.png?1668749873491", id:"_24"},
-		{src:"images/_25.png?1668749873491", id:"_25"},
-		{src:"images/_26.png?1668749873491", id:"_26"},
-		{src:"images/_27.png?1668749873491", id:"_27"},
-		{src:"images/_28.png?1668749873491", id:"_28"},
-		{src:"images/_29.png?1668749873491", id:"_29"},
-		{src:"images/_3.png?1668749873491", id:"_3"},
-		{src:"images/_30.png?1668749873491", id:"_30"},
-		{src:"images/_31.png?1668749873491", id:"_31"},
-		{src:"images/_4.png?1668749873491", id:"_4"},
-		{src:"images/_5.png?1668749873491", id:"_5"},
-		{src:"images/_6.png?1668749873491", id:"_6"},
-		{src:"images/_7.png?1668749873491", id:"_7"},
-		{src:"images/_8.png?1668749873491", id:"_8"},
-		{src:"images/_9.png?1668749873491", id:"_9"},
-		{src:"images/mapa_c_atlas_1.png?1668749872886", id:"mapa_c_atlas_1"}
+		{src:"images/_1.png?1669038430996", id:"_1"},
+		{src:"images/_10.png?1669038430996", id:"_10"},
+		{src:"images/_11.png?1669038430996", id:"_11"},
+		{src:"images/_12.png?1669038430996", id:"_12"},
+		{src:"images/_13.png?1669038430996", id:"_13"},
+		{src:"images/_14.png?1669038430996", id:"_14"},
+		{src:"images/_15.png?1669038430996", id:"_15"},
+		{src:"images/_16.png?1669038430996", id:"_16"},
+		{src:"images/_17.png?1669038430996", id:"_17"},
+		{src:"images/_18.png?1669038430996", id:"_18"},
+		{src:"images/_19.png?1669038430996", id:"_19"},
+		{src:"images/_2.png?1669038430996", id:"_2"},
+		{src:"images/_20.png?1669038430996", id:"_20"},
+		{src:"images/_21.png?1669038430996", id:"_21"},
+		{src:"images/_22.png?1669038430996", id:"_22"},
+		{src:"images/_23.png?1669038430996", id:"_23"},
+		{src:"images/_24.png?1669038430996", id:"_24"},
+		{src:"images/_25.png?1669038430996", id:"_25"},
+		{src:"images/_26.png?1669038430996", id:"_26"},
+		{src:"images/_27.png?1669038430996", id:"_27"},
+		{src:"images/_28.png?1669038430996", id:"_28"},
+		{src:"images/_29.png?1669038430996", id:"_29"},
+		{src:"images/_3.png?1669038430996", id:"_3"},
+		{src:"images/_30.png?1669038430996", id:"_30"},
+		{src:"images/_31.png?1669038430996", id:"_31"},
+		{src:"images/_4.png?1669038430996", id:"_4"},
+		{src:"images/_5.png?1669038430996", id:"_5"},
+		{src:"images/_6.png?1669038430996", id:"_6"},
+		{src:"images/_7.png?1669038430996", id:"_7"},
+		{src:"images/_8.png?1669038430996", id:"_8"},
+		{src:"images/_9.png?1669038430996", id:"_9"},
+		{src:"images/mapa_c_atlas_1.png?1669038425663", id:"mapa_c_atlas_1"}
 	],
 	preloads: []
 };
