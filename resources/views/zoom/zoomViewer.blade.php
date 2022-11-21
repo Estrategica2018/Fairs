@@ -89,7 +89,7 @@
           console.log('internal');
           if(div1) { 
             div1.remove();          
-            clearInterval(interval);
+            //clearInterval(interval);
           }
 
         }, 1000);
@@ -127,7 +127,7 @@
           var div = document.querySelector(".participants-section-container__participants-footer-bottom .ax-outline-blue-important");
           if(div) {
             div.remove();
-            clearInterval(interval2);
+            //clearInterval(interval2);
           }
         }, 10000);
 
