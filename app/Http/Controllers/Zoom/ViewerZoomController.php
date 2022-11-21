@@ -34,10 +34,6 @@ class ViewerZoomController extends Controller
           $_SESSION['user'] = $user;
           $_SESSION['token'] = $token;
         }
-        else if( isset($_SESSION['token'])  && $_SESSION['token'] == $token ) {
-          $user = $_SESSION['user'];
-        }
-
         if($user) {
 
             $agenda = Agendas::with('invited_speakers.speaker.user','audience')->find($agenda_id);
