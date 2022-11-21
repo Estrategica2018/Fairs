@@ -351,8 +351,8 @@ class MeetingController extends Controller
             $agenda->timezone = $data['timezone'];
             $agenda->audience_config = $data['audience_config'];
             $agenda->description_large = $data['description_large'];
-            //$agenda->zoom_code = $id;
-            //if(isset($data['zoom_password'])) $agenda->zoom_password = $data['zoom_password'];
+            $agenda->zoom_code = $id;
+            if(isset($data['zoom_password'])) $agenda->zoom_password = $data['zoom_password'];
             $agenda->save();
             
             return [
