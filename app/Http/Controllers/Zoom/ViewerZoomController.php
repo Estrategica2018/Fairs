@@ -92,7 +92,6 @@ class ViewerZoomController extends Controller
             }
             else {
               $href = 'http://localhost:8100/agenda/' . $agenda_id;
-              $href = 'https://da7c-190-90-3-22.ngrok.io//agenda/' . $agenda_id;
               $saveResgisterUrl = '/viewerZoom/saveResgister/'.$fair->id.'/'.$agenda_id;
             }
 
