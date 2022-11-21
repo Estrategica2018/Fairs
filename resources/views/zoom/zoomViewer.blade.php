@@ -105,9 +105,10 @@
               iconFullScreen.parentElement.appendChild(button);
               button.onclick = function () {
                 console.log('click' + document.referrer );
-                //if(document.referrer && ( document.referrer.indexOf('e-logic') || document.referrer.indexOf('localhost')) ) {
-                if(true) {
-                  history.back();
+                if(document.referrer && ( document.referrer.indexOf('e-logic') || document.referrer.indexOf('localhost')) ) {
+                  const windowReference = window.open();
+                  if(windowReference) windowReference.location.href = window.document.referrer;                  
+                  //history.back();
                 }
                 else {
                   window.location.href = '{!!$url_redirect!!}';
