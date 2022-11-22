@@ -47,7 +47,7 @@
     <script src="https://source.zoom.us/2.3.5/lib/vendor/redux.min.js"></script>
     <script src="https://source.zoom.us/2.3.5/lib/vendor/redux-thunk.min.js"></script>
     <script src="https://source.zoom.us/2.3.5/lib/vendor/lodash.min.js"></script>
-    <script src="https://source.zoom.us/zoom-meeting-1.9.0.min.js"></script>
+    <script src="https://source.zoom.us/zoom-meeting-2.3.5.min.js"></script>
     <script src="/zoom-client-js/tool.js"></script>
     <script src="/zoom-client-js/vconsole.min.js"></script>
     <script src="/zoom-client-js/meeting.js"></script>
