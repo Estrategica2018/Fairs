@@ -43,6 +43,7 @@ Route::post('/logout', 'LoginController@logout');
 
 // Get list of meetings.
 Route::get('/meetings', 'Zoom\MeetingController@list');
+Route::get('/token_zak/{user_id}', 'Zoom\MeetingController@token_zak');
 
 // Create meeting room using topic, agenda, start_time.
 Route::post('/meetings', 'Zoom\MeetingController@create')->middleware('role:super_administrador');

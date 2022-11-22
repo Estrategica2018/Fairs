@@ -401,5 +401,23 @@ class MeetingController extends Controller
             'data' => null
         ];
     }
+
+    public function token_zak(Request $request, string $user_id){
+
+        $path = 'users/' . $user_id.'/token';
+
+        $response = $this->zoomPatch($path);
+        if($response->status() === 200) {
+            return [
+                'success' => true,
+                'data' => json_decode($response->body(), true),
+            ];
+        }
+
+        return [
+            'success' => false,
+            'data' => json_decode($response->body(), true),
+        ];
+    }
 }
 
