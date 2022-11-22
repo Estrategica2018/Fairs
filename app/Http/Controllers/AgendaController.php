@@ -384,7 +384,7 @@ class AgendaController extends Controller
         ->get();
 
         foreach($query as $meeting) {
-            if($meeting->category->name != 'Taller_M' && $meeting->category->name != 'Taller_T'  && $meeting->category->name != 'PRUEBAS') {
+            if($meeting->category->name != 'Taller_M' && $meeting->category->name != 'Taller_T'  && $meeting->category->name != 'PRUEBAS1') {
                 $start = date('Y-m-d H:i', strtotime('-15 min',$meeting->start_at));
                 $end = date('Y-m-d H:i', strtotime('+'.$meeting->duration_time.' min',$meeting->start_at));
                 $date = date('Y-m-d H:i');
