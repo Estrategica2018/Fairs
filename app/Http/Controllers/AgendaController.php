@@ -258,7 +258,7 @@ class AgendaController extends Controller
         }
         $data = $validator->validated();
         
-        $querySelect = Agendas::select('id','title','description', 'description_large','duration_time','start_at','timezone','audience_config','category_id','price','resources');
+        $querySelect = Agendas::select('id','title','description', 'description_large','duration_time','start_at','timezone','audience_config','category_id','price','resources', 'zoom_code');
         $query = $querySelect->with('audience.user.user_roles_fair', 'invited_speakers.speaker.user', 'category')
         ->where('fair_id',$request['fair_id']);
         
