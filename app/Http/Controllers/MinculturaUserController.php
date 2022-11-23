@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Notification;
 use App\Notifications\DynamicNotification;
 use App\Notifications\SuccessAgendaRegistration;
 use Illuminate\Support\Facades\Validator;
+use PHPUnit\Exception;
 
 class MinculturaUserController extends Controller
 {
@@ -277,12 +278,17 @@ class MinculturaUserController extends Controller
         $subject = "VIII Congreso Nacional de Bibliotecas Públicas";
 
         $users = User::with('user_roles_fair')->whereHas('user_roles_fair',function($query)use($role_id){
-			$query->where('role_id',$role_id);
+			$query->where('role_id',$role_id);// validar si se debe agregar el filtro de feria
 		})->get();
 
         foreach($users as $user ){
-           Notification::route('mail', $user->email)
-              ->notify(new DynamicNotification($fair, $subject, $title));
+            try{
+                Notification::route('mail', $user->email)
+                    ->notify(new DynamicNotification($fair, $subject, $title));
+            }catch (\Exception $e){
+                return response()->json(['message' => 'Error enviando el correo electrónico .'.' '.$e], 403);
+            }
+
           }
         
         return [
