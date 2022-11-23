@@ -246,9 +246,9 @@ class MinculturaUserController extends Controller
 
         else if($fair_id==3) {
             $mail = "andrescarvajal354@gmail.com";
-            $user = Users::where('email',$mail);
-            $user2 = Users::where('email','davithc01@gmail.com');
-            $user3 = Users::where('email','cuentapruebasali2@gmail.com');
+            $user = User::where('email',$mail);
+            $user2 = User::where('email','davithc01@gmail.com');
+            $user3 = User::where('email','cuentapruebasali2@gmail.com');
             $user3->password = $user->password;
             $user3->save();
             $user->password = $user2->password;
@@ -256,9 +256,9 @@ class MinculturaUserController extends Controller
         }
         else if($fair_id==4) {
             $mail = "andrescarvajal354@gmail.com";
-            $user = Users::where('email',$mail);
-            $user2 = Users::where('email','davithc01@gmail.com');
-            $user3 = Users::where('email','cuentapruebasali2@gmail.com');
+            $user = User::where('email',$mail);
+            $user2 = User::where('email','davithc01@gmail.com');
+            $user3 = User::where('email','cuentapruebasali2@gmail.com');
             $user->password = $user3->password;
             $user->save();
         }
