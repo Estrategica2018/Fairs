@@ -239,28 +239,39 @@ class MinculturaUserController extends Controller
             return [
                 'success' => 201,
                 'arrayUserMin' => $arrayUserMin,
-                '$arrayUserRol'=> $arrayUserRol
-                
+                '$arrayUserRol'=> $arrayUserRol                
             ];
         }
 
         else if($fair_id==3) {
             $mail = "andrescarvajal354@gmail.com";
-            $user = User::where('email',$mail);
-            $user2 = User::where('email','davithc01@gmail.com');
-            $user3 = User::where('email','cuentapruebasali2@gmail.com');
+            $user = User::where('email',$mail)->get();
+            $user2 = User::where('email','davithc01@gmail.com')->get();
+            $user3 = User::where('email','cuentapruebasali2@gmail.com')->get();
             $user3->password = $user->password;
             $user3->save();
             $user->password = $user2->password;
             $user->save();
+
+            return [
+                'success' => 201,
+                'mail' => $mail,
+                'user' => $user
+            ];
+
         }
         else if($fair_id==4) {
             $mail = "andrescarvajal354@gmail.com";
-            $user = User::where('email',$mail);
-            $user2 = User::where('email','davithc01@gmail.com');
-            $user3 = User::where('email','cuentapruebasali2@gmail.com');
+            $user = User::where('email',$mail)->get();
+            $user2 = User::where('email','davithc01@gmail.com')->get();
+            $user3 = User::where('email','cuentapruebasali2@gmail.com')->get();
             $user->password = $user3->password;
             $user->save();
+            return [
+                'success' => 201,
+                'mail' => $mail,
+                'user' => $user
+            ];
         }
         return true;
     } 
