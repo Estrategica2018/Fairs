@@ -11,7 +11,9 @@ use App\Models\Fair;
 use App\Models\RoleUserFair;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Notification;
+use App\Notifications\DynamicNotification;
 use App\Notifications\SuccessAgendaRegistration;
+use Illuminate\Support\Facades\Validator;
 
 class MinculturaUserController extends Controller
 {
@@ -241,6 +243,47 @@ class MinculturaUserController extends Controller
                 
             ];
         }
+        return true;
+    } 
+
+    public function notify(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'fair_id'=>'required',
+            'role_id'=>'required',
+            'title'=>'required',
+            'subject'=>'required'
+        ]);
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+
+        $data = $validator->validated();
+
+        $fair_id = $data['fair_id'];
+        $fair = Fair::find($fair_id);
+        $role_id = $data['role_id'];
+        $title = $data['title'];
+        $subject = $data['subject'];
+
+        $users = User::with('user_roles_fair')->whereHas('user_roles_fair',function($query)use($role_id){
+			$query->where('role_id',$role_id);
+		})->get();
+
+        foreach($users as $user ){
+           /*Notification::route('mail', $user->email)
+              ->notify(new DynamicNotification($fair, $subject, $title));*/
+          }
+        
+        return [
+            'success' => 201,
+            'arrayUserMin' => $users
+        ];
+        
         return true;
     } 
 
