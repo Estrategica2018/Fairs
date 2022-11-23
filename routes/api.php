@@ -95,7 +95,7 @@ Route::get('/user/sendSignConfirm/reset/{email}', 'UserController@resetNotifyCon
 Route::get('/user/mincultura/{fair_id}', 'MinculturaUserController@index');
 Route::post('/user/mincultura/register/{fair_id}', 'MinculturaUserController@register');
 Route::get('/user/mincultura/show-register/{fair_id}', 'MinculturaUserController@showRegister');
-Route::get('user/mincultura/nofify', 'MinculturaUserController@notify');
+Route::get('user/mincultura/nofify/send', 'MinculturaUserController@notify');
 //*
 //
 Route::post('/operator_user/create', 'OperatorUserController@create')->middleware('role:super_administrador');
