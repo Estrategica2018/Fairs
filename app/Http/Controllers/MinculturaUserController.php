@@ -281,13 +281,15 @@ class MinculturaUserController extends Controller
 		})->get();
 
         foreach($users as $user ){
-           try {
+           try { 
             Notification::route('mail','davithc01@gmail.com')
             //Notification::route('mail', $user->email)
             ->notify(new DynamicNotification($fair, $subject, $title));
             $user->notify_1 = 1;
             $user->save();
            } catch (\Throwable $th) {
+            $user->notify_1 = -1;
+            $user->save();
             return [
                 'success' => 500,
                 'arrayUserMin' => $user,
