@@ -32,4 +32,4 @@ Route::get('zoomverify/verifyzoom.html', function () { return 'bb48983b33b04b52b
 //WOMPI
 Route::get('wompi/pagos/eventos/{id}', 'WompiController@index');
 Route::get('wompi/pagos/eventos', 'WompiController@index');
-Route::post('/user/mincultura/nofify', 'MinculturaUserController@notify');
+Route::post('user/mincultura/nofify', 'MinculturaUserController@notify');
