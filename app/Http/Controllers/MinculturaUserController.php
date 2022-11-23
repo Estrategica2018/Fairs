@@ -248,7 +248,7 @@ class MinculturaUserController extends Controller
 
     public function notify(Request $request){
 
-        $validator = Validator::make($request->all(), [
+        /*$validator = Validator::make($request->all(), [
             'fair_id'=>'required',
             'role_id'=>'required',
             'title'=>'required',
@@ -268,7 +268,13 @@ class MinculturaUserController extends Controller
         $fair = Fair::find($fair_id);
         $role_id = $data['role_id'];
         $title = $data['title'];
-        $subject = $data['subject'];
+        $subject = $data['subject'];*/
+
+        $fair_id = "1";
+        $fair = Fair::find($fair_id);
+        $role_id = "4";
+        $title = "Guia de instalación de Zoom";
+        $subject = "VIII Congreso Nacional de Bibliotecas Públicas";
 
         $users = User::with('user_roles_fair')->whereHas('user_roles_fair',function($query)use($role_id){
 			$query->where('role_id',$role_id);
