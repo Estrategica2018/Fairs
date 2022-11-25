@@ -212,7 +212,7 @@ class UserController extends Controller
 
     }
 
-    public function delete(Request $request, $email, $type){
+    public function delete(Request $request, $email, $type, $agenda_id){
 
 		
         $user = User::where('email', $email)->first();
@@ -231,6 +231,22 @@ class UserController extends Controller
                     'data' => 'email-borrado ' . $email
                 ];
             }
+            if($type == 'audienceOne') {
+
+                $agenda_id = isset( $request['agenda_id']) &&  $request['agenda_id'] ? $request['agenda_id'] :  0;
+                $count = 0;
+                if($agenda_id > 0) {
+                    $count = $audiences = Audience::where([['user_id',$user->id],['agenda_id',$agenda_id]])->delete();            
+                    
+                }   
+                
+                return [
+                    'success' => 201,
+                    'data' => 'audiencia ['.$count.'] borrada para ' . $email,
+                    'agenda_id' => $request['agenda_id']
+                 ];
+            }
+
             if($type == 'audience') {
                 $audiences = Audience::where('user_id',$user->id)->delete();            
                 return [
@@ -238,6 +254,7 @@ class UserController extends Controller
                     'data' => 'audiencia borrada para ' . $email
                 ];
             }
+            
 
             return [
                 'success' => 201,
