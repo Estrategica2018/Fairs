@@ -116,6 +116,7 @@ Route::get('/agenda/list/{fair_id?}/{pavilion_id?}/{stand_id?}', 'AgendaControll
 Route::get('/agenda/live/{fair_id?}', 'AgendaController@live');
 //returns agenda list with quota enabled
 Route::get('/agenda/available/list/{fair_id}/{agenda_id?}', 'AgendaController@availableList');
+Route::get('/agenda/available/list-memories/{fair_id}/{agenda_id}', 'AgendaController@availableListMemories');
 // super admin or admin role rules
 Route::get('/agenda/getEmails/{fair_id}/{agenda_id}', 'AgendaController@getEmails')->middleware('role:super_administrador');
 Route::get('/agenda/register/{fair_id}/{agenda_id}', 'AgendaController@register');

@@ -306,6 +306,52 @@ class AgendaController extends Controller
 
     }
 
+    public function availableListMemories (Request $request,$fair_id,$agenda_id) {
+        $validator = Validator::make($request->all(), [
+            'fair_id' => '',
+            'agenda_id' => ''
+        ]);
+
+        $user = auth()->guard('api')->user();
+
+        if ($validator->fails()) {
+            return [
+                'success' => false,
+                'data' => $validator->errors(),
+            ];
+        }
+        $data = $validator->validated();
+        
+        $querySelect = Agendas::select('id','title','description', 'description_large','duration_time','start_at','timezone','audience_config','category_id','price','resources', 'zoom_code');
+        $query = $querySelect->with('audience.user.user_roles_fair', 'invited_speakers.speaker.user', 'category')
+        ->where('fair_id',$request['fair_id']);
+        
+        
+        $query = $query->where('id',$agenda_id);
+
+        $meetings = $query->orderBy('id')->get();
+
+        forEach($meetings as $agenda) {
+            if($agenda->category->name != 'Taller_M' && $agenda->category->name != 'Taller_T') {
+                $agenda->disableSelection = false;
+                forEach($agenda->audience as $audience) {
+                    if($audience->user->id == $user->id ){
+                        $agenda->disableSelection = true;
+                    }
+                }
+            }
+
+            unset($agenda->audience);
+        }
+        
+        return [
+            'success' => 201,
+            'data' => $meetings,
+            'agenda_id' => $agenda_id
+        ];
+
+    }
+
     public function register (Request $request) {
         $validator = Validator::make($request->all(), [
             'fair_id' => '',

@@ -247,13 +247,13 @@ class UserController extends Controller
                  ];
             }
 
-            if($type == 'audience') {
+           /* if($type == 'audience') {
                 $audiences = Audience::where('user_id',$user->id)->delete();            
                 return [
                     'success' => 201,
                     'data' => 'audiencia borrada para ' . $email
                 ];
-            }
+            }*/
             
 
             return [

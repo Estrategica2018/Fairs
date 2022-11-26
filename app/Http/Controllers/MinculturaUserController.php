@@ -196,12 +196,12 @@ class MinculturaUserController extends Controller
         $fair_id = $request['fair_id'];
         if($fair_id==9999) {
             
-            $count = Audience::truncate();
+            /*$count = Audience::truncate();
             
             return [
                 'success' => 201,
                 'message'=>'toda la audiencia borrada'
-            ];
+            ];*/
         }
 
         if($fair_id==1) {
