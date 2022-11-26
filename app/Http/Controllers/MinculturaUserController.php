@@ -283,6 +283,8 @@ class MinculturaUserController extends Controller
             $audience->user_id = $user->id;
             $audience->check = 1;
             $audience->attendance = 4;
+            $created_at = Audience::where('agenda_id',$audience->agenda_id)->first();
+            $audience->created_at = $created_at->created_at;
             $audience->save();
     
             $audience = new Audience();
@@ -292,6 +294,8 @@ class MinculturaUserController extends Controller
             $audience->user_id = $user->id;
             $audience->check = 1;
             $audience->attendance = 65;
+            $created_at = Audience::where('agenda_id',$audience->agenda_id)->first();
+            $audience->created_at = $created_at->created_at;
             $audience->save();
     
             $audience = new Audience();
@@ -301,6 +305,8 @@ class MinculturaUserController extends Controller
             $audience->user_id = $user->id;
             $audience->check = 1;
             $audience->attendance = 0;
+            $created_at = Audience::where('agenda_id',$audience->agenda_id)->first();
+            $audience->created_at = $created_at->created_at;
             $audience->save();
     
             $audience = new Audience();
@@ -310,6 +316,8 @@ class MinculturaUserController extends Controller
             $audience->user_id = $user->id;
             $audience->check = 1;
             $audience->attendance = 0;
+            $created_at = Audience::where('agenda_id',$audience->agenda_id)->first();
+            $audience->created_at = $created_at->created_at;
             $audience->save();
     
         }
