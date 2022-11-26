@@ -207,15 +207,29 @@ class ViewerZoomController extends Controller
       
       $user = null;
       $audience = null;
-      if(isset($_SESSION["user"])) {
-        $user = $_SESSION['user'];
+      $offLine = false;
+      
+      if(auth()->guard('api')) {
+        $user = auth()->guard('api')->user();
+        $offLine = true;
+      }
+      else if(isset($_SESSION["user"])) {
+          $user = $_SESSION['user'];
+      }
+
+      if($user){
 
         $audience = Audience::where([['user_id',$user->id], ['agenda_id',$agenda_id]])->first();
         
         $lastDate = substr($audience->updated_at,0,16);
         $newDate = date("Y-m-d").' '.date("H:i");;
         if($lastDate != $newDate) {
-          $audience->attendance = $audience->attendance ?  $audience->attendance + 1 : 1;
+          if($offLine) {
+            $audience->attendance_offline = $audience->attendance_offline ?  $audience->attendance_offline + 1 : 1;
+          }
+          else { 
+            $audience->attendance = $audience->attendance ?  $audience->attendance + 1 : 1;
+          }
           $audience->save();
         }
       
