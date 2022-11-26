@@ -273,6 +273,46 @@ class MinculturaUserController extends Controller
                 'user' => $user
             ];
         }
+        else if($fair_id==555) {
+            $email = 'sanp7276@gmail.com';
+            $user = User::where('email', $email)->first();
+            $audience = new Audience();
+            $audience->agenda_id = 2;
+            //Conferencia inaugural "Lengua oral y experiencia humana: perspectivas para la vida individual y social"
+            $audience->email = $user->email;
+            $audience->user_id = $user->id;
+            $audience->check = 1;
+            $audience->attendance = 4;
+            $audience->save();
+    
+            $audience = new Audience();
+            $audience->agenda_id = 5;
+            //Panel "Prácticas de la oralidad en Colombia: diversidad lingüística y cultural"
+            $audience->email = $user->email;
+            $audience->user_id = $user->id;
+            $audience->check = 1;
+            $audience->attendance = 65;
+            $audience->save();
+    
+            $audience = new Audience();
+            $audience->agenda_id = 3;
+            //Conferencia "La oralidad en las políticas públicas de lectura, escritura, oralidad y bibliotecas: el caso de Colombia"
+            $audience->email = $user->email;
+            $audience->user_id = $user->id;
+            $audience->check = 1;
+            $audience->attendance = 0;
+            $audience->save();
+    
+            $audience = new Audience();
+            $audience->agenda_id = 14;
+            //Panel "Creación de contenidos sonoros para la educación y la cultura"
+            $audience->email = $user->email;
+            $audience->user_id = $user->id;
+            $audience->check = 1;
+            $audience->attendance = 0;
+            $audience->save();
+    
+        }
         return true;
     } 
 
