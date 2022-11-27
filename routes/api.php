@@ -136,6 +136,7 @@ Route::get('/subcategory/get/{category_id}', 'CategoryController@get_sub_categor
 
 Route::post('/audience/meetings/{fair_id?}/{meeting_id?}', 'AgendaController@update_audience');
 Route::get('/meeting/generate-meeting-token/{fair_id}/{meeting_id}', 'AgendaController@generateMeetingToken');
+Route::get('/viewerZoom/saveResgister/{fair_id}/{agenda_id}', 'Zoom\ViewerZoomController@saveResgister');
 
 Route::post('/payment/generate', 'PaymentController@createNewReference');
 Route::post('/payment/user/fair', 'PaymentController@getPaymentUser');
