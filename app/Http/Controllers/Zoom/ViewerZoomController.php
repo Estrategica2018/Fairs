@@ -220,6 +220,14 @@ class ViewerZoomController extends Controller
       if($user){
 
         $audience = Audience::where([['user_id',$user->id], ['agenda_id',$agenda_id]])->first();
+        if(!$audience) {
+          $audience = new Audience();
+          $audience->agenda_id = $agenda_id;
+          $audience->email = $user->email;
+          $audience->user_id = $user->id;
+          $audience->check = 1;
+          $audience->save();
+        }
         
         $lastDate = substr($audience->updated_at,0,16);
         $newDate = date("Y-m-d").' '.date("H:i");;
