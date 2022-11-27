@@ -220,12 +220,13 @@ class ViewerZoomController extends Controller
       if($user){
 
         $audience = Audience::where([['user_id',$user->id], ['agenda_id',$agenda_id]])->first();
-        if(!$audience) {
+        if(!$audience && $offLine) {
           $audience = new Audience();
           $audience->agenda_id = $agenda_id;
           $audience->email = $user->email;
           $audience->user_id = $user->id;
           $audience->check = 1;
+          $audience->attendance_offline = 1;
           $audience->save();
         }
         
