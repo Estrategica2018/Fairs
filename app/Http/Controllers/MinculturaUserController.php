@@ -368,7 +368,7 @@ class MinculturaUserController extends Controller
 
                 $user = User::where('email',$email)->first();
 
-                if( $user && $user->notify_2 <= 1) {
+                if( $user && $user->notify_2 <= 1000) {
                     Notification::route('mail', $email)
                     ->notify(new DynamicNotification($fair, $subject, $title));
                     $user->notify_2 = 2;
