@@ -132,7 +132,7 @@
                 <tr>
                     <td bgcolor="#3d98d1" align="center" valign="top" style="border-radius: 4px 4px 0px 0px; color: #00338d; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
                         <!--<h1 style="font-size: 48px; font-weight: 400; margin: 2;">¡Notificación!</h1>-->
-                        <img src="{{asset('notifications/banner-notificaciones-2.png')}}" width="100%" height="60%" style="display: block; border: 0px;" />
+                        <img src="https://res.cloudinary.com/deueufyac/image/upload/v1672280738/CONGRESO%20NACIONAL%20DE%20BIBLIOTECAS/NOTIFICACIONES/banner-notificaciones-2_hppkaj.png" width="100%" height="60%" style="display: block; border: 0px;" />
                     </td>
                 </tr>
             </table>
