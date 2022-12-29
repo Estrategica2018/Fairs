@@ -363,6 +363,8 @@ class MinculturaUserController extends Controller
         
         $emails = ["davithc01@gmail.com"];
 
+        
+
         foreach($users as $user ) {
            
             try {
@@ -387,7 +389,8 @@ class MinculturaUserController extends Controller
         
         return [
             'success' => 201,
-            'arrayUserMin' => $users
+            'arrayUserMin' => $users,
+            'prueba' => $emails['davithc01@gmail.com']
         ];
         
         return true;
