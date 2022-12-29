@@ -368,12 +368,12 @@ class MinculturaUserController extends Controller
 
                     $control = false;
                     foreach($emails as $email){
-                        if($email == $user->email) {
+                        if(strtoupper($email) ==strtoupper( $user->email)) {
                             $control = true;
                         }
                     }
                     
-                    if( $control && $user->notify_2 <= 1) {
+                    if( $control && $user->notify_2 <= 1) { 
                         Notification::route('mail', $user->email)
                         ->notify(new DynamicNotification($fair, $subject, $title));
                         $user->notify_2 = 2;
