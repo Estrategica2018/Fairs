@@ -386,7 +386,7 @@ class MinculturaUserController extends Controller
                 return [
                     'success' => 500, 
                     'arrayUserMin' => $user,
-                    'th' => $th
+                    'users' => $users
                 ];
             }
            
@@ -394,7 +394,7 @@ class MinculturaUserController extends Controller
         
         return [
             'success' => 201,
-            'arrayUserMin' => $users
+            'users' => $users
         ];
         
         return true;
