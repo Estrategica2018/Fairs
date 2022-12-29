@@ -377,15 +377,7 @@ class MinculturaUserController extends Controller
                     }
                     
                     if( $control && $user->notify_2 <= 100) {
-                        //Notification::route('mail', $user->email)
-
-                        return [
-                            'success' => 200, 
-                            'arrayUserMin' => $user,
-                            'th' => $th
-                        ];
-
-                        Notification::route('mail', 'davithc01@gmail.com')
+                        Notification::route('mail', $user->email)
                         ->notify(new DynamicNotification($fair, $subject, $title));
                         $user->notify_2 = 2;
                         $user->save();
