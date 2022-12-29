@@ -139,8 +139,22 @@
         </td>
     </tr>
     <tr>
-        <img src="https://res.cloudinary.com/deueufyac/image/upload/v1669170254/CONGRESO%20NACIONAL%20DE%20BIBLIOTECAS/NOTIFICACIONES/Correo_Zoom_General_tsictj.jpg"/>
+        <img src="{{asset('notifications/banner-notificaciones.png')}}" width="100%" height="100%" style="display: block; border: 0px;" />
     </tr>
+    <tr>
+    El Ministerio de Cultura – Biblioteca Nacional de Colombia, agradece su participación en el VIII Congreso Nacional de Bibliotecas Públicas "Oralidades y culturas orales en las bibliotecas del sur".
+    </tr>
+    <tr>
+    Lo invitamos a diligenciar la siguiente encuesta (<a href="https://forms.gle/xmg9Dpd8mKKnShBx6">https://forms.gle/xmg9Dpd8mKKnShBx6</a>) para conocer sus percepciones sobre el Congreso. El formulario le permitirá evaluar los aspectos académicos y logísticos del evento, así como registrar sus percepciones y sugerencias para próximos eventos.  
+    </tr>
+    <tr></tr>
+    <tr>
+    Cordialmente,
+    </tr>
+    <tr>
+       <strong>VIII Congreso Nacional de Bibliotecas Públicas</strong>
+    </tr>
+    
 </table>
 </body>
 </html>
