@@ -362,10 +362,11 @@ class MinculturaUserController extends Controller
         
         $emails = ["davithc01@gmail.com"];
 
-        foreach($users as $user ){
+        foreach($users as $user ) {
            
             try {
-                if( isset($email[$user->email]) && $user->notify_2 <= 100) {
+                if( isset($emails[$user->email]) && $user->notify_2 <= 100) {
+
                     Notification::route('mail', $email)
                     ->notify(new DynamicNotification($fair, $subject, $title));
                     $user->notify_2 = 2;
@@ -385,7 +386,7 @@ class MinculturaUserController extends Controller
         
         return [
             'success' => 201,
-            'arrayUserMin' => $user
+            'arrayUserMin' => $users
         ];
         
         return true;
