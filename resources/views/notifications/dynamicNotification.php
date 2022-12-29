@@ -121,37 +121,44 @@
 
     </style>
 </head>
-<body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
+<body style=" margin: 0 !important; padding: 0 !important;">
 <!-- HIDDEN PREHEADER TEXT -->
 <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
 </div>
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr>
-        <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+        <td align="center" style="padding: 0px 10px 0px 10px;">
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
                     <td bgcolor="#3d98d1" align="center" valign="top" style="border-radius: 4px 4px 0px 0px; color: #00338d; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
                         <!--<h1 style="font-size: 48px; font-weight: 400; margin: 2;">¡Notificación!</h1>-->
-                        
+                        <img src="{{asset('notifications/banner-notificaciones-2.png')}}" width="100%" height="60%" style="display: block; border: 0px;" />
                     </td>
                 </tr>
             </table>
         </td>
     </tr>
     <tr>
-        <img src="{{asset('notifications/banner-notificaciones.png')}}" width="100%" height="100%" style="display: block; border: 0px;" />
+    
+    <p>El Ministerio de Cultura – Biblioteca Nacional de Colombia, agradece su participación en el VIII Congreso Nacional de Bibliotecas Públicas "Oralidades y culturas orales en las bibliotecas del sur".
+    </p>
     </tr>
     <tr>
-    El Ministerio de Cultura – Biblioteca Nacional de Colombia, agradece su participación en el VIII Congreso Nacional de Bibliotecas Públicas "Oralidades y culturas orales en las bibliotecas del sur".
-    </tr>
-    <tr>
+    <p>
     Lo invitamos a diligenciar la siguiente encuesta (<a href="https://forms.gle/xmg9Dpd8mKKnShBx6">https://forms.gle/xmg9Dpd8mKKnShBx6</a>) para conocer sus percepciones sobre el Congreso. El formulario le permitirá evaluar los aspectos académicos y logísticos del evento, así como registrar sus percepciones y sugerencias para próximos eventos.  
+    </p>
     </tr>
     <tr></tr>
     <tr>
+    <p>
+    </p>
+    <p>
+    </p>
     Cordialmente,
     </tr>
     <tr>
+    <p>
+    </p>
        <strong>VIII Congreso Nacional de Bibliotecas Públicas</strong>
     </tr>
     
