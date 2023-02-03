@@ -28,7 +28,7 @@ Route::get('/index.html', function () {
 Route::get('viewerZoom/meetings/{token}', 'Zoom\ViewerZoomController@index');
 Route::get('viewerZoom/saveResgister/{fair_id}/{agenda_id}', 'Zoom\ViewerZoomController@saveResgister');
 Route::get('viewerZoom/callback/callback.php', 'Zoom\ViewerZoomController@callback');
-Route::get('zoomverify/verifyzoom.html', function () { return '62eb3d77cbd4437886cc70718610b4ec'; } );
+Route::get('zoomverify/verifyzoom.html', function () { return '62eb3d77cbd4437886cc70718610b4ec'; } );  
 
 //WOMPI
 Route::get('wompi/pagos/eventos/{id}', 'WompiController@index');
